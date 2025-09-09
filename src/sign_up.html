@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro de Usuario</title>
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+
+  <main class="container">
+    <section class="form-container">
+      <h2>Registro de usuario</h2>
+      <form id="registerForm">
+        <label>
+          Nombres
+          <input type="text" name="firstName" required />
+        </label>
+
+        <label>
+          Apellidos
+          <input type="text" name="lastName" required />
+        </label>
+
+        <label>
+          Edad
+          <input type="number" name="age" min="13" placeholder="" required />
+        </label>
+
+        <label>
+          Correo electrónico
+          <input type="email" name="email" required />
+        </label>
+
+        <label>
+          Contraseña
+          <input
+            type="password"
+            name="password"
+            placeholder="Mínimo 8 caracteres"
+            required
+          />
+        </label>
+
+        <label>
+          Confirmar Contraseña
+          <input type="password" name="confirmPassword" required />
+        </label>
+
+        <button type="submit">Registrarse</button>
+      </form>
+    </section>
+  </main>
+
+  <script type="module" src="./auth/auth.js"></script>
+</body>
+</html>
