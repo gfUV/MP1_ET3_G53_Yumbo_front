@@ -186,4 +186,7 @@ button:hover {
   display: block;
   margin: 0 auto; /* lo centra */
 }
+.login {
+  color: #1a1a1a;
+}
 
