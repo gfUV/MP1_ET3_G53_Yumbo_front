@@ -5,7 +5,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: 'index.html',
-        signup: 'sign_in.html'
+        signin: 'sign_in.html',
+        signup: 'sign_up.html',
+        resetpassword: 'reset_password.html'
       }
     }
   }
