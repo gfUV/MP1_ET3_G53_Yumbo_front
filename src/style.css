@@ -94,3 +94,96 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+/* Style of sign_up */
+body {
+  margin: 0;
+  padding: 4rem 0; /* agrega espacio arriba y abajo para que no quede pegado */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  font-family: sans-serif;
+  background-color: #f8f9fa;
+  box-sizing: border-box;
+  align-items: flex-start; /* cambia de center a flex-start para evitar altura completa */
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* igual, para evitar estirar todo vertical */
+  width: 100%;
+  max-width: 400px; /* para que no se agrande mucho */
+  box-sizing: border-box;
+}
+
+.form-container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%; /* ocupa todo el ancho de container */
+  box-sizing: border-box;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+}
+
+p {
+   text-align: center;
+}
+
+input {
+  margin-top: 0.3rem;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #eaeaea;
+  font-size: 0.9rem;
+}
+
+button {
+  padding: 0.8rem;
+  margin-top: 1rem;
+  background-color: #6c8ef9;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #4b6ed9;
+}
+
+/* Responsive: en pantallas pequeñas reducir un poco el padding */
+@media (max-width: 480px) {
+  .form-container {
+    padding: 1rem;
+    width: 90%;
+  }
+}
+
+.logo {
+  width: 150px;   /* ajusta el tamaño */
+  height: auto;   /* mantiene la proporción */
+  display: block;
+  margin: 0 auto; /* lo centra */
+}
+
