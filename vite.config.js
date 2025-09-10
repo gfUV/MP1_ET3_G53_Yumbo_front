@@ -5,7 +5,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: 'index.html',
-        signup: 'sign_up.html'
+        signup: 'sign_in.html'
       }
     }
   }
