@@ -78,11 +78,38 @@ document.addEventListener('DOMContentLoaded', () => {
     if (password !== confirmPassword) valid = false;
 
     if (valid) {
-      alert('✅ Registro exitoso.');
-      form.reset();
-      document.querySelectorAll('small').forEach((s) => (s.textContent = ''));
+      // Construir objeto de datos con firstName y lastName
+      const userData = {
+        firstName: form.firstName.value.trim(),
+        lastName: form.lastName.value.trim(),
+        email: form.email.value.trim(),
+        password: form.password.value.trim(),
+        age: parseInt(form.age.value)
+      };
+
+      // Enviar al backend
+      fetch("http://localhost:8080/api/v1/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData)
+      })
+        .then(async (res) => {
+          const data = await res.json();
+          if (res.ok) {
+            alert("✅ Registro exitoso. Ahora inicia sesión.");
+            window.location.href = "sign_in.html"; // Redirigir al login
+          } else {
+            alert("❌ Error: " + (data.error || "No se pudo registrar"));
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("⚠️ Error de conexión con el servidor.");
+        });
+
     } else {
       alert('❌ Corrige los errores antes de enviar.');
     }
+
   });
 });
