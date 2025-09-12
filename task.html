@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tareas</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .form-container {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    /* Header con título y botones */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #4a90e2;
+      color: white;
+      padding: 12px 20px;
+    }
+
+    .header h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .header-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .header button {
+      background: white;
+      color: #4a90e2;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .header button:hover {
+      background: #e0e0e0;
+    }
+
+    /* Lista de tareas */
+    .task-list {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .task-card {
+      background: #fafafa;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      padding: 15px;
+    }
+
+    .task-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .task-status {
+      font-size: 14px;
+      color: #4a90e2;
+    }
+
+    .task-detail {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .task-date {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    /* Botones de acción */
+    .task-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .task-actions button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .task-actions button:hover {
+      color: #4a90e2;
+    }
+  </style>
+</head>
+<body>
+  
+  <main class="container">
+    <section class="form-container">
+      <!-- Header -->
+      <div class="header">
+        <h2>Tareas</h2>
+        <div class="header-buttons">
+          <button id="add-task" title="Agregar tarea">+</button>
+          <button id="logout" title="Salir">Salir</button>
+        </div>
+      </div>
+
+      <!-- Lista de tareas dinámica -->
+      <div id="task-list" class="task-list">
+        <!-- Aquí se insertarán tareas dinámicamente -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Script para manejar tareas -->
+  <script type="module" src="/src/auth/task.js"></script>
+</body>
+</html>
+

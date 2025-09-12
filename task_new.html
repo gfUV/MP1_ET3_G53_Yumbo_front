@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nueva Tarea</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  
+  <main class="container">
+    <section class="form-container">
+      <h2>Crear Tarea</h2>
+
+      <!-- Formulario sin action/method porque lo controlamos con JS -->
+      <form id="task-form">
+        <!-- Título -->
+        <label for="title">
+          Título (Obligatorio, máx. 50 car.)
+          <input type="text" id="title" name="title" maxlength="50" required />
+        </label>
+
+        <!-- Detalle -->
+        <label for="detail">
+          Detalle (Opcional, máx. 50 car.)
+          <textarea id="detail" name="detail" maxlength="50"></textarea>
+        </label>
+
+        <!-- Fecha -->
+        <label for="date">
+          Fecha
+          <input type="date" id="date" name="date" />
+        </label>
+
+        <!-- Hora -->
+        <label for="time">
+          Hora
+          <input type="time" id="time" name="time" />
+        </label>
+
+        <!-- Estado -->
+        <label for="status">
+          Estado
+          <select id="status" name="status">
+            <option value="pendiente">Pendiente</option>
+            <option value="en-progreso">En progreso</option>
+            <option value="completada">Completada</option>
+          </select>
+        </label>
+
+        <!-- Botón -->
+        <button type="submit">Crear Tarea</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Script para manejar el guardado -->
+
+  <script type="module" src="/src/auth/task_new.js"></script>
+
+</body>
+</html>
+
+
