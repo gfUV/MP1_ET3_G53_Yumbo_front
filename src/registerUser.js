@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       // Enviar al backend
-      const response = await fetch("http://localhost:8080/api/v1/users", {
+      const response = await fetch("https://mp1-et3-g53-yumbo.onrender.com/api/v1/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData)
