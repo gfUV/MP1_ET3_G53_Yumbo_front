@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("userId", data.userId);
 
         // Login exitoso: redirigir a tareas
-        window.location.href = "./task.html";
+        window.location.href = "/task.html";
       } else {
         alert("❌ Error: " + (data.error || "Credenciales incorrectas"));
       }
