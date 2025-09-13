@@ -7,6 +7,8 @@ export default defineConfig({
         index: 'index.html',
         signin: 'sign_in.html',
         signup: 'sign_up.html',
+        task: 'task.html',
+        tasknew: 'task_new.html',
         resetpassword: 'reset_password.html'
       }
     }
