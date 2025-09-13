@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Cargar tareas desde backend
   try {
-    const response = await fetch("http://localhost:8080/api/v1/tasks");
+    const response = await fetch("https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks");
     if (!response.ok) throw new Error("Error al cargar tareas");
 
     const tasks = await response.json();

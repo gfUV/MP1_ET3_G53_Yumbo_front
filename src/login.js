@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     try {
-      const response = await fetch("https://mp1-et3-g53-yumbo.onrender.com/api/v1/sessions/login", {
+      const response = await fetch("https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/sessions/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginData)
