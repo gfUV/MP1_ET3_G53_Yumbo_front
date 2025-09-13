@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('loginForm');
+  const errorDiv = document.getElementById('error-message'); // Div para mostrar errores
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -25,12 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // Login exitoso: redirigir a tareas
         window.location.href = "/task.html";
       } else {
-        alert("❌ Error: " + (data.error || "Credenciales incorrectas"));
+        // Mostrar el mensaje de error en pantalla
+        errorDiv.textContent = "❌ " + (data.error || "Correo o contraseña incorrecta.");
+        errorDiv.style.display = "block";
       }
 
     } catch (err) {
       console.error(err);
-      alert("⚠️ Error de conexión con el servidor.");
+      errorDiv.textContent = "⚠️ Error de conexión con el servidor.";
+      errorDiv.style.display = "block";
     }
   });
 });
