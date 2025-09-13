@@ -1,19 +1,42 @@
+/**
+ * Handles task list loading, navigation, and user session actions.
+ *
+ * @fileoverview This script manages the task list page, including:
+ * navigation for adding tasks and logging out, fetching tasks from the backend,
+ * and dynamically rendering them in the DOM.
+ * 
+ * @author  
+ */
+
 document.addEventListener("DOMContentLoaded", async () => {
   const addTaskBtn = document.getElementById("add-task");
   const logoutBtn = document.getElementById("logout");
   const taskList = document.getElementById("task-list");
 
-  // Botón: crear nueva tarea
+  /**
+   * Redirects user to the new task creation page.
+   * @function
+   */
   addTaskBtn.addEventListener("click", () => {
     window.location.href = "task_new.html";
   });
 
-  // Botón: salir
+  /**
+   * Logs the user out and redirects to the login page.
+   * @function
+   */
   logoutBtn.addEventListener("click", () => {
     window.location.href = "sign_in.html";
   });
 
-  // Cargar tareas desde backend
+  /**
+   * Fetches tasks from the backend API and renders them in the task list.
+   * If no tasks are found, displays a placeholder message.
+   * 
+   * @async
+   * @function loadTasks
+   * @returns {Promise<void>}
+   */
   try {
     const response = await fetch("https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks");
     if (!response.ok) throw new Error("Error al cargar tareas");
