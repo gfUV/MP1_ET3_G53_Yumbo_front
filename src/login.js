@@ -1,9 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('loginForm');
-  const errorDiv = document.getElementById('error-message'); // Div para mostrar errores
+  const emailError = document.getElementById('email-error');
+  const passwordError = document.getElementById('password-error');
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // Limpia errores previos
+    emailError.textContent = "";
+    passwordError.textContent = "";
 
     const loginData = {
       email: form.email.value.trim(),
@@ -20,21 +25,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Guardar userId para usarlo en task.html
         localStorage.setItem("userId", data.userId);
-
-        // Login exitoso: redirigir a tareas
         window.location.href = "/task.html";
       } else {
-        // Mostrar el mensaje de error en pantalla
-        errorDiv.textContent = "❌ " + (data.error || "Correo o contraseña incorrecta.");
-        errorDiv.style.display = "block";
+        // 📌 Decide dónde mostrar el error según lo que devuelva el backend
+        if (data.error && data.error.toLowerCase().includes("usuario")) {
+          emailError.textContent = "❌ " + data.error;
+        } else if (data.error && data.error.toLowerCase().includes("contraseña")) {
+          passwordError.textContent = "❌ " + data.error;
+        } else {
+          passwordError.textContent = "❌ " + (data.error || "Error en el inicio de sesión.");
+        }
       }
 
     } catch (err) {
       console.error(err);
-      errorDiv.textContent = "⚠️ Error de conexión con el servidor.";
-      errorDiv.style.display = "block";
+      passwordError.textContent = "⚠️ Error de conexión con el servidor.";
     }
   });
 });

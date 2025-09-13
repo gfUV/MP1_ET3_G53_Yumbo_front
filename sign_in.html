@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Inicio de Sesión</title>
   <link rel="stylesheet" href="/src/style.css" />
+  <style>
+    /* Estilos para los mensajes de error */
+    .error-message {
+      color: #d93025; 
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  </style>
 </head>
 <body>
 
@@ -20,20 +28,21 @@
           Correo electrónico
           <input type="email" name="email" required />
         </label>
+        <!-- Error debajo de correo -->
+        <div id="email-error" class="error-message"></div>
 
         <label>
           Contraseña
           <input type="password" name="password" required />
         </label>
+        <!-- Error debajo de contraseña -->
+        <div id="password-error" class="error-message"></div>
 
         <p class="forgot">
           <a href="reset_password.html">¿Olvidaste tu contraseña?</a>
         </p>
 
         <button type="submit">Ingresar</button>
-
-        <!-- 📌 Aquí aparecerán los errores -->
-        <div id="error-message" style="color: red; margin-top: 10px; display: none;"></div>
       </form>
 
       <footer>
