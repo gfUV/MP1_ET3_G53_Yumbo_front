@@ -7,18 +7,24 @@
   <link rel="stylesheet" href="/tasks.css">
 </head>
 <body>
-  
   <main class="container">
     <section class="form-container">
       <!-- Header -->
-      <div class="header">
+      <header class="header">
         <h2>Tareas</h2>
-        <div class="header-buttons">
-          <button id="add-task" title="Agregar tarea">Agregar tarea</button>
-          <button id="profile" title="ingresar a 'Mi perfil'">Mi perfil</button>
-          <button id="logout" title="Cerrar sesion">Cerrar sesión</button>
-        </div>
-      </div>
+        <!-- Botón hamburguesa -->
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
+          ☰
+        </button>
+        <!-- Menú oculto -->
+        <nav class="menu" id="menu">
+          <ul>
+            <li><button id="add-task">➕ Agregar tarea</button></li>
+            <li><button id="profile">👤 Mi perfil</button></li>
+            <li><button id="logout">🚪 Cerrar sesión</button></li>
+          </ul>
+        </nav>
+      </header>
 
       <!-- Lista de tareas dinámica -->
       <div id="task-list" class="task-list">
@@ -29,6 +35,15 @@
 
   <!-- Script para manejar tareas -->
   <script type="module" src="/task.js"></script>
+
+  <!-- Script menú hamburguesa -->
+  <script>
+    const menuToggle = document.getElementById("menu-toggle");
+    const menu = document.getElementById("menu");
+
+    menuToggle.addEventListener("click", () => {
+      menu.classList.toggle("show");
+    });
+  </script>
 </body>
 </html>
-
