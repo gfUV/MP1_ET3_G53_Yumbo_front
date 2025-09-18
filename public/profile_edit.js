@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!response.ok) throw new Error("Error al cargar datos de usuario");
 
     const user = await response.json();
+    console.log("Usuario recibido del backend:", user);
 
     // Insertamos datos en los <span>
     document.getElementById("user-name").textContent =
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // 🚀 Botón volver
   backBtn.addEventListener("click", () => {
-    window.location.href = "home.html"; // cámbialo según tu flujo
+    window.location.href = "/profile.html";
   });
 
   // 🚀 Botón editar

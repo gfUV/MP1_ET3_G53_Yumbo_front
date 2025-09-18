@@ -50,6 +50,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // --- Botón de volver ---
   document.getElementById("back").addEventListener("click", () => {
-    window.location.href = "/task.html"; // Ajusta según tu flujo
+    window.location.href = "/task.html";
   });
 });
