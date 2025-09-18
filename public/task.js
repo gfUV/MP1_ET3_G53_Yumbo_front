@@ -92,7 +92,13 @@ document.addEventListener("DOMContentLoaded", async () => {
    * Fetches tasks from the backend API and renders them in the task board.
    */
   try {
-    const response = await fetch("https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks");
+    const userId = localStorage.getItem("userId"); // 👈 obtenemos el ID del usuario logueado
+    if (!userId) {
+    taskList.innerHTML = "<p style='color:red;'>⚠ No se encontró un usuario en sesión.</p>";
+    return;
+    }
+
+    const response = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks/${userId}`);
     if (!response.ok) throw new Error("Error al cargar tareas");
 
     const tasks = await response.json();
