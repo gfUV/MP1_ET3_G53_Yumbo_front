@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const backBtn = document.getElementById("back");
   const editBtn = document.getElementById("edit");
-  const deleteBtn = document.getElementById("delete");
+  const deleteBtn = document.getElementById("deleted");
 
   const userId = localStorage.getItem("userId");
 
