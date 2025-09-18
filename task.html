@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tareas</title>
+  <link rel="stylesheet" href="src/tasks.css">
+</head>
+<body>
+  
+  <main class="container">
+    <section class="form-container">
+      <!-- Header -->
+      <div class="header">
+        <h2>Tareas</h2>
+        <div class="header-buttons">
+          <button id="add-task" title="Agregar tarea">Agregar tarea</button>
+          <button id="profile" title="ingresar a 'Mi perfil'">Mi perfil</button>
+          <button id="logout" title="Cerrar sesion">Cerrar sesión</button>
+        </div>
+      </div>
+
+      <!-- Lista de tareas dinámica -->
+      <div id="task-list" class="task-list">
+        <!-- Aquí se insertarán tareas dinámicamente -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Script para manejar tareas -->
+  <script type="module" src="/src/task.js"></script>
+</body>
+</html>
+

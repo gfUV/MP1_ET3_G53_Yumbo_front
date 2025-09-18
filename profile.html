@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi perfil</title>
+  <link rel="stylesheet" href="src/profile.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      
+      <!-- Header con botones -->
+      <div class="header">
+        <h2>Mi Perfil</h2>
+        <div class="header-buttons">
+          <button id="back">⬅ Volver</button>
+        </div>
+      </div>
+
+      <!-- Información del usuario -->
+      <div class="profile-info">
+        <div class="profile-field">
+          <span class="label">Nombre:</span>
+          <span id="user-name">Cargando...</span>
+        </div>
+        <div class="profile-field">
+          <span class="label">Correo:</span>
+          <span id="user-email">Cargando...</span>
+        </div>
+        <div class="profile-field">
+          <span class="label">Edad:</span>
+          <span id="user-age">Cargando...</span>
+        </div>
+        <div class="profile-field">
+          <span class="label">Creada desde:</span>
+          <span id="user-created">Cargando...</span>
+        </div>
+        <div class="profile-field">
+          <span class="label">Última actualización:</span>
+          <span id="user-updated">Cargando...</span>
+        </div>
+      </div>
+
+      <button id="edit" class="editBtn">Editar informacion de usuario</button>
+      <button id="delete" class="editBtn">Eliminar cuenta de usuario</button>
+
+    </div>
+    
+  </div>
+
+  <script src="src/profile.js"></script>
+</body>
+</html>

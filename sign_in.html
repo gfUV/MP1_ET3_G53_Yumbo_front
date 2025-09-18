@@ -7,6 +7,14 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/jpg" href="/public/icon.jpg" />
   <link rel="stylesheet" href="/src/style.css" />
+  <style>
+    
+    .error-message {
+      color: #d93025; 
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  </style>
 </head>
 <body>
 
@@ -22,11 +30,15 @@
           Correo electrónico
           <input type="email" name="email" required placeholder="Digita tu Correo electrónico" />
         </label>
+        
+        <div id="email-error" class="error-message"></div>
 
         <label>
           Contraseña
           <input type="password" name="password" required placeholder="Digita tu contraseña"/>
         </label>
+        
+        <div id="password-error" class="error-message"></div>
 
         <p class="forgot">
           <a href="reset_password.html">¿Olvidaste tu contraseña?</a>
@@ -40,5 +52,8 @@
       </footer>
     </section>
   </main>
+  
+  <script type="module" src="/src/login.js"></script>
+    
 </body>
 </html>

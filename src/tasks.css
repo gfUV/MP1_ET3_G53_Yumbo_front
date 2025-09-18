@@ -1,0 +1,181 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f7fa;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor principal */
+.container {
+  max-width: 1400px;   /* antes 700px */
+  width: 100%;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.form-container {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Header con título y botones */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #4a90e2;
+  color: white;
+  padding: 12px 20px;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.header button {
+  background: white;
+  color: #4a90e2;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.header button:hover {
+  background: #e0e0e0;
+}
+
+/* Lista de tareas */
+.task-list {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Contenedor de tarjetas */
+.card {
+  max-width: 95%;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.task-status {
+  font-size: 14px;
+  color: #4a90e2;
+}
+
+.task-detail {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.task-date {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+/* Botones de acción */
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.task-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.task-actions button:hover {
+  color: #4a90e2;
+}
+
+/* Tablero de columnas */
+#task-list {
+  width: 100%;
+  max-width: 1400px;   /* más ancho en escritorio */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.task-board {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Cada columna */
+.task-column {
+  flex: 1;
+  min-width: 400px;   /* más ancho en pantallas grandes */
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Encabezados de columnas */
+.task-column h3 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+/* Lista de tareas dentro de cada columna */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* RESPONSIVE: En pantallas menores a 768px */
+@media (max-width: 768px) {
+  .task-board {
+    flex-direction: column;
+  }
+
+  .task-column {
+    width: 100%;
+    min-width: auto;
+  }
+}
+/* Cada tarea como tarjeta independiente */
+.task-card {
+  background: #ffffff;
+  padding: 12px 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  margin-bottom: 12px;  /* separación entre tareas */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Efecto hover para dar feedback */
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
