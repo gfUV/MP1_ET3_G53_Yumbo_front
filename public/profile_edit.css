@@ -1,103 +1,89 @@
-/* --- Estilos generales --- */
+/* Estilos generales */
 body {
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f5f6fa;
   margin: 0;
   padding: 0;
-  background: #f4f6f9;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
+/* Contenedor principal */
 .container {
   width: 100%;
-  max-width: 480px;
-  background: #ffffff;
-  padding: 25px;
+  max-width: 400px;
+  background: #fff;
+  padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.form-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+/* Encabezado */
+header h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #333;
 }
 
-/* --- Header --- */
-.header {
+/* Campos del formulario */
+form label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  color: #444;
+}
+
+form input {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+form input:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 4px rgba(108, 99, 255, 0.3);
+}
+
+/* Botones */
+footer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid #eaeaea;
-  padding-bottom: 10px;
+  gap: 10px;
 }
 
-.header h2 {
-  margin: 0;
-  font-size: 20px;
-  color: #333333;
-}
-
-.header-buttons button {
-  background: #4e73df;
-  color: white;
+footer button {
+  flex: 1;
+  padding: 0.7rem;
   border: none;
-  padding: 8px 14px;
   border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.header-buttons button:hover {
-  background: #3751c1;
-}
-
-/* --- Formulario de edición --- */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.profile-field {
-  display: flex;
-  flex-direction: column;
-}
-
-.profile-field label {
+  font-size: 0.95rem;
   font-weight: bold;
-  margin-bottom: 5px;
-  color: #555555;
-}
-
-.profile-field input {
-  padding: 10px;
-  border: 1px solid #cccccc;
-  border-radius: 8px;
-  font-size: 15px;
-  outline: none;
-  transition: border 0.3s;
-}
-
-.profile-field input:focus {
-  border: 1px solid #4e73df;
-}
-
-/* --- Botón Guardar --- */
-.saveBtn {
-  background: #4e73df;
-  color: #ffffff;
-  border: none;
-  padding: 12px;
-  border-radius: 8px;
   cursor: pointer;
-  font-size: 15px;
-  font-weight: bold;
-  transition: background 0.3s;
+  transition: background 0.2s;
 }
 
-.saveBtn:hover {
-  background: #3751c1;
+#save {
+  background-color: #6c63ff;
+  color: white;
+}
+
+#save:hover {
+  background-color: #574bdb;
+}
+
+#cancel {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+#cancel:hover {
+  background-color: #c5c5c5;
 }
