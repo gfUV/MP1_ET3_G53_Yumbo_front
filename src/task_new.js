@@ -6,6 +6,10 @@
  * 
  * @author  
  */
+const backBtn =document.getElementById("back");
+backBtn.addEventListener("click", () =>{
+  window.location.href = "task.html";
+})
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");

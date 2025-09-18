@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (response.ok) {
         // ✅ Successful login
         localStorage.setItem("userId", data.userId);
+
         window.location.href = "/task.html";
       } else {
         // ❌ Handle backend errors (messages displayed to the user in Spanish)
