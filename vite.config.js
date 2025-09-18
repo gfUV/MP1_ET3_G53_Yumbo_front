@@ -9,7 +9,10 @@ export default defineConfig({
         signup: 'sign_up.html',
         task: 'task.html',
         tasknew: 'task_new.html',
-        resetpassword: 'reset_password.html'
+        resetpassword: 'reset_password.html',
+        taskedit: 'task_edit.html',
+        profile: 'profile.html',
+        profileedit: 'profile_edit.html'
       }
     }
   },
