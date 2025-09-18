@@ -9,11 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 0) Asegurarnos de que los botones siempre tengan listeners (evita que no funcionen si fetch falla)
   cancelBtn.addEventListener("click", (e) => {
     e.preventDefault();
-    // Opción A: volver a la página anterior
-    window.history.back();
-
-    // Opción B: redirigir explícitamente a profile.html
-    // window.location.href = "profile.html";
+    window.location.href = "profile.html";
   });
 
   // Listener de guardar (lo dejamos registrado siempre; dentro validamos)
