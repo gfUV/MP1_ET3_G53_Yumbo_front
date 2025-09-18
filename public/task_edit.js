@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (!taskId) {
     alert("❌ No se especificó la tarea a editar.");
-    window.location.href = "tasks.html";
+    window.location.href = "/task.html";
     return;
   }
 
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (error) {
     console.error(error);
     alert("❌ No se pudo cargar la tarea.");
-    window.location.href = "tasks.html";
+    window.location.href = "/task.html";
   }
 
   // Manejar envío del formulario
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
 
       alert("✅ Tarea actualizada correctamente");
-      window.location.href = "/tasks.html"; 
+      window.location.href = "/task.html"; 
     } catch (error) {
       console.error("Error al actualizar:", error);
       alert("❌ No se pudo actualizar la tarea");
