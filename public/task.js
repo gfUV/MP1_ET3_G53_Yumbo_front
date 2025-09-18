@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
     }
 
-    const response = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks/${userId}`);
+    const response = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks?userId=${userId}`);
     if (!response.ok) throw new Error("Error al cargar tareas");
 
     const tasks = await response.json();
