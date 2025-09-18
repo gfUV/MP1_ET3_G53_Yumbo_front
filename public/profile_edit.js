@@ -1,68 +1,72 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const backBtn = document.getElementById("back");
-  const editBtn = document.getElementById("edit");
-  const deleteBtn = document.getElementById("deleted");
+  const nameInput = document.getElementById("firstName");
+  const lastNameInput = document.getElementById("lastName");
+  const emailInput = document.getElementById("email");
+  const ageInput = document.getElementById("age");
+  const saveBtn = document.getElementById("save");
+  const cancelBtn = document.getElementById("cancel");
 
-  const userId = localStorage.getItem("userId");
-
-  if (!userId) {
-    alert("❌ No se encontró el usuario en la sesión.");
-    window.location.href = "sign_in.html";
-    return;
-  }
-
-  // 🚀 Cargar datos del usuario
   try {
+    // 1. Recuperar el userId desde localStorage
+    const userId = localStorage.getItem("userId");
+    console.log("User ID desde localStorage:", userId);
+    if (!userId) {
+      alert("No se encontró el usuario en sesión");
+      return;
+    }
+
+    // 2. Cargar los datos actuales del usuario
     const response = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/users/${userId}`);
-    if (!response.ok) throw new Error("Error al cargar datos de usuario");
+    if (!response.ok) throw new Error("Error al cargar los datos del usuario");
 
     const user = await response.json();
-    console.log("Usuario recibido del backend:", user);
+    console.log("Usuario recibido en edit:", user);
 
-    // Insertamos datos en los <span>
-    document.getElementById("user-name").textContent =
-      `${user.firstName || ""} ${user.lastName || ""}`;
-    document.getElementById("user-email").textContent =
-      user.email || "No registrado";
-    document.getElementById("user-age").textContent =
-      user.age || "Desconocido";
-    document.getElementById("user-created").textContent =
-      user.createdAt ? new Date(user.createdAt).toLocaleDateString("es-ES") : "Desconocido";
-    document.getElementById("user-updated").textContent =
-      user.updatedAt ? new Date(user.updatedAt).toLocaleDateString("es-ES") : "Desconocido";
+    // 3. Rellenar formulario
+    nameInput.value = user.firstName || "";
+    lastNameInput.value = user.lastName || "";
+    emailInput.value = user.email || "";
+    ageInput.value = user.age || "";
+
+    // 4. Guardar cambios
+    saveBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      const updatedUser = {
+        firstName: nameInput.value.trim(),
+        lastName: lastNameInput.value.trim(),
+        email: emailInput.value.trim(),
+        age: parseInt(ageInput.value.trim(), 10),
+      };
+
+      console.log("Datos a enviar:", updatedUser);
+
+      try {
+        const putResponse = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/users/${userId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedUser),
+        });
+
+        if (!putResponse.ok) throw new Error("Error al actualizar el usuario");
+
+        alert("Perfil actualizado con éxito ✅");
+        window.location.href = "profile.html"; // Redirigir al perfil
+      } catch (error) {
+        console.error("Error guardando cambios:", error);
+        alert("Hubo un problema al actualizar el perfil ❌");
+      }
+    });
+
+    // 5. Cancelar edición
+    cancelBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "profile.html";
+    });
 
   } catch (error) {
-    console.error(error);
-    alert("❌ No se pudo cargar el perfil.");
+    console.error("Error cargando edición de perfil:", error);
   }
-
-  // 🚀 Botón volver
-  backBtn.addEventListener("click", () => {
-    window.location.href = "/profile.html";
-  });
-
-  // 🚀 Botón editar
-  editBtn.addEventListener("click", () => {
-    window.location.href = "edit_profile.html"; // deberías crear esta vista con un <form>
-  });
-
-  // 🚀 Botón eliminar
-  deleteBtn.addEventListener("click", async () => {
-    if (!confirm("⚠ ¿Seguro que quieres eliminar tu cuenta?")) return;
-
-    try {
-      const response = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/users/${userId}`, {
-        method: "DELETE",
-      });
-
-      if (!response.ok) throw new Error("Error al eliminar usuario");
-
-      alert("✅ Cuenta eliminada");
-      localStorage.removeItem("userId");
-      window.location.href = "sign_in.html";
-    } catch (error) {
-      console.error(error);
-      alert("❌ No se pudo eliminar la cuenta");
-    }
-  });
 });

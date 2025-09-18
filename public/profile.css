@@ -170,14 +170,14 @@ body {
 .editBtn {
     margin-left: 10px;
     margin-top: 20px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 8px;
-  background-color: #3498db;
-  color: white;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: 0.3s ease;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #3498db;
+    color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.3s ease;
 }
 .editBtn:hover {
     background-color: #2d6b94;

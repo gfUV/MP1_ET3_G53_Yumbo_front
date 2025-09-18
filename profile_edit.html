@@ -1,56 +1,53 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Editar Perfil</title>
-  <link rel="stylesheet" href="/profile_edit.css">
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Puedes usar Bootstrap para estilos rápidos -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-  <div class="container">
-    <div class="form-container">
+<body class="bg-light">
 
-      <!-- Header con botones -->
-      <div class="header">
-        <h2>Editar Perfil</h2>
-        <div class="header-buttons">
-          <button id="back">⬅ Volver</button>
-        </div>
-      </div>
+  <div class="container mt-5">
+    <div class="card shadow p-4 rounded-3">
+      <h2 class="mb-4 text-center">Editar Perfil</h2>
 
-      <!-- Formulario de edición -->
       <form id="edit-form">
-        <div class="profile-field">
-          <label for="firstName" class="label">Nombre:</label>
-          <input type="text" id="firstName" name="name" maxlength="50" required />
+        <!-- Nombre -->
+        <div class="mb-3">
+          <label for="firstName" class="form-label">Nombre:</label>
+          <input type="text" id="firstName" class="form-control" required />
         </div>
 
-        <div class="profile-field">
-          <label for="lastName" class="label">Nombre:</label>
-          <input type="text" id="lastName" name="name" maxlength="50" required />
+        <!-- Apellido -->
+        <div class="mb-3">
+          <label for="lastName" class="form-label">Apellido:</label>
+          <input type="text" id="lastName" class="form-control" required />
         </div>
 
-        <div class="profile-field">
-          <label for="email" class="label">Correo:</label>
-          <input type="email" id="email" name="email" required />
+        <!-- Correo -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo:</label>
+          <input type="email" id="email" class="form-control" required />
         </div>
 
-        <div class="profile-field">
-          <label for="age" class="label">Edad:</label>
-          <input type="number" id="age" name="age" min="0" max="120" />
+        <!-- Edad -->
+        <div class="mb-3">
+          <label for="age" class="form-label">Edad:</label>
+          <input type="number" id="age" class="form-control" min="1" required />
         </div>
 
-        <div class="profile-field">
-          <label class="label">Cuenta creada desde:</label>
-          <span id="createdAt" title="No editable">No editable</span>
+        <!-- Botones -->
+        <div class="d-flex justify-content-between mt-4">
+          <button id="save" class="btn btn-success">💾 Guardar cambios</button>
+          <button id="cancel" class="btn btn-secondary">↩ Cancelar</button>
         </div>
-        <button type="submit" class="saveBtn">💾 Guardar cambios</button>
-        <button id="deleted">Eliminar usuario</button>
       </form>
-
     </div>
   </div>
 
-  <script src="/profile_edit.js"></script>
+  <script src="profile_edit.js"></script>
 </body>
 </html>
