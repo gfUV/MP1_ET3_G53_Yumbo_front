@@ -2,61 +2,47 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Editar Perfil</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registro de Usuario</title>
+  <link rel="icon" type="image/jpg" href="/public/icon.jpg" />
   <link rel="stylesheet" href="/style.css" />
 
 </head>
-<body class="bg-light">
+<body>
 
-  <header class="text-center my-4">
-    <h1>Editar Perfil</h1>
-  </header>
+  <main class="container">
+    <section class="form-container">
+      <h2>Editar Perfil</h2>
+      <form id="registerForm">
+        <label>
+          Nombres
+          <input type="text" name="firstName" required />
+        </label>
 
-  <main>
-    <section class="container">
-      <article class="card shadow p-4 rounded-3">
-        <form id="edit-form">
-          <fieldset>
-            <legend class="mb-3">Información del usuario</legend>
+        <label>
+          Apellidos
+          <input type="text" name="lastName" required />
+        </label>
 
-            <!-- Nombre -->
-            <div class="mb-3">
-              <label for="firstName" class="form-label">Nombre:</label>
-              <input type="text" id="firstName" class="form-control" required />
-            </div>
+        <label>
+          Edad
+          <input type="number" name="age" min="13" required />
+        </label>
 
-            <!-- Apellido -->
-            <div class="mb-3">
-              <label for="lastName" class="form-label">Apellido:</label>
-              <input type="text" id="lastName" class="form-control" required />
-            </div>
-
-             <!-- Edad -->
-            <div class="mb-3">
-              <label for="age" class="form-label">Edad:</label>
-              <input type="number" id="age" class="form-control" min="1" required />
-            </div>
-
-            <!-- Correo -->
-            <div class="mb-3">
-              <label for="email" class="form-label">Correo:</label>
-              <input type="email" id="email" class="form-control" required />
-            </div>
-
-          </fieldset>
-
-          <!-- Acciones -->
-          <footer class="d-flex justify-content-between mt-4">
-            <button id="save" class="btn btn-success">💾 Guardar cambios</button>
-            <button id="cancel" class="btn btn-secondary">↩ Cancelar</button>
-          </footer>
-        </form>
-      </article>
+        <label>
+          Correo electrónico
+          <input type="email" name="email" />
+        </label>
+      </form>
+    
+      <footer>
+        <button id="save" class="btn btn-success">💾 Guardar cambios</button>
+        <button id="cancel" class="btn btn-secondary">↩ Cancelar</button>
+      </footer>
     </section>
   </main>
-
-  <script src="profile_edit.js"></script>
+  <script type="module" src="/profile_edit.js"></script>
+  <script type="module" src="/formValidation.js"></script>
 </body>
 </html>
 

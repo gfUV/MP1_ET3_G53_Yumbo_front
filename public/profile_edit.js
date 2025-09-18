@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const nameInput = document.getElementById("firstName");
   const lastNameInput = document.getElementById("lastName");
-  const emailInput = document.getElementById("email");
   const ageInput = document.getElementById("age");
+  const emailInput = document.getElementById("email");
   const saveBtn = document.getElementById("save");
   const cancelBtn = document.getElementById("cancel");
 
@@ -25,8 +25,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 3. Rellenar formulario
     nameInput.value = user.firstName || "";
     lastNameInput.value = user.lastName || "";
-    emailInput.value = user.email || "";
     ageInput.value = user.age || "";
+    emailInput.value = user.email || "";
 
     // 4. Guardar cambios
     saveBtn.addEventListener("click", async (e) => {
