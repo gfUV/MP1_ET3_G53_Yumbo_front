@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const editBtn = document.getElementById("edit");
 
   editBtn.addEventListener("click", () => {
-    window.location.href = "profile_edit.html";
+    window.location.href = "/profile_edit.html";
   });
 
   try {
