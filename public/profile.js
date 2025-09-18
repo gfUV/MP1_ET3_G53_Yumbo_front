@@ -30,8 +30,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const u = await response.json();
     console.log("Usuario recibido del backend:", u);
 
-    // Si tu API devuelve { data: { ... } }, descomenta la siguiente línea:
-    // const user = u.data;
     const user = u;
 
     // 4. Pintar la información del usuario
