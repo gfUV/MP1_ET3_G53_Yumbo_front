@@ -34,8 +34,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 4. Pintar la información del usuario
     nameSpan.textContent = `${user.firstName || ""} ${user.lastName || ""}`;
-    emailSpan.textContent = user.email || "No disponible";
     ageSpan.textContent = user.age ? `${user.age} años` : "No disponible";
+    emailSpan.textContent = user.email || "No disponible";
     createdSpan.textContent = user.createdAt
       ? new Date(user.createdAt).toLocaleDateString("es-ES")
       : "No disponible";
