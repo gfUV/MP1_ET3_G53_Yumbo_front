@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
 
       alert("✅ Tarea actualizada correctamente");
-      window.location.href = "tasks.html"; 
+      window.location.href = "/tasks.html"; 
     } catch (error) {
       console.error("Error al actualizar:", error);
       alert("❌ No se pudo actualizar la tarea");
