@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     // 1. Recuperar el id guardado en el login
     const userId = localStorage.getItem("userId");
+    console.log("User ID desde localStorage:", userId);
     if (!userId) {
       alert("No se encontró el usuario en sesión");
       return;
@@ -23,6 +24,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!response.ok) throw new Error("Error al cargar los datos del usuario");
 
     const u = await response.json();
+    console.log("Respuesta del servidor (raw):", raw);
+
+    u = JSON.parse(raw);
+    console.log("Usuario recibido:", u);
 
     // 3. Pintar la información del usuario
     nameSpan.textContent = `${u.firstName || ""} ${u.lastName || ""}`;
