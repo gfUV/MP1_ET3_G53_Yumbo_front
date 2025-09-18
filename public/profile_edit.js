@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
   const nameInput = document.getElementById("firstName");
   const lastNameInput = document.getElementById("lastName");
   const ageInput = document.getElementById("age");
@@ -6,67 +6,82 @@ document.addEventListener("DOMContentLoaded", async () => {
   const saveBtn = document.getElementById("save");
   const cancelBtn = document.getElementById("cancel");
 
-  try {
-    // 1. Recuperar el userId desde localStorage
-    const userId = localStorage.getItem("userId");
-    console.log("User ID desde localStorage:", userId);
-    if (!userId) {
-      alert("No se encontró el usuario en sesión");
+  // 0) Asegurarnos de que los botones siempre tengan listeners (evita que no funcionen si fetch falla)
+  cancelBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    // Opción A: volver a la página anterior
+    window.history.back();
+
+    // Opción B: redirigir explícitamente a profile.html
+    // window.location.href = "profile.html";
+  });
+
+  // Listener de guardar (lo dejamos registrado siempre; dentro validamos)
+  saveBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    // Validación simple
+    if (!nameInput.value.trim() || !lastNameInput.value.trim()) {
+      alert("Por favor completa nombre y apellido.");
       return;
     }
 
-    // 2. Cargar los datos actuales del usuario
-    const response = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/users/${userId}`);
-    if (!response.ok) throw new Error("Error al cargar los datos del usuario");
+    const updatedUser = {
+      firstName: nameInput.value.trim(),
+      lastName: lastNameInput.value.trim(),
+      email: emailInput.value.trim() || null,
+      age: ageInput.value ? parseInt(ageInput.value, 10) : null,
+    };
 
-    const user = await response.json();
-    console.log("Usuario recibido en edit:", user);
+    try {
+      const userId = localStorage.getItem("userId");
+      if (!userId) throw new Error("Usuario no encontrado en sesión");
 
-    // 3. Rellenar formulario
-    nameInput.value = user.firstName || "";
-    lastNameInput.value = user.lastName || "";
-    ageInput.value = user.age || "";
-    emailInput.value = user.email || "";
+      const putResponse = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/users/${userId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedUser),
+      });
 
-    // 4. Guardar cambios
-    saveBtn.addEventListener("click", async (e) => {
-      e.preventDefault();
-
-      const updatedUser = {
-        firstName: nameInput.value.trim(),
-        lastName: lastNameInput.value.trim(),
-        email: emailInput.value.trim(),
-        age: parseInt(ageInput.value.trim(), 10),
-      };
-
-      console.log("Datos a enviar:", updatedUser);
-
-      try {
-        const putResponse = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/users/${userId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updatedUser),
-        });
-
-        if (!putResponse.ok) throw new Error("Error al actualizar el usuario");
-
-        alert("Perfil actualizado con éxito ✅");
-        window.location.href = "profile.html"; // Redirigir al perfil
-      } catch (error) {
-        console.error("Error guardando cambios:", error);
-        alert("Hubo un problema al actualizar el perfil ❌");
+      if (!putResponse.ok) {
+        const text = await putResponse.text().catch(()=>null);
+        throw new Error(`Error al actualizar usuario: ${putResponse.status} ${text || ""}`);
       }
-    });
 
-    // 5. Cancelar edición
-    cancelBtn.addEventListener("click", (e) => {
-      e.preventDefault();
+      alert("Perfil actualizado con éxito ✅");
       window.location.href = "profile.html";
-    });
+    } catch (err) {
+      console.error("Error guardando cambios:", err);
+      alert("Hubo un problema al actualizar el perfil. Revisa la consola.");
+    }
+  });
 
-  } catch (error) {
-    console.error("Error cargando edición de perfil:", error);
-  }
+  // 1) Cargar datos del usuario (esto puede fallar; aunque falle, los listeners ya están registrados)
+  (async () => {
+    try {
+      const userId = localStorage.getItem("userId");
+      console.log("User ID desde localStorage:", userId);
+      if (!userId) {
+        alert("No se encontró el usuario en sesión");
+        return;
+      }
+
+      const response = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/users/${userId}`);
+      if (!response.ok) throw new Error("Error al cargar los datos del usuario");
+
+      const user = await response.json();
+      console.log("Usuario recibido en edit:", user);
+
+      // Rellenar formulario (siempre que existan los inputs)
+      if (nameInput) nameInput.value = user.firstName || "";
+      if (lastNameInput) lastNameInput.value = user.lastName || "";
+      if (ageInput) ageInput.value = user.age || "";
+      if (emailInput) emailInput.value = user.email || "";
+
+    } catch (error) {
+      console.error("Error cargando edición de perfil:", error);
+      // no hacemos return forzado; los botones seguirán funcionando
+    }
+  })();
 });
+

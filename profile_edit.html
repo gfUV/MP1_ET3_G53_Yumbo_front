@@ -16,28 +16,28 @@
       <form id="registerForm">
         <label>
           Nombres
-          <input type="text" name="firstName" required />
+          <input type="text" id="firstName" required />
         </label>
 
         <label>
           Apellidos
-          <input type="text" name="lastName" required />
+          <input type="text" id="lastName" required />
         </label>
 
         <label>
           Edad
-          <input type="number" name="age" min="13" required />
+          <input type="number" id="age" min="13" required />
         </label>
 
         <label>
           Correo electrónico
-          <input type="email" name="email" />
+          <input type="email" id="email" />
         </label>
       </form>
     
       <footer>
-        <button id="save" class="btn btn-success">💾 Guardar cambios</button>
-        <button id="cancel" class="btn btn-secondary">↩ Cancelar</button>
+        <button id="save" class="btn btn-success" type="button">💾 Guardar cambios</button>
+        <button id="cancel" class="btn btn-secondary" type="button">↩ Cancelar</button>
       </footer>
     </section>
   </main>
