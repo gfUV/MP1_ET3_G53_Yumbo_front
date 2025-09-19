@@ -12,8 +12,7 @@ export default defineConfig({
         resetpassword: 'reset_password.html',
         taskedit: 'task_edit.html',
         profile: 'profile.html',
-        profileedit: 'profile_edit.html',
-        resetPassconfirm: 'resetPass_confirm.html'
+        profileedit: 'profile_edit.html'
       }
     }
   },
