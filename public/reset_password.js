@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       alert("✅ Revisa tu correo electrónico para continuar con el proceso.");
       form.reset();
+      window.location.href = "sign_in.html";
     } catch (error) {
       console.error(error);
       alert("❌ " + error.message);
