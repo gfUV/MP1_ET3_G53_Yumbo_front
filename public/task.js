@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
     /** Navegar a sobre nosotros */
-  addTaskBtn.addEventListener("click", () => {
+  aboutUsBtn.addEventListener("click", () => {
     window.location.href = "about_us.html";
   });
 
