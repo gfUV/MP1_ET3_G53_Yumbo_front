@@ -7,21 +7,22 @@
   <link rel="stylesheet" href="task.css" />
 </head>
 <body>
+  <!-- 🔵 Barra azul fija arriba -->
+  <header class="header">
+    <h2>Tareas</h2>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">☰</button>
+    <nav class="menu" id="menu">
+      <ul>
+        <li><button id="add-task">➕ Agregar tarea</button></li>
+        <li><button id="profile">👤 Mi perfil</button></li>
+        <li><button id="logout">🚪 Cerrar sesión</button></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Contenedor principal -->
   <main class="container">
     <section class="form-container">
-      <!-- Encabezado -->
-      <header class="header">
-        <h2>Tareas</h2>
-        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">☰</button>
-        <nav class="menu" id="menu">
-          <ul>
-            <li><button id="add-task">➕ Agregar tarea</button></li>
-            <li><button id="profile">👤 Mi perfil</button></li>
-            <li><button id="logout">🚪 Cerrar sesión</button></li>
-          </ul>
-        </nav>
-      </header>
-
       <!-- Lista dinámica -->
       <div id="task-list" class="task-list empty">
         <p class="placeholder">No hay tareas registradas.</p>
@@ -29,6 +30,7 @@
     </section>
   </main>
 
+  <!-- Scripts -->
   <script type="module" src="/task.js"></script>
   <script>
     const menuToggle = document.getElementById("menu-toggle");
