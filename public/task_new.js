@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-  const userId = localStorage.getItem("userId"); // 👈 Recuperamos el ID del usuario logueado
+  const userId = localStorage.getItem("userId"); 
 
 
     /** @type {Object} Task data from the form */
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       date: form.date.value,
       time: form.time.value,
       status: form.status.value,
-      userId: userId   // 👈 lo agregamos al payload
+      userId: userId   
     };
 
     try {

@@ -1,9 +1,9 @@
 /**
  * task.js
  *
- * Maneja la carga de tareas, navegación y acciones de usuario.
- * Incluye funcionalidad para ver, editar y eliminar tareas,
- * además del menú hamburguesa en todas las pantallas.
+ * Handles task loading, navigation, and user actions.
+ * Provides functionality to view, edit, and delete tasks,
+ * as well as manage the hamburger menu across all screens.
  */
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -18,33 +18,59 @@ document.addEventListener("DOMContentLoaded", async () => {
   const inprogressTasks = document.getElementById("inprogress-tasks");
   const completedTasks = document.getElementById("completed-tasks");
 
-  /** Toggle menú hamburguesa */
+  /**
+   * Toggles the hamburger menu visibility.
+   * @function
+   */
   hamburger.addEventListener("click", () => {
     navbarRight.classList.toggle("show");
   });
 
-  /** Navegar a perfil */
+  /**
+   * Redirects the user to the profile page.
+   * @function
+   */
   profileBtn.addEventListener("click", () => {
     window.location.href = "profile.html";
   });
 
-  /** Navegar a nueva tarea */
+  /**
+   * Redirects the user to the new task creation page.
+   * @function
+   */
   addTaskBtn.addEventListener("click", () => {
     window.location.href = "task_new.html";
   });
 
-    /** Navegar a sobre nosotros */
+  /**
+   * Redirects the user to the "About Us" page.
+   * @function
+   */
   aboutUsBtn.addEventListener("click", () => {
     window.location.href = "about_us.html";
   });
 
-  /** Cerrar sesión */
+  /**
+   * Logs out the user by clearing session data and redirecting to sign-in.
+   * @function
+   */
   logoutBtn.addEventListener("click", () => {
     localStorage.removeItem("userId");
     window.location.href = "sign_in.html";
   });
 
-  /** Crear tarjeta de tarea */
+  /**
+   * Creates the HTML structure for a task card.
+   * @function
+   * @param {Object} t - Task object.
+   * @param {string} t._id - Unique task identifier.
+   * @param {string} t.title - Task title.
+   * @param {string} [t.detail] - Task description or detail.
+   * @param {string} [t.date] - Task date (ISO format).
+   * @param {string} [t.time] - Task time (HH:mm format).
+   * @param {string} t.status - Task status ("pendiente", "en-progreso", "completada").
+   * @returns {string} HTML string representing a task card.
+   */
   function createTaskCard(t) {
     return `
       <div class="task-card">
@@ -64,7 +90,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     `;
   }
 
-  /** Renderizar tareas en columnas */
+  /**
+   * Renders tasks into their respective columns and attaches events.
+   * @function
+   * @param {Array<Object>} tasks - List of task objects.
+   */
   function renderTasks(tasks) {
     pendingTasks.innerHTML = "<h3>Pendientes</h3>";
     inprogressTasks.innerHTML = "<h3>En proceso</h3>";
@@ -81,7 +111,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 
-    // Eventos de editar
+    /** Attach edit events */
     document.querySelectorAll(".edit-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         const taskId = e.currentTarget.dataset.id;
@@ -90,7 +120,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     });
 
-    // Eventos de eliminar
+    /** Attach delete events */
     document.querySelectorAll(".delete-btn").forEach((btn) => {
       btn.addEventListener("click", async (e) => {
         const taskId = e.currentTarget.dataset.id;
@@ -114,7 +144,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  /** Cargar tareas desde backend */
+  /**
+   * Loads tasks from the backend API and renders them.
+   * Displays error messages in case of failure.
+   * @async
+   * @function
+   */
   try {
     const userId = localStorage.getItem("userId");
     if (!userId) {
