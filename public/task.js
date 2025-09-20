@@ -8,6 +8,7 @@
 
 document.addEventListener("DOMContentLoaded", async () => {
   const addTaskBtn = document.getElementById("add-task");
+  const aboutUsBtn = document.getElementById("about-us");
   const logoutBtn = document.getElementById("logout");
   const profileBtn = document.getElementById("profile");
   const hamburger = document.getElementById("hamburger");
@@ -30,6 +31,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   /** Navegar a nueva tarea */
   addTaskBtn.addEventListener("click", () => {
     window.location.href = "task_new.html";
+  });
+
+    /** Navegar a sobre nosotros */
+  addTaskBtn.addEventListener("click", () => {
+    window.location.href = "about_us.html";
   });
 
   /** Cerrar sesión */

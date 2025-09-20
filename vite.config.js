@@ -39,7 +39,10 @@ export default defineConfig({
         profile: 'profile.html',
 
         /** User profile edit page  */
-        profileedit: 'profile_edit.html'
+        profileedit: 'profile_edit.html',
+
+         /** User profile edit page  */
+        aboutus: 'about_us.html'
       }
     }
   },

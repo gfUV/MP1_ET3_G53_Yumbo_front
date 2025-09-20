@@ -1,0 +1,107 @@
+/* ===== Reset ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f3f0ff;
+  color: #333;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* ===== Contenedor principal ===== */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* ===== Título principal ===== */
+.container h1 {
+  font-size: 2rem;
+  color: #4285f4;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* ===== Párrafos ===== */
+.container p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  text-align: justify;
+}
+
+/* ===== Imagen (si hay) ===== */
+.container img {
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
+  border-radius: 8px;
+}
+
+/* ===== Botón volver ===== */
+.back-button {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 10px 20px;
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.back-button:hover {
+  background-color: #357ae8;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 15px;
+  }
+
+  .container h1 {
+    font-size: 1.5rem;
+  }
+
+  .container p {
+    font-size: 1rem;
+  }
+
+  .back-button {
+    width: 100%;
+    text-align: center;
+  }
+  
+
+}
+ul {
+  margin: 15px 0 20px 20px;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+h2 {
+  color: #4285f4;
+  text-align: center;
+  margin: 20px 0;
+}
+.logo-img {
+  display: block;
+  margin: 20px auto;
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
