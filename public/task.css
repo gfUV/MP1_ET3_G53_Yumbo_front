@@ -1,123 +1,94 @@
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* General */
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  background: #f3f0ff;
-  min-height: 100vh;
+  background: #f4f4f9;
 }
 
-/* Container */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 15px;
-}
-
-/* Header */
-.header {
-  width: 100%;
-  background: #4285f4;
-  color: white;
+/* Navbar */
+.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 20px;
-  position: relative;
-  border-radius: 6px 6px 0 0;
+  background: #1e3a8a;
+  color: #fff;
+  padding: 1rem;
 }
 
-.logo {
-  font-size: 1.2rem;
-  font-weight: bold;
+.navbar-left h1 {
+  margin: 0;
 }
 
-/* Menú */
-.menu {
-  display: flex;
-}
-
-.menu ul {
-  list-style: none;
-  display: flex;
-  gap: 15px;
-}
-
-.menu li button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.menu li button:hover {
-  text-decoration: underline;
-}
-
-/* Botón hamburguesa */
-.menu-toggle {
+.hamburger {
   font-size: 1.8rem;
-  background: none;
-  border: none;
-  color: white;
   cursor: pointer;
-  display: none; /* oculto en escritorio */
 }
 
-/* Tablero */
-.task-board {
-  display: flex;
-  gap: 20px;
-  padding: 20px 0;
-  overflow-x: auto;
-}
-
-.task-column {
-  background: white;
+.navbar-right {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  background: #1e3a8a;
+  padding: 1rem;
   border-radius: 8px;
-  flex: 1;
-  min-width: 250px;
-  padding: 15px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.task-column h3 {
-  color: #4285f4;
-  margin-bottom: 10px;
-  font-size: 1.1rem;
+.navbar-right button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
 }
 
-/* 📱 Responsivo */
-@media (max-width: 768px) {
-  .menu {
-    display: none;
-    flex-direction: column;
-    background: #357ae8;
-    position: absolute;
-    top: 55px;
-    right: 0;
-    width: 200px;
-    border-radius: 0 0 6px 6px;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
+.navbar-right button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
 
-  .menu.show {
-    display: flex;
-  }
+/* Contenedor de tareas */
+.task-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
 
-  .menu ul {
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-  }
+.task-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
 
-  .menu-toggle {
-    display: block;
-  }
+.task-card:hover {
+  transform: translateY(-5px);
+}
+
+.task-title {
+  margin: 0;
+  color: #1e3a8a;
+}
+
+.task-desc {
+  margin: 0.5rem 0 1rem;
+  color: #444;
+}
+
+.task-btn {
+  background: #1e3a8a;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.task-btn:hover {
+  background: #163270;
 }
