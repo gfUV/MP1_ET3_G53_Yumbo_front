@@ -7,35 +7,32 @@
   <link rel="stylesheet" href="task.css" />
 </head>
 <body>
-  <!-- 🔵 Barra azul fija arriba -->
-  <header class="header">
-    <h2>Tareas</h2>
-    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">☰</button>
-    <nav class="menu" id="menu">
-      <ul>
-        <li><button id="add-task">➕ Agregar tarea</button></li>
-        <li><button id="profile">👤 Mi perfil</button></li>
-        <li><button id="logout">🚪 Cerrar sesión</button></li>
-      </ul>
-    </nav>
-  </header>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-left">
+      <h1>Tareas</h1>
+    </div>
+    <div class="navbar-right" id="navbar-right">
+      <button id="add-task">➕ Agregar tarea</button>
+      <button id="profile">👤 Mi perfil</button>
+      <button id="logout">📋 Cerrar sesión</button>
+    </div>
+    <button class="hamburger" id="hamburger">☰</button>
+  </nav>
 
-  <!-- Contenedor principal -->
-  <main class="container">
-    <section class="form-container">
-      <!-- Lista dinámica -->
-      <div id="task-list" class="task-list empty">
-        <p class="placeholder">No hay tareas registradas.</p>
-      </div>
-    </section>
-  </main>
+  <!-- Contenedor de columnas -->
+  <div class="task-columns">
+    <div class="task-column" id="pending-tasks">
+      <h3>Pendientes</h3>
+    </div>
+    <div class="task-column" id="inprogress-tasks">
+      <h3>En proceso</h3>
+    </div>
+    <div class="task-column" id="completed-tasks">
+      <h3>Completadas</h3>
+    </div>
+  </div>
 
-  <!-- Scripts -->
-  <script type="module" src="/task.js"></script>
-  <script>
-    const menuToggle = document.getElementById("menu-toggle");
-    const menu = document.getElementById("menu");
-    menuToggle.addEventListener("click", () => menu.classList.toggle("show"));
-  </script>
+  <script src="task.js"></script>
 </body>
 </html>
