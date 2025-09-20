@@ -4,19 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tareas</title>
-  <link rel="stylesheet" href="/task.css">
+  <link rel="stylesheet" href="task.css" />
 </head>
 <body>
   <main class="container">
     <section class="form-container">
-      <!-- Header -->
+      <!-- Encabezado -->
       <header class="header">
         <h2>Tareas</h2>
-        <!-- Botón hamburguesa -->
-        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
-          ☰
-        </button>
-        <!-- Menú oculto -->
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">☰</button>
         <nav class="menu" id="menu">
           <ul>
             <li><button id="add-task">➕ Agregar tarea</button></li>
@@ -26,24 +22,18 @@
         </nav>
       </header>
 
-      <!-- Lista de tareas dinámica -->
-      <div id="task-list" class="task-list">
-        <!-- Aquí se insertarán tareas dinámicamente -->
+      <!-- Lista dinámica -->
+      <div id="task-list" class="task-list empty">
+        <p class="placeholder">No hay tareas registradas.</p>
       </div>
     </section>
   </main>
 
-  <!-- Script para manejar tareas -->
   <script type="module" src="/task.js"></script>
-
-  <!-- Script menú hamburguesa -->
   <script>
     const menuToggle = document.getElementById("menu-toggle");
     const menu = document.getElementById("menu");
-
-    menuToggle.addEventListener("click", () => {
-      menu.classList.toggle("show");
-    });
+    menuToggle.addEventListener("click", () => menu.classList.toggle("show"));
   </script>
 </body>
 </html>
