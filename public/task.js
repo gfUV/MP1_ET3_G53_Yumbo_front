@@ -12,68 +12,53 @@
  * - Fetching tasks from the backend
  * - Rendering tasks into their respective status columns
  * - Storing task IDs in localStorage for editing
- * 
- * @autor
  */
 
 document.addEventListener("DOMContentLoaded", async () => {
   const addTaskBtn = document.getElementById("add-task");
   const logoutBtn = document.getElementById("logout");
-  const taskList = document.getElementById("task-list");
   const profileBtn = document.getElementById("profile");
 
+  const taskPending = document.getElementById("task-pending");
+  const taskInProgress = document.getElementById("task-in-progress");
+  const taskDone = document.getElementById("task-done");
+
   /**
-   * Navigates to the profile page when the profile button is clicked.
-   * @event click
+   * Navega a la página de perfil.
    */
   profileBtn.addEventListener("click", () => {
     window.location.href = "profile.html"; 
   });
 
   /**
-   * Navigates to the new task page when the add task button is clicked.
-   * @event click
+   * Navega a la página de nueva tarea.
    */
   addTaskBtn.addEventListener("click", () => {
     window.location.href = "task_new.html";
   });
 
   /**
-   * Logs out the user and redirects to the sign-in page.
-   * @event click
+   * Cierra sesión y redirige al inicio de sesión.
    */
   logoutBtn.addEventListener("click", () => {
     window.location.href = "sign_in.html";
   });
 
   /**
-   * Renders tasks in their corresponding columns (by status).
+   * Renderiza tareas en su respectiva columna.
    * 
-   * @param {Array<Object>} tasks - List of task objects.
-   * @param {string} tasks[].title - Task title
-   * @param {string} tasks[].detail - Task description
-   * @param {string} tasks[].date - Task due date
-   * @param {string} tasks[].time - Task due time
-   * @param {string} tasks[]._id - Task unique identifier
-   * @param {"pendiente"|"en-progreso"|"completada"} tasks[].status - Task status
+   * @param {Array<Object>} tasks - Lista de tareas
    */
   function renderTasks(tasks) {
-    taskList.innerHTML = `
-      <div class="task-board">
-        <div class="task-column">
-          <h3>Pendientes</h3>
-          <div id="task-pending" class="task-list"></div>
-        </div>
-        <div class="task-column">
-          <h3>En proceso</h3>
-          <div id="task-in-progress" class="task-list"></div>
-        </div>
-        <div class="task-column">
-          <h3>Completada</h3>
-          <div id="task-done" class="task-list"></div>
-        </div>
-      </div>
-    `;
+    // Limpiar columnas
+    taskPending.innerHTML = "";
+    taskInProgress.innerHTML = "";
+    taskDone.innerHTML = "";
+
+    if (tasks.length === 0) {
+      taskPending.innerHTML = "<p>No hay tareas registradas.</p>";
+      return;
+    }
 
     tasks.forEach((t) => {
       const taskHTML = `
@@ -95,14 +80,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       `;
 
       if (t.status === "pendiente") {
-        document.getElementById("task-pending").innerHTML += taskHTML;
+        taskPending.innerHTML += taskHTML;
       } else if (t.status === "en-progreso") {
-        document.getElementById("task-in-progress").innerHTML += taskHTML;
+        taskInProgress.innerHTML += taskHTML;
       } else if (t.status === "completada") {
-        document.getElementById("task-done").innerHTML += taskHTML;
+        taskDone.innerHTML += taskHTML;
       }
     });
 
+    // Eventos para botones de editar
     document.querySelectorAll(".edit-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         const taskId = e.currentTarget.dataset.id;
@@ -110,15 +96,33 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.location.href = "task_edit.html";
       });
     });
+
+    // Eventos para botones de eliminar
+    document.querySelectorAll(".delete-btn").forEach((btn) => {
+      btn.addEventListener("click", async (e) => {
+        const taskId = e.currentTarget.dataset.id;
+        if (confirm("¿Seguro que deseas eliminar esta tarea?")) {
+          try {
+            const response = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks/${taskId}`, {
+              method: "DELETE"
+            });
+            if (!response.ok) throw new Error("Error al eliminar tarea");
+            e.target.closest(".task-card").remove();
+          } catch (err) {
+            alert("❌ No se pudo eliminar la tarea.");
+          }
+        }
+      });
+    });
   }
 
   /**
-   * Fetches tasks from the backend API and renders them in the task board.
+   * Carga las tareas del backend y las renderiza.
    */
   try {
     const userId = localStorage.getItem("userId"); 
     if (!userId) {
-      taskList.innerHTML = "<p style='color:red;'>⚠ No se encontró un usuario en sesión.</p>";
+      taskPending.innerHTML = "<p style='color:red;'>⚠ No se encontró un usuario en sesión.</p>";
       return;
     }
 
@@ -128,14 +132,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     /** @type {Array<Object>} */
     const tasks = await response.json();
 
-    if (tasks.length === 0) {
-      taskList.innerHTML = "<p>No hay tareas registradas.</p>";
-    } else {
-      renderTasks(tasks);
-    }
+    renderTasks(tasks);
   } catch (error) {
     console.error(error);
-    taskList.innerHTML = `<p style="color:red;">❌ ${error.message}</p>`;
+    taskPending.innerHTML = `<p style="color:red;">❌ ${error.message}</p>`;
   }
 });
-
