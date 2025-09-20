@@ -4,49 +4,54 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tareas</title>
-  <link rel="stylesheet" href="/tasks.css">
+  <link rel="stylesheet" href="task.css">
 </head>
 <body>
   <main class="container">
-    <!-- Header -->
-    <header class="header">
-      <h2>Tareas</h2>
-      <!-- Botón hamburguesa -->
-      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">☰</button>
-      <!-- Menú oculto -->
-      <nav class="menu" id="menu">
-        <ul>
-          <li><button id="add-task">➕ Agregar tarea</button></li>
-          <li><button id="profile">👤 Mi perfil</button></li>
-          <li><button id="logout">🚪 Cerrar sesión</button></li>
-        </ul>
-      </nav>
-    </header>
+    <section class="form-container">
+      <!-- Header -->
+      <header class="header">
+        <h2 class="logo">Tareas</h2>
+        <!-- Botón hamburguesa -->
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">☰</button>
+        <!-- Menú oculto -->
+        <nav class="menu" id="menu">
+          <ul>
+            <li><button id="add-task">➕ Agregar tarea</button></li>
+            <li><button id="profile">👤 Mi perfil</button></li>
+            <li><button id="logout">🚪 Cerrar sesión</button></li>
+          </ul>
+        </nav>
+      </header>
 
-    <!-- Tablero de tareas -->
-    <section class="task-board">
-      <div class="task-column">
-        <h3>Pendientes</h3>
-        <div id="task-pending" class="task-list"></div>
-      </div>
-      <div class="task-column">
-        <h3>En proceso</h3>
-        <div id="task-in-progress" class="task-list"></div>
-      </div>
-      <div class="task-column">
-        <h3>Completadas</h3>
-        <div id="task-done" class="task-list"></div>
+      <!-- Tablero de tareas -->
+      <div id="task-list" class="task-board">
+        <!-- Columna Pendientes -->
+        <div class="task-column" id="pending-tasks">
+          <h3>Pendientes</h3>
+        </div>
+
+        <!-- Columna En proceso -->
+        <div class="task-column" id="inprogress-tasks">
+          <h3>En proceso</h3>
+        </div>
+
+        <!-- Columna Completadas -->
+        <div class="task-column" id="completed-tasks">
+          <h3>Completadas</h3>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- Script para manejar tareas -->
+  <!-- Script de lógica -->
   <script type="module" src="/task.js"></script>
 
   <!-- Script menú hamburguesa -->
   <script>
     const menuToggle = document.getElementById("menu-toggle");
     const menu = document.getElementById("menu");
+
     menuToggle.addEventListener("click", () => {
       menu.classList.toggle("show");
     });

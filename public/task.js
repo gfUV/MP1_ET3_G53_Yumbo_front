@@ -4,9 +4,9 @@
  * Handles task list loading, navigation, and user session actions.
  * Provides functionality to view, edit, and delete tasks by interacting
  * with the backend API and dynamically rendering tasks in the DOM.
- * 
+ *
  * Visible messages for the user remain in Spanish.
- * 
+ *
  * @fileoverview This script manages the task list page, including:
  * - Navigation for adding tasks, logging out, and viewing profile
  * - Fetching tasks from the backend
@@ -19,76 +19,78 @@ document.addEventListener("DOMContentLoaded", async () => {
   const logoutBtn = document.getElementById("logout");
   const profileBtn = document.getElementById("profile");
 
-  const taskPending = document.getElementById("task-pending");
-  const taskInProgress = document.getElementById("task-in-progress");
-  const taskDone = document.getElementById("task-done");
+  const pendingTasks = document.getElementById("pending-tasks");
+  const inprogressTasks = document.getElementById("inprogress-tasks");
+  const completedTasks = document.getElementById("completed-tasks");
 
   /**
-   * Navega a la página de perfil.
+   * Navegar a perfil
    */
   profileBtn.addEventListener("click", () => {
-    window.location.href = "profile.html"; 
+    window.location.href = "profile.html";
   });
 
   /**
-   * Navega a la página de nueva tarea.
+   * Navegar a nueva tarea
    */
   addTaskBtn.addEventListener("click", () => {
     window.location.href = "task_new.html";
   });
 
   /**
-   * Cierra sesión y redirige al inicio de sesión.
+   * Cerrar sesión
    */
   logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("userId");
     window.location.href = "sign_in.html";
   });
 
   /**
-   * Renderiza tareas en su respectiva columna.
-   * 
-   * @param {Array<Object>} tasks - Lista de tareas
+   * Renderiza una tarea dentro de la tarjeta
+   * @param {Object} t - Objeto tarea
+   */
+  function createTaskCard(t) {
+    return `
+      <div class="task-card">
+        <div class="task-header">
+          <span>${t.title}</span>
+        </div>
+        <div class="task-detail">${t.detail || ""}</div>
+        <div class="task-date">
+          ${t.date ? new Date(t.date).toLocaleDateString("es-ES") : "Sin fecha"} 
+          ${t.time || ""}
+        </div>
+        <div class="task-actions">
+          <button class="edit-btn" data-id="${t._id}" title="Editar">✏️</button>
+          <button class="delete-btn" data-id="${t._id}" title="Eliminar">🗑️</button>
+        </div>
+      </div>
+    `;
+  }
+
+  /**
+   * Renderiza las tareas en las columnas
+   * @param {Array<Object>} tasks
    */
   function renderTasks(tasks) {
-    // Limpiar columnas
-    taskPending.innerHTML = "";
-    taskInProgress.innerHTML = "";
-    taskDone.innerHTML = "";
-
-    if (tasks.length === 0) {
-      taskPending.innerHTML = "<p>No hay tareas registradas.</p>";
-      return;
-    }
+    // Limpiar columnas antes de renderizar
+    pendingTasks.innerHTML = "<h3>Pendientes</h3>";
+    inprogressTasks.innerHTML = "<h3>En proceso</h3>";
+    completedTasks.innerHTML = "<h3>Completadas</h3>";
 
     tasks.forEach((t) => {
-      const taskHTML = `
-        <div class="task-card">
-          <div class="task-header">
-            <span>${t.title}</span>
-            <span class="task-status">${t.status}</span>
-          </div>
-          <div class="task-detail">${t.detail || ""}</div>
-          <div class="task-date">
-            ${t.date ? new Date(t.date).toLocaleDateString("es-ES") : "Sin fecha"} 
-            ${t.time || ""}
-          </div>
-          <div class="task-actions">
-            <button class="edit-btn" data-id="${t._id}" title="Editar">✏️</button>
-            <button class="delete-btn" data-id="${t._id}" title="Eliminar">🗑️</button>
-          </div>
-        </div>
-      `;
+      const taskHTML = createTaskCard(t);
 
       if (t.status === "pendiente") {
-        taskPending.innerHTML += taskHTML;
+        pendingTasks.innerHTML += taskHTML;
       } else if (t.status === "en-progreso") {
-        taskInProgress.innerHTML += taskHTML;
+        inprogressTasks.innerHTML += taskHTML;
       } else if (t.status === "completada") {
-        taskDone.innerHTML += taskHTML;
+        completedTasks.innerHTML += taskHTML;
       }
     });
 
-    // Eventos para botones de editar
+    // Asignar eventos a los botones de editar
     document.querySelectorAll(".edit-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         const taskId = e.currentTarget.dataset.id;
@@ -97,19 +99,25 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     });
 
-    // Eventos para botones de eliminar
+    // Asignar eventos a los botones de eliminar
     document.querySelectorAll(".delete-btn").forEach((btn) => {
       btn.addEventListener("click", async (e) => {
         const taskId = e.currentTarget.dataset.id;
         if (confirm("¿Seguro que deseas eliminar esta tarea?")) {
           try {
-            const response = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks/${taskId}`, {
-              method: "DELETE"
-            });
-            if (!response.ok) throw new Error("Error al eliminar tarea");
-            e.target.closest(".task-card").remove();
-          } catch (err) {
-            alert("❌ No se pudo eliminar la tarea.");
+            const response = await fetch(
+              `https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks/${taskId}`,
+              { method: "DELETE" }
+            );
+
+            if (response.ok) {
+              e.target.closest(".task-card").remove();
+            } else {
+              alert("❌ Error al eliminar la tarea");
+            }
+          } catch (error) {
+            console.error(error);
+            alert("❌ No se pudo conectar al servidor");
           }
         }
       });
@@ -117,24 +125,31 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   /**
-   * Carga las tareas del backend y las renderiza.
+   * Cargar tareas desde backend
    */
   try {
-    const userId = localStorage.getItem("userId"); 
+    const userId = localStorage.getItem("userId");
     if (!userId) {
-      taskPending.innerHTML = "<p style='color:red;'>⚠ No se encontró un usuario en sesión.</p>";
+      pendingTasks.innerHTML = "<p style='color:red;'>⚠ No se encontró un usuario en sesión.</p>";
       return;
     }
 
-    const response = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks?userId=${userId}`);
+    const response = await fetch(
+      `https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks?userId=${userId}`
+    );
+
     if (!response.ok) throw new Error("Error al cargar tareas");
 
     /** @type {Array<Object>} */
     const tasks = await response.json();
 
-    renderTasks(tasks);
+    if (tasks.length === 0) {
+      pendingTasks.innerHTML += "<p>No hay tareas registradas.</p>";
+    } else {
+      renderTasks(tasks);
+    }
   } catch (error) {
     console.error(error);
-    taskPending.innerHTML = `<p style="color:red;">❌ ${error.message}</p>`;
+    pendingTasks.innerHTML = `<p style="color:red;">❌ ${error.message}</p>`;
   }
 });
