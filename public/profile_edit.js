@@ -1,3 +1,10 @@
+/**
+ * This script manages the profile editing functionality.
+ * It loads user data into a form, validates input fields,
+ * updates user information via API, and handles navigation.
+ * 
+ * Visible messages for the user remain in Spanish.
+ */
 document.addEventListener("DOMContentLoaded", () => {
   const nameInput = document.getElementById("firstName");
   const lastNameInput = document.getElementById("lastName");
@@ -5,23 +12,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const emailInput = document.getElementById("email");
   const saveBtn = document.getElementById("save");
   const cancelBtn = document.getElementById("cancel");
-
-  // 0) Asegurarnos de que los botones siempre tengan listeners (evita que no funcionen si fetch falla)
+   /**
+   * Cancel button listener
+   * Redirects the user to the profile page when clicked.
+   * @event click
+   */
+  
   cancelBtn.addEventListener("click", (e) => {
     e.preventDefault();
     window.location.href = "profile.html";
   });
 
-  // Listener de guardar (lo dejamos registrado siempre; dentro validamos)
+    /**
+   * Save button listener
+   * Validates input, builds an updated user object,
+   * sends it to the API via PUT request, and handles success/error responses.
+   * @event click
+   */
   saveBtn.addEventListener("click", async (e) => {
     e.preventDefault();
 
-    // Validación simple
+    
     if (!nameInput.value.trim() || !lastNameInput.value.trim()) {
       alert("Por favor completa nombre y apellido.");
       return;
     }
-
+    /** @type {{ firstName: string, lastName: string, email: string|null, age: number|null }} */
     const updatedUser = {
       firstName: nameInput.value.trim(),
       lastName: lastNameInput.value.trim(),
@@ -52,7 +68,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // 1) Cargar datos del usuario (esto puede fallar; aunque falle, los listeners ya están registrados)
+  /**
+   * Immediately Invoked Async Function
+   * Loads the user data from the API and fills the form fields.
+   * If it fails, logs the error but keeps button listeners active.
+   */
   (async () => {
     try {
       const userId = localStorage.getItem("userId");
@@ -68,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const user = await response.json();
       console.log("Usuario recibido en edit:", user);
 
-      // Rellenar formulario (siempre que existan los inputs)
+      
       if (nameInput) nameInput.value = user.firstName || "";
       if (lastNameInput) lastNameInput.value = user.lastName || "";
       if (ageInput) ageInput.value = user.age || "";
@@ -76,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     } catch (error) {
       console.error("Error cargando edición de perfil:", error);
-      // no hacemos return forzado; los botones seguirán funcionando
+      
     }
   })();
 });

@@ -1,3 +1,10 @@
+/**
+ * This script manages the profile view functionality.
+ * It loads the logged-in user's data from the backend,
+ * displays it in the profile page, and provides navigation options.
+ * 
+ * Visible messages for the user remain in Spanish.
+ */
 document.addEventListener("DOMContentLoaded", async () => {
   const nameSpan = document.getElementById("user-name");
   const emailSpan = document.getElementById("user-email");
@@ -6,13 +13,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   const updatedSpan = document.getElementById("user-updated");
   const editBtn = document.getElementById("edit");
 
-  // --- Botón editar ---
+   /**
+   * Edit button listener
+   * Redirects the user to the profile edit page.
+   * @event click
+   */
   editBtn.addEventListener("click", () => {
-    window.location.href = "profile_edit.html"; // página donde harías el form
+    window.location.href = "profile_edit.html"; 
   });
 
   try {
-    // 1. Recuperar el id guardado en el login
+     /**
+     * Step 1: Retrieve user ID from localStorage
+     */
     const userId = localStorage.getItem("userId");
     console.log("User ID desde localStorage:", userId);
 
@@ -22,17 +35,25 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    // 2. Llamar al backend para traer el usuario por ID
+    /**
+     * Step 2: Fetch user data from the backend
+     * @type {Response}
+     */
     const response = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/users/${userId}`);
     if (!response.ok) throw new Error("Error al cargar los datos del usuario");
 
-    // 3. Obtener el JSON directamente
+    /**
+     * Step 3: Parse response JSON into user object
+     * @type {{ firstName: string, lastName: string, age: number|null, email: string|null, createdAt: string, updatedAt: string }}
+     */
     const u = await response.json();
     console.log("Usuario recibido del backend:", u);
 
     const user = u;
 
-    // 4. Pintar la información del usuario
+    /**
+     * Step 4: Render user data into HTML elements
+     */
     nameSpan.textContent = `${user.firstName || ""} ${user.lastName || ""}`;
     ageSpan.textContent = user.age ? `${user.age} años` : "No disponible";
     emailSpan.textContent = user.email || "No disponible";
@@ -48,7 +69,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     alert("❌ No se pudo cargar el perfil.");
   }
 
-  // --- Botón de volver ---
+  /**
+   * Back button listener
+   * Redirects the user to the task page.
+   * @event click
+   */
   document.getElementById("back").addEventListener("click", () => {
     window.location.href = "/task.html";
   });

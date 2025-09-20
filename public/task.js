@@ -1,11 +1,19 @@
 /**
- * Handles task list loading, navigation, and user session actions.
+ * task.js
  *
- * @fileoverview This script manages the task list page, including:
- * navigation for adding tasks and logging out, fetching tasks from the backend,
- * and dynamically rendering them in the DOM.
+ * Handles task list loading, navigation, and user session actions.
+ * Provides functionality to view, edit, and delete tasks by interacting
+ * with the backend API and dynamically rendering tasks in the DOM.
  * 
- * @author  
+ * Visible messages for the user remain in Spanish.
+ * 
+ * @fileoverview This script manages the task list page, including:
+ * - Navigation for adding tasks, logging out, and viewing profile
+ * - Fetching tasks from the backend
+ * - Rendering tasks into their respective status columns
+ * - Storing task IDs in localStorage for editing
+ * 
+ * @autor
  */
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -14,21 +22,40 @@ document.addEventListener("DOMContentLoaded", async () => {
   const taskList = document.getElementById("task-list");
   const profileBtn = document.getElementById("profile");
 
+  /**
+   * Navigates to the profile page when the profile button is clicked.
+   * @event click
+   */
   profileBtn.addEventListener("click", () => {
     window.location.href = "profile.html"; 
   });
 
+  /**
+   * Navigates to the new task page when the add task button is clicked.
+   * @event click
+   */
   addTaskBtn.addEventListener("click", () => {
     window.location.href = "task_new.html";
   });
 
+  /**
+   * Logs out the user and redirects to the sign-in page.
+   * @event click
+   */
   logoutBtn.addEventListener("click", () => {
     window.location.href = "sign_in.html";
   });
 
   /**
    * Renders tasks in their corresponding columns (by status).
-   * @param {Array} tasks - List of task objects.
+   * 
+   * @param {Array<Object>} tasks - List of task objects.
+   * @param {string} tasks[].title - Task title
+   * @param {string} tasks[].detail - Task description
+   * @param {string} tasks[].date - Task due date
+   * @param {string} tasks[].time - Task due time
+   * @param {string} tasks[]._id - Task unique identifier
+   * @param {"pendiente"|"en-progreso"|"completada"} tasks[].status - Task status
    */
   function renderTasks(tasks) {
     taskList.innerHTML = `
@@ -48,7 +75,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       </div>
     `;
 
-    // Crear tarjetas de tareas
     tasks.forEach((t) => {
       const taskHTML = `
         <div class="task-card">
@@ -77,11 +103,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 
-    // Agregar eventos a los botones de editar
     document.querySelectorAll(".edit-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         const taskId = e.currentTarget.dataset.id;
-        // Guardamos la ID en localStorage para usarla en task_edit.html
         localStorage.setItem("taskId", taskId);
         window.location.href = "task_edit.html";
       });
@@ -92,15 +116,16 @@ document.addEventListener("DOMContentLoaded", async () => {
    * Fetches tasks from the backend API and renders them in the task board.
    */
   try {
-    const userId = localStorage.getItem("userId"); // 👈 obtenemos el ID del usuario logueado
+    const userId = localStorage.getItem("userId"); 
     if (!userId) {
-    taskList.innerHTML = "<p style='color:red;'>⚠ No se encontró un usuario en sesión.</p>";
-    return;
+      taskList.innerHTML = "<p style='color:red;'>⚠ No se encontró un usuario en sesión.</p>";
+      return;
     }
 
     const response = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks?userId=${userId}`);
     if (!response.ok) throw new Error("Error al cargar tareas");
 
+    /** @type {Array<Object>} */
     const tasks = await response.json();
 
     if (tasks.length === 0) {
@@ -113,3 +138,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     taskList.innerHTML = `<p style="color:red;">❌ ${error.message}</p>`;
   }
 });
+
