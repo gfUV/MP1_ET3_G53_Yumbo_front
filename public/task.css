@@ -1,9 +1,14 @@
-/* General */
-body {
-  font-family: Arial, sans-serif;
+/* Reset básico */
+* {
   margin: 0;
   padding: 0;
-  background: #f3f0ff;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  color: #333;
 }
 
 /* Navbar */
@@ -11,124 +16,127 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #4285f4;
-  padding: 10px 20px;
+  background: #4a90e2;
   color: white;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .navbar h1 {
-  margin: 0;
-  font-size: 20px;
+  font-size: 1.5rem;
 }
 
+/* Menú oculto por defecto */
 .navbar-right {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  min-width: 180px;
+}
+
+.navbar-right.show {
   display: flex;
-  gap: 10px;
 }
 
 .navbar-right button {
-  background: transparent;
+  background: white;
+  color: #0077cc;
   border: none;
-  color: white;
-  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+  text-align: left;
 }
 
+.navbar-right button:hover {
+  background: #f0f0f0;
+}
+
+/* Botón hamburguesa */
 .hamburger {
-  display: none;
+  font-size: 1.5rem;
   background: transparent;
   border: none;
-  font-size: 22px;
   color: white;
   cursor: pointer;
+  margin-left: 10px;
 }
 
-/* Task Columns */
+/* Columnas de tareas */
 .task-columns {
   display: flex;
   justify-content: space-around;
-  margin: 20px;
-  gap: 15px;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
 }
 
 .task-column {
-  background: white;
+  background: #fff;
   padding: 15px;
   border-radius: 8px;
   flex: 1;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  min-height: 120px;
+  min-width: 280px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
 }
 
 .task-column h3 {
-  margin-top: 0;
-  color: #3367d6;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #0077cc;
 }
 
-/* Task Card */
+/* Tarjetas */
 .task-card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  background: white;
   padding: 10px;
-  margin-top: 10px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
 }
 
 .task-header {
   font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .task-detail {
-  font-size: 14px;
-  margin-top: 4px;
+  margin-bottom: 5px;
+  color: #555;
 }
 
 .task-date {
-  font-size: 12px;
-  color: gray;
-  margin-top: 4px;
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 10px;
 }
 
 .task-actions {
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   gap: 8px;
-  margin-top: 6px;
 }
 
-.edit-btn,
-.delete-btn {
+.task-actions button {
+  background: #0077cc;
+  color: white;
   border: none;
+  padding: 5px 8px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  background: none;
+  transition: background 0.2s;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .task-columns {
-    flex-direction: column;
-  }
-
-  .navbar-right {
-    display: none;
-    flex-direction: column;
-    background: #3367d6;
-    position: absolute;
-    top: 50px;
-    right: 10px;
-    padding: 10px;
-    border-radius: 6px;
-  }
-
-  .navbar-right button {
-    color: white;
-    text-align: left;
-    padding: 8px;
-  }
-
-  .hamburger {
-    display: block;
-  }
+.task-actions button:hover {
+  background: #005fa3;
 }
