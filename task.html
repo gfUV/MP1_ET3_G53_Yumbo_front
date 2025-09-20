@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tareas</title>
-  <link rel="stylesheet" href="/tasks.css">
+  <link rel="stylesheet" href="tasks.css">
 </head>
 <body>
   <main class="container">
@@ -13,9 +13,7 @@
       <header class="header">
         <h2>Tareas</h2>
         <!-- Botón hamburguesa -->
-        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">
-          ☰
-        </button>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menú">☰</button>
         <!-- Menú oculto -->
         <nav class="menu" id="menu">
           <ul>
@@ -26,15 +24,28 @@
         </nav>
       </header>
 
-      <!-- Lista de tareas dinámica -->
-      <div id="task-list" class="task-list">
-        <!-- Aquí se insertarán tareas dinámicamente -->
+      <!-- Tablero de tareas -->
+      <div id="task-list" class="task-board">
+        <!-- Columna Pendientes -->
+        <div class="task-column" id="pending-tasks">
+          <h3>Pendientes</h3>
+        </div>
+
+        <!-- Columna En proceso -->
+        <div class="task-column" id="inprogress-tasks">
+          <h3>En proceso</h3>
+        </div>
+
+        <!-- Columna Completadas -->
+        <div class="task-column" id="completed-tasks">
+          <h3>Completadas</h3>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- Script para manejar tareas -->
-  <script type="module" src="/task.js"></script>
+  <!-- Script de lógica -->
+  <script type="module" src="task.js"></script>
 
   <!-- Script menú hamburguesa -->
   <script>
