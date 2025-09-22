@@ -12,44 +12,41 @@
     <section class="form-container">
       <h2>Registro de usuario</h2>
       <form id="registerForm">
-
-        <div class="form-group">
-          <label for="firstName">Nombres</label>
-          <input type="text" id="firstName" name="firstName" required placeholder="Ingresa tus Nombres" />
+        <label>
+          Nombres
+          <input type="text" name="firstName" required placeholder="Ingresa tus Nombres" />
           <div class="error-message" id="firstName-error"></div>
-        </div>
+        </label>
 
-        <div class="form-group">
-          <label for="lastName">Apellidos</label>
-          <input type="text" id="lastName" name="lastName" required placeholder="Ingresa tus Apellidos" />
+        <label>
+          Apellidos
+          <input type="text" name="lastName" required placeholder="Ingresa tus Apellidos" />
           <div class="error-message" id="lastName-error"></div>
-        </div>
+        </label>
 
-        <div class="form-group">
-          <label for="age">Edad</label>
-          <input type="number" id="age" name="age" min="13" required placeholder="Ingresa tu Edad" />
+        <label>
+          Edad
+          <input type="number" name="age" min="13" required placeholder="Ingresa tu Edad" />
           <div class="error-message" id="age-error"></div>
-        </div>
+        </label>
 
-        <div class="form-group">
-          <label for="email">Correo electrónico</label>
-          <input type="email" id="email" name="email" required placeholder="Ingresa tu email" />
+        <label>
+          Correo electrónico
+          <input type="email" name="email" required placeholder="Ingresa tu email" />
           <div class="error-message" id="email-error"></div>
-        </div>
+        </label>
 
-        <div class="form-group password-wrapper">
-          <label for="password">Contraseña</label>
-          <input type="password" id="password" name="password" placeholder="Mínimo 8 caracteres" required />
-          <span class="toggle-password" onclick="togglePassword('password')">👁</span>
+        <label>
+          Contraseña
+          <input type="password" name="password" placeholder="Mínimo 8 caracteres" required />
           <div class="error-message" id="password-error"></div>
-        </div>
+        </label>
 
-        <div class="form-group password-wrapper">
-          <label for="confirmPassword">Confirmar Contraseña</label>
-          <input type="password" id="confirmPassword" name="confirmPassword" required />
-          <span class="toggle-password" onclick="togglePassword('confirmPassword')">👁</span>
+        <label>
+          Confirmar Contraseña
+          <input type="password" name="confirmPassword" required />
           <div class="error-message" id="confirmPassword-error"></div>
-        </div>
+        </label>
 
         <button type="submit">Registrarse</button>
       </form>
@@ -63,11 +60,5 @@
   <!-- Scripts -->
   <script type="module" src="/registerUser.js"></script>
   <script type="module" src="/formValidation.js"></script>
-  <script>
-    function togglePassword(fieldId) {
-      const input = document.getElementById(fieldId);
-      input.type = input.type === "password" ? "text" : "password";
-    }
-  </script>
 </body>
 </html>
