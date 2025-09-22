@@ -1,67 +1,99 @@
-/* ======== GENERAL ======== */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #f4f7fa, #e9f5f3);
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+/* ======== RESET BOX SIZING ======== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-/* ======== CONTENEDOR LOGIN ======== */
-.login-container {
-  background: #ffffff;
+/* ======== GENERAL ======== */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #F4F6F8; /* fondo suave que armoniza con el logo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  width: 350px;
+}
+
+/* ======== CONTENEDOR ======== */
+.form-container {
+  background-color: #ffffff;
+  padding: 2.5rem;            /* más espacio en los lados */
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  width: 360px;               /* ancho ideal para desktop */
+  max-width: 92%;             /* responsivo en móvil */
   text-align: center;
 }
 
-.login-container img {
-  width: 80px;
-  margin-bottom: 1rem;
+/* ======== LOGO & TITULO ======== */
+.logo {
+  width: 80px;    /* tamaño fijo, no enorme */
+  height: auto;
+  display: block;
+  margin: 0 auto 1rem; /* centrado y espacio debajo */
 }
 
-.login-container h2 {
-  margin-bottom: 1.5rem;
+h2 {
+  margin: 0 0 1.1rem 0;
+  color: #222;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+/* ======== FORMULARIO ======== */
+form.login,
+#loginForm {
+  text-align: left;   /* labels y inputs alineados a la izquierda */
+}
+
+/* Label (alineado a la izquierda) */
+label {
+  display: block;
+  font-size: 0.92rem;
   font-weight: 600;
   color: #333;
-}
-
-/* ======== FORM ======== */
-form {
+  margin-bottom: 0.4rem;
   text-align: left;
 }
 
 /* ======== INPUTS ======== */
-.input-wrapper,
-.password-wrapper {
-  position: relative;
+input[type="email"],
+input[type="password"],
+input[type="text"] {
   width: 100%;
-  margin-bottom: 1rem;
-}
-
-.input-wrapper input,
-.password-wrapper input {
-  width: 100%;
-  padding: 0.9rem 2.8rem 0.9rem 1rem; /* más espacio a la derecha para el ojo */
-  border: 1px solid #ccc;
+  padding: 0.92rem 1rem;
+  margin-bottom: 0.9rem;
+  border: 1px solid #e0e0e0;
   border-radius: 8px;
   font-size: 0.95rem;
   background-color: #fff;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color .18s ease, box-shadow .18s ease;
+  line-height: 1;           /* evita que boton ojo cambie alto */
 }
 
-.input-wrapper input:focus,
-.password-wrapper input:focus {
-  border-color: #00bfa6;
+/* foco */
+input:focus {
+  border-color: #00bfa6; /* turquesa del logo */
   outline: none;
-  box-shadow: 0 0 4px rgba(0, 191, 166, 0.3);
+  box-shadow: 0 0 6px rgba(0,191,166,0.18);
 }
 
-/* ======== ICONO OJO ======== */
+/* ======== WRAPPER CONTRASEÑA (ojo dentro) ======== */
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0.7rem;
+}
+
+/* Reservar espacio a la derecha para el botón del ojo */
+.password-wrapper input {
+  padding-right: 3rem; /* suficiente para el icono dentro */
+}
+
+/* Botón del ojo (alineado dentro del input, centrado verticalmente) */
 .password-wrapper button {
   position: absolute;
   right: 10px;
@@ -70,54 +102,91 @@ form {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
   color: #666;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
-/* ======== LINKS ======== */
-.forgot-password {
-  display: block;
-  margin-bottom: 1.2rem;
-  font-size: 0.85rem;
+/* Opcional: efecto al pasar el mouse por el ojo */
+.password-wrapper button:hover {
+  background: rgba(0,0,0,0.03);
+  color: #00a995;
+}
+
+/* ======== "¿Olvidaste tu contraseña?" (centrado) ======== */
+.forgot {
+  text-align: center;      /* centrado tal como pediste */
+  margin: 0.35rem 0 1rem 0;
+}
+
+.forgot a {
   color: #0077b6;
-  text-decoration: none;
-  text-align: center; /* centrado */
-}
-
-.forgot-password:hover {
-  text-decoration: underline;
-}
-
-.register-text {
-  font-size: 0.85rem;
-  margin-top: 1rem;
-  color: #444;
-}
-
-.register-text a {
-  color: #0077b6;
-  font-weight: 500;
+  font-size: 0.88rem;
   text-decoration: none;
 }
 
-.register-text a:hover {
+.forgot a:hover {
   text-decoration: underline;
 }
 
 /* ======== BOTÓN PRINCIPAL ======== */
-.btn-login {
+button[type="submit"] {
   width: 100%;
-  padding: 0.9rem;
-  background-color: #00bfa6;
+  padding: 0.95rem;
+  background-color: #00bfa6;   /* turquesa (coherente con logo) */
   border: none;
   border-radius: 8px;
-  color: white;
+  color: #fff;
+  font-weight: 700;
   font-size: 1rem;
-  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
 }
 
-.btn-login:hover {
+button[type="submit"]:hover {
   background-color: #009e88;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,191,166,0.12);
+}
+
+/* ======== TEXTO PIE ======== */
+.register {
+  text-align: center;
+  margin-top: 0.9rem;
+  color: #444;
+  font-size: 0.9rem;
+}
+
+.register a {
+  color: #0077b6;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register a:hover {
+  text-decoration: underline;
+}
+
+/* ======== ERRORES ======== */
+.error-message {
+  font-size: 0.85rem;
+  color: #d9534f;
+  margin-top: -0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+/* ======== RESPONSIVE (ajuste en móviles) ======== */
+@media (max-width: 420px) {
+  .form-container {
+    padding: 1.6rem;
+    width: 92%;
+  }
+
+  .logo { width: 64px; margin-bottom: 0.8rem; }
+  h2 { font-size: 1.25rem; }
 }
