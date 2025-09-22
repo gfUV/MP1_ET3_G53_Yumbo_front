@@ -95,6 +95,8 @@ input:focus {
 .password-wrapper button {
   position: absolute;
   right: 10px;
+  top: 50%;                       /* lo coloca a la mitad del input */
+  transform: translateY(-50%); 
   background: none;
   border: none;
   cursor: pointer;
