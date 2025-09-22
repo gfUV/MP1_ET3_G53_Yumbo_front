@@ -12,27 +12,37 @@ document.addEventListener('DOMContentLoaded', () => {
   // 🚫 Botón deshabilitado al inicio
   submitBtn.disabled = true;
 
-  // 🔑 Habilitar botón solo si hay datos
+  // 🔑 Verifica si ambos campos tienen contenido
   function checkInputs() {
     const emailFilled = emailInput.value.trim() !== "";
     const passwordFilled = passwordInput.value.trim() !== "";
     submitBtn.disabled = !(emailFilled && passwordFilled);
   }
 
-  emailInput.addEventListener("input", checkInputs);
-  passwordInput.addEventListener("input", checkInputs);
-
-  // 🧹 Ocultar errores en tiempo real
-  emailInput.addEventListener("input", () => {
-    if (emailInput.value.trim() !== "") {
-      emailError.textContent = "";
+  // 🔹 Validación en tiempo real
+  function validateField(field, errorElem, message) {
+    if (field.value.trim() === "") {
+      errorElem.textContent = message;
+    } else {
+      errorElem.textContent = "";
     }
+  }
+
+  // 📥 Input y blur
+  emailInput.addEventListener("input", () => {
+    validateField(emailInput, emailError, "⚠️ Por favor, ingresa tu correo electrónico.");
+    checkInputs();
+  });
+  passwordInput.addEventListener("input", () => {
+    validateField(passwordInput, passwordError, "⚠️ Por favor, escribe tu contraseña.");
+    checkInputs();
   });
 
-  passwordInput.addEventListener("input", () => {
-    if (passwordInput.value.trim() !== "") {
-      passwordError.textContent = "";
-    }
+  emailInput.addEventListener("blur", () => {
+    validateField(emailInput, emailError, "⚠️ Por favor, ingresa tu correo electrónico.");
+  });
+  passwordInput.addEventListener("blur", () => {
+    validateField(passwordInput, passwordError, "⚠️ Por favor, escribe tu contraseña.");
   });
 
   // 👁 Mostrar/ocultar contraseña
@@ -47,20 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    // Validación final antes de enviar
     let valid = true;
-    emailError.textContent = "";
-    passwordError.textContent = "";
-
-    if (emailInput.value.trim() === "") {
-      emailError.textContent = "⚠️ Por favor, ingresa tu correo electrónico.";
-      valid = false;
-    }
-    if (passwordInput.value.trim() === "") {
-      passwordError.textContent = "⚠️ Por favor, escribe tu contraseña.";
-      valid = false;
-    }
-
-    if (!valid) return; // detener si faltan campos
+    validateField(emailInput, emailError, "⚠️ Por favor, ingresa tu correo electrónico.");
+    validateField(passwordInput, passwordError, "⚠️ Por favor, escribe tu contraseña.");
+    if (emailInput.value.trim() === "" || passwordInput.value.trim() === "") valid = false;
+    if (!valid) return;
 
     const loginData = {
       email: emailInput.value.trim(),
@@ -69,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       submitBtn.disabled = true;
-      submitBtn.innerHTML = "⏳ Ingresando...";
+      submitBtn.textContent = "⏳ Ingresando...";
 
       const response = await fetch(
         "https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/sessions/login",
@@ -102,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error("Error de conexión:", err);
       passwordError.textContent = "⚠️ Parece que hay un problema con la conexión. Verifica tu internet.";
     } finally {
-      submitBtn.disabled = false;
+      checkInputs();
       submitBtn.textContent = "Ingresar";
     }
   });
