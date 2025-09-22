@@ -14,23 +14,31 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 2rem;
 }
 
-/* ======== CONTENEDOR ======== */
+/* ======== CONTENEDOR PRINCIPAL ======== */
+.container {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ======== FORMULARIO ======== */
 .form-container {
   background-color: #ffffff;
   padding: 2.5rem;
   border-radius: 14px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  width: 400px;
-  max-width: 92%;
+  width: 100%;
+  max-width: 420px;
   text-align: center;
 }
 
 /* ======== LOGO & TITULO ======== */
 .logo {
-  width: 80px;   /* logo no tan grande */
+  width: 80px;
   height: auto;
   display: block;
   margin: 0 auto 1rem;
@@ -43,7 +51,7 @@ h2 {
   font-weight: 600;
 }
 
-/* ======== FORMULARIO ======== */
+/* ======== FORM ======== */
 form.login,
 #loginForm {
   text-align: left;
@@ -69,7 +77,6 @@ input[type="text"] {
   font-size: 0.95rem;
   background-color: #fff;
   transition: border-color .18s ease, box-shadow .18s ease;
-  
 }
 
 input:focus {
@@ -84,19 +91,19 @@ input:focus {
   width: 100%;
   margin-bottom: 0.7rem;
   display: flex;
-  align-items: center; /* centra verticalmente */
+  align-items: center;
 }
 
 .password-wrapper input {
   flex: 1;
-  padding-right: 3rem; /* espacio para el botón del ojo */
+  padding-right: 3rem;
 }
 
 .password-wrapper button {
   position: absolute;
   right: 10px;
-  top: 50%;                       /* lo coloca a la mitad del input */
-  transform: translateY(-65%); 
+  top: 50%;
+  transform: translateY(-50%); /* centrado perfecto */
   background: none;
   border: none;
   cursor: pointer;
@@ -195,17 +202,32 @@ button[type="submit"]:hover {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ======== RESPONSIVE (ajuste en móviles) ======== */
-@media (max-width: 420px) {
+/* ======== RESPONSIVE ======== */
+@media (max-width: 480px) {
   .form-container {
     padding: 1.6rem;
-    width: 92%;
+    max-width: 100%;
+    margin: 0 1rem;
   }
 
-  .logo { width: 64px; margin-bottom: 0.8rem; }
-  h2 { font-size: 1.25rem; }
+  .logo {
+    width: 64px;
+    margin-bottom: 0.8rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
   input[type="email"],
   input[type="password"],
-  input[type="text"] { padding: 0.9rem 1rem; font-size: 0.95rem; }
-  button[type="submit"] { padding: 0.95rem; font-size: 1rem; }
+  input[type="text"] {
+    font-size: 1rem;
+    padding: 0.85rem 1rem;
+  }
+
+  button[type="submit"] {
+    font-size: 1rem;
+    padding: 0.9rem;
+  }
 }
