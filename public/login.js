@@ -17,14 +17,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const emailFilled = emailInput.value.trim() !== "";
     const passwordFilled = passwordInput.value.trim() !== "";
     submitBtn.disabled = !(emailFilled && passwordFilled);
-
-    // Ocultar errores si el usuario ya escribe algo
-    if (emailFilled) emailError.textContent = "";
-    if (passwordFilled) passwordError.textContent = "";
   }
 
   emailInput.addEventListener("input", checkInputs);
   passwordInput.addEventListener("input", checkInputs);
+
+  // 🧹 Ocultar errores en tiempo real
+  emailInput.addEventListener("input", () => {
+    if (emailInput.value.trim() !== "") {
+      emailError.textContent = "";
+    }
+  });
+
+  passwordInput.addEventListener("input", () => {
+    if (passwordInput.value.trim() !== "") {
+      passwordError.textContent = "";
+    }
+  });
 
   // 👁 Mostrar/ocultar contraseña
   togglePassword.addEventListener('click', () => {
