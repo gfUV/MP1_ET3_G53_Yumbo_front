@@ -69,7 +69,7 @@ input[type="text"] {
   font-size: 0.95rem;
   background-color: #fff;
   transition: border-color .18s ease, box-shadow .18s ease;
-  line-height: 1.2; /* ajustado para centrar el ojo */
+  
 }
 
 input:focus {
