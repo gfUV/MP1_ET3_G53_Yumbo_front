@@ -5,12 +5,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const submitBtn = document.getElementById('loginBtn');
   const togglePassword = document.getElementById('togglePassword');
   const passwordInput = document.getElementById('password');
+  const eyeOpen = document.getElementById('eyeOpen');
+  const eyeClosed = document.getElementById('eyeClosed');
 
   // 👁 Mostrar/ocultar contraseña
   togglePassword.addEventListener('click', () => {
-    const type = passwordInput.type === "password" ? "text" : "password";
-    passwordInput.type = type;
-    togglePassword.textContent = type === "password" ? "👁" : "🙈";
+    const isPassword = passwordInput.type === "password";
+    passwordInput.type = isPassword ? "text" : "password";
+
+    // alternar iconos
+    eyeOpen.style.display = isPassword ? "none" : "block";
+    eyeClosed.style.display = isPassword ? "block" : "none";
   });
 
   // 🔑 Envío del formulario

@@ -26,7 +26,17 @@
         <label for="password">Contraseña</label>
         <div class="password-wrapper">
           <input type="password" name="password" id="password" placeholder="Escribe tu contraseña" required />
-          <button type="button" id="togglePassword" aria-label="Mostrar u ocultar contraseña">👁</button>
+          <button type="button" id="togglePassword" aria-label="Mostrar u ocultar contraseña">
+            <!-- Icono ojo abierto -->
+            <svg id="eyeOpen" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <!-- Icono ojo cerrado -->
+            <svg id="eyeClosed" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;">
+              <path d="M17.94 17.94A10.97 10.97 0 0112 20c-7 0-11-8-11-8a21.86 21.86 0 014.12-5.94M9.88 9.88A3 3 0 0114.12 14.12M1 1l22 22"/>
+            </svg>
+          </button>
         </div>
         <div id="password-error" class="error-message" aria-live="polite"></div>
 
