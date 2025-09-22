@@ -9,7 +9,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', Arial, sans-serif;
-  background: #F4F6F8; /* fondo suave que armoniza con el logo */
+  background: #F4F6F8;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,20 +20,20 @@ body {
 /* ======== CONTENEDOR ======== */
 .form-container {
   background-color: #ffffff;
-  padding: 2.5rem;            /* más espacio en los lados */
+  padding: 2.5rem;
   border-radius: 14px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  width: 400px;               /* ancho ideal para desktop */
-  max-width: 92%;             /* responsivo en móvil */
+  width: 400px;
+  max-width: 92%;
   text-align: center;
 }
 
 /* ======== LOGO & TITULO ======== */
 .logo {
-  width: 80px;    /* tamaño fijo, no enorme */
+  width: 80px;   /* logo no tan grande */
   height: auto;
   display: block;
-  margin: 0 auto 1rem; /* centrado y espacio debajo */
+  margin: 0 auto 1rem;
 }
 
 h2 {
@@ -46,17 +46,15 @@ h2 {
 /* ======== FORMULARIO ======== */
 form.login,
 #loginForm {
-  text-align: left;   /* labels y inputs alineados a la izquierda */
+  text-align: left;
 }
 
-/* Label (alineado a la izquierda) */
 label {
   display: block;
   font-size: 0.92rem;
   font-weight: 600;
   color: #333;
   margin-bottom: 0.4rem;
-  text-align: left;
 }
 
 /* ======== INPUTS ======== */
@@ -71,12 +69,11 @@ input[type="text"] {
   font-size: 0.95rem;
   background-color: #fff;
   transition: border-color .18s ease, box-shadow .18s ease;
-  line-height: 1;           /* evita que boton ojo cambie alto */
+  line-height: 1.2; /* ajustado para centrar el ojo */
 }
 
-/* foco */
 input:focus {
-  border-color: #00bfa6; /* turquesa del logo */
+  border-color: #00bfa6;
   outline: none;
   box-shadow: 0 0 6px rgba(0,191,166,0.18);
 }
@@ -86,24 +83,22 @@ input:focus {
   position: relative;
   width: 100%;
   margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center; /* centra verticalmente */
 }
 
-/* Reservar espacio a la derecha para el botón del ojo */
 .password-wrapper input {
-  padding-right: 3rem; /* suficiente para el icono dentro */
+  flex: 1;
+  padding-right: 3rem; /* espacio para el botón del ojo */
 }
 
-/* Botón del ojo (alineado dentro del input, centrado verticalmente) */
 .password-wrapper button {
   position: absolute;
   right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
   color: #666;
-  padding: 0;
   width: 32px;
   height: 32px;
   display: flex;
@@ -112,15 +107,14 @@ input:focus {
   border-radius: 50%;
 }
 
-/* Opcional: efecto al pasar el mouse por el ojo */
 .password-wrapper button:hover {
   background: rgba(0,0,0,0.03);
   color: #00a995;
 }
 
-/* ======== "¿Olvidaste tu contraseña?" (centrado) ======== */
+/* ======== "¿Olvidaste tu contraseña?" ======== */
 .forgot {
-  text-align: center;      /* centrado tal como pediste */
+  text-align: center;
   margin: 0.35rem 0 1rem 0;
 }
 
@@ -138,7 +132,7 @@ input:focus {
 button[type="submit"] {
   width: 100%;
   padding: 0.95rem;
-  background-color: #00bfa6;   /* turquesa (coherente con logo) */
+  background-color: #00bfa6;
   border: none;
   border-radius: 8px;
   color: #fff;
@@ -180,34 +174,15 @@ button[type="submit"]:hover {
   margin-bottom: 0.6rem;
 }
 
-/* ======== RESPONSIVE (ajuste en móviles) ======== */
-@media (max-width: 420px) {
-  .form-container {
-    padding: 1.6rem;
-    width: 92%;
-  }
-
-  .logo { width: 64px; margin-bottom: 0.8rem; }
-  h2 { font-size: 1.25rem; }
-}
 /* ======== MENSAJES DE ESTADO ======== */
-.error-message {
-  font-size: 0.85rem;
-  color: #d9534f;               /* rojo accesible */
-  margin-top: -0.4rem;
-  margin-bottom: 0.6rem;
-}
-
-/* Mensaje de éxito (ej: login correcto) */
 .success-message {
   font-size: 0.9rem;
-  color: #2e7d32;               /* verde accesible */
+  color: #2e7d32;
   margin: 0.6rem 0;
   text-align: center;
   font-weight: 500;
 }
 
-/* Animación sutil para que sea más amigable */
 .success-message,
 .error-message {
   animation: fadeIn 0.3s ease;
@@ -218,3 +193,17 @@ button[type="submit"]:hover {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* ======== RESPONSIVE (ajuste en móviles) ======== */
+@media (max-width: 420px) {
+  .form-container {
+    padding: 1.6rem;
+    width: 92%;
+  }
+
+  .logo { width: 64px; margin-bottom: 0.8rem; }
+  h2 { font-size: 1.25rem; }
+  input[type="email"],
+  input[type="password"],
+  input[type="text"] { padding: 0.9rem 1rem; font-size: 0.95rem; }
+  button[type="submit"] { padding: 0.95rem; font-size: 1rem; }
+}
