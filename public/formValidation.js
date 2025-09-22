@@ -1,31 +1,16 @@
 /**
  * formValidation.js - Client-side form validations for registration.
- * Runs when the DOM is fully loaded.
  * - Validates strong password rules in real time.
  * - Validates password confirmation in real time.
  * - Validates age in real time.
  * - Validates all required fields on form submission.
  */
 document.addEventListener('DOMContentLoaded', () => {
-  /** @type {HTMLFormElement} Registration form element */
   const form = document.getElementById('registerForm');
-
-  /** @type {HTMLInputElement} Password input field */
   const passwordInput = form.password;
-
-  /** @type {HTMLInputElement} Confirm password input field */
   const confirmPasswordInput = form.confirmPassword;
-
-  /** @type {HTMLInputElement} Age input field */
   const ageInput = form.age;
 
-  /**
-   * Creates or reuses a <small> element below each input
-   * to display validation errors.
-   *
-   * @param {HTMLInputElement} input - The input field to attach the error element to.
-   * @returns {HTMLElement} The <small> element used for error messages.
-   */
   const createError = (input) => {
     let small = input.parentElement.querySelector('small');
     if (!small) {
@@ -37,72 +22,49 @@ document.addEventListener('DOMContentLoaded', () => {
     return small;
   };
 
-  /**
-   * Real-time validation for a strong password.
-   * Requirements:
-   * - Minimum 8 characters
-   * - At least 1 uppercase letter
-   * - At least 1 number
-   * - At least 1 special character
-   */
+  // Password strength validation
   passwordInput.addEventListener('input', () => {
     const value = passwordInput.value;
     const small = createError(passwordInput);
     const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
-    if (!regex.test(value)) {
-      small.textContent = 'Contraseña débil. Necesita 8+ caracteres, 1 mayúscula, 1 número y 1 símbolo.';
-    } else {
-      small.textContent = '';
-    }
+    small.textContent = !regex.test(value)
+      ? 'Contraseña débil. Necesita 8+ caracteres, 1 mayúscula, 1 número y 1 símbolo.'
+      : '';
   });
 
-  /**
-   * Real-time validation to ensure passwords match.
-   */
+  // Confirm password match
   confirmPasswordInput.addEventListener('input', () => {
     const small = createError(confirmPasswordInput);
-    if (confirmPasswordInput.value !== passwordInput.value) {
-      small.textContent = 'Las contraseñas no coinciden.';
-    } else {
-      small.textContent = '';
-    }
+    small.textContent =
+      confirmPasswordInput.value !== passwordInput.value
+        ? 'Las contraseñas no coinciden.'
+        : '';
   });
 
-  /**
-   * Real-time validation for minimum age requirement.
-   */
+  // Age validation
   ageInput.addEventListener('input', () => {
     const small = createError(ageInput);
-    if (parseInt(ageInput.value) < 13) {
-      small.textContent = 'Debes tener al menos 13 años.';
-    } else {
-      small.textContent = '';
-    }
+    small.textContent =
+      parseInt(ageInput.value) < 13 ? 'Debes tener al menos 13 años.' : '';
   });
 
-  /**
-   * Final validation when submitting the form.
-   * - Checks for required fields.
-   * - Validates strong password.
-   * - Validates password confirmation.
-   * - Validates minimum age.
-   * 
-   * @param {SubmitEvent} e - The form submit event.
-   */
+  // Submit validation
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const fields = ['firstName', 'lastName', 'email', 'password', 'confirmPassword'];
     let valid = true;
+    const fields = ['firstName', 'lastName', 'email', 'password', 'confirmPassword'];
 
     fields.forEach((fieldName) => {
       const input = form[fieldName];
       const value = input.value.trim();
       const small = createError(input);
+
       if (!value) {
         small.textContent = 'Este campo es obligatorio.';
         valid = false;
-      } else {
+      } else if (!small.textContent) {
+        // solo limpiamos si no hay otro error previo
         small.textContent = '';
       }
     });
@@ -116,8 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!passwordRegex.test(password)) valid = false;
     if (password !== confirmPassword) valid = false;
 
-    if (!valid) {
-      alert('❌ Corrige los errores antes de enviar.');
+    // ✅ Si es válido, dejamos que el otro script (registerUser.js) haga el fetch
+    if (valid) {
+      form.submit(); // dispara el flujo normal, registerUser.js ya escucha el submit
     }
   });
 });
