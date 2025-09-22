@@ -9,7 +9,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', Arial, sans-serif;
-  background: #F4F6F8;
+  background: #F4F6F8; /* fondo suave que armoniza con el logo */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,38 +20,39 @@ body {
 /* ======== CONTENEDOR ======== */
 .form-container {
   background-color: #ffffff;
-  padding: 3rem;
+  padding: 2.5rem;            /* más espacio en los lados */
   border-radius: 14px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  width: 400px;
-  max-width: 92%;
+  width: 400px;               /* ancho ideal para desktop */
+  max-width: 92%;             /* responsivo en móvil */
   text-align: center;
 }
 
 /* ======== LOGO & TITULO ======== */
 .logo {
-  width: 80px;   /* logo más pequeño */
+  width: 80px;    /* tamaño fijo, no enorme */
   height: auto;
   display: block;
-  margin: 0 auto 1rem;
+  margin: 0 auto 1rem; /* centrado y espacio debajo */
 }
 
 h2 {
   margin: 0 0 1.1rem 0;
   color: #222;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 600;
 }
 
 /* ======== FORMULARIO ======== */
 form.login,
 #loginForm {
-  text-align: left;
+  text-align: left;   /* labels y inputs alineados a la izquierda */
 }
 
+/* Label (alineado a la izquierda) */
 label {
   display: block;
-  font-size: 1rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: #333;
   margin-bottom: 0.4rem;
@@ -63,18 +64,19 @@ input[type="email"],
 input[type="password"],
 input[type="text"] {
   width: 100%;
-  padding: 1rem 1.2rem;
+  padding: 0.92rem 1rem;
   margin-bottom: 0.9rem;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   background-color: #fff;
   transition: border-color .18s ease, box-shadow .18s ease;
-  line-height: 1.2;
+  line-height: 1;           /* evita que boton ojo cambie alto */
 }
 
+/* foco */
 input:focus {
-  border-color: #00bfa6;
+  border-color: #00bfa6; /* turquesa del logo */
   outline: none;
   box-shadow: 0 0 6px rgba(0,191,166,0.18);
 }
@@ -86,10 +88,12 @@ input:focus {
   margin-bottom: 0.7rem;
 }
 
+/* Reservar espacio a la derecha para el botón del ojo */
 .password-wrapper input {
-  padding-right: 3rem;
+  padding-right: 3rem; /* suficiente para el icono dentro */
 }
 
+/* Botón del ojo (alineado dentro del input, centrado verticalmente) */
 .password-wrapper button {
   position: absolute;
   right: 10px;
@@ -108,14 +112,15 @@ input:focus {
   border-radius: 50%;
 }
 
+/* Opcional: efecto al pasar el mouse por el ojo */
 .password-wrapper button:hover {
   background: rgba(0,0,0,0.03);
   color: #00a995;
 }
 
-/* ======== "¿Olvidaste tu contraseña?" ======== */
+/* ======== "¿Olvidaste tu contraseña?" (centrado) ======== */
 .forgot {
-  text-align: center;
+  text-align: center;      /* centrado tal como pediste */
   margin: 0.35rem 0 1rem 0;
 }
 
@@ -132,13 +137,13 @@ input:focus {
 /* ======== BOTÓN PRINCIPAL ======== */
 button[type="submit"] {
   width: 100%;
-  padding: 1.1rem;
-  background-color: #00bfa6;
+  padding: 0.95rem;
+  background-color: #00bfa6;   /* turquesa (coherente con logo) */
   border: none;
   border-radius: 8px;
   color: #fff;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
   cursor: pointer;
   transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
 }
@@ -169,29 +174,10 @@ button[type="submit"]:hover {
 
 /* ======== ERRORES ======== */
 .error-message {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: #d9534f;
   margin-top: -0.4rem;
   margin-bottom: 0.6rem;
-}
-
-/* ======== MENSAJES DE ESTADO ======== */
-.success-message {
-  font-size: 0.95rem;
-  color: #2e7d32;
-  margin: 0.6rem 0;
-  text-align: center;
-  font-weight: 500;
-}
-
-.success-message,
-.error-message {
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-2px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ======== RESPONSIVE (ajuste en móviles) ======== */
@@ -203,8 +189,32 @@ button[type="submit"]:hover {
 
   .logo { width: 64px; margin-bottom: 0.8rem; }
   h2 { font-size: 1.25rem; }
-  input[type="email"],
-  input[type="password"],
-  input[type="text"] { padding: 0.9rem 1rem; font-size: 0.95rem; }
-  button[type="submit"] { padding: 0.95rem; font-size: 1rem; }
 }
+/* ======== MENSAJES DE ESTADO ======== */
+.error-message {
+  font-size: 0.85rem;
+  color: #d9534f;               /* rojo accesible */
+  margin-top: -0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+/* Mensaje de éxito (ej: login correcto) */
+.success-message {
+  font-size: 0.9rem;
+  color: #2e7d32;               /* verde accesible */
+  margin: 0.6rem 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Animación sutil para que sea más amigable */
+.success-message,
+.error-message {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
