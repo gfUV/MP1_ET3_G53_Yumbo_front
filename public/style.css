@@ -190,3 +190,31 @@ button[type="submit"]:hover {
   .logo { width: 64px; margin-bottom: 0.8rem; }
   h2 { font-size: 1.25rem; }
 }
+/* ======== MENSAJES DE ESTADO ======== */
+.error-message {
+  font-size: 0.85rem;
+  color: #d9534f;               /* rojo accesible */
+  margin-top: -0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+/* Mensaje de éxito (ej: login correcto) */
+.success-message {
+  font-size: 0.9rem;
+  color: #2e7d32;               /* verde accesible */
+  margin: 0.6rem 0;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Animación sutil para que sea más amigable */
+.success-message,
+.error-message {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
