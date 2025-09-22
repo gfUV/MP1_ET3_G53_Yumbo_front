@@ -10,7 +10,7 @@ body {
 }
 
 /* ======== CONTENEDOR LOGIN ======== */
-.form-container {
+.login-container {
   background: #ffffff;
   padding: 2rem;
   border-radius: 15px;
@@ -19,24 +19,34 @@ body {
   text-align: center;
 }
 
-.logo {
-  width: 80px; /* más pequeño */
-  height: auto;
-  margin: 0 auto 1rem; /* centrado con espacio debajo */
-  display: block;
+.login-container img {
+  width: 80px;
+  margin-bottom: 1rem;
 }
 
-h2 {
+.login-container h2 {
   margin-bottom: 1.5rem;
   font-weight: 600;
   color: #333;
 }
 
+/* ======== FORM ======== */
+form {
+  text-align: left;
+}
+
 /* ======== INPUTS ======== */
-input {
+.input-wrapper,
+.password-wrapper {
+  position: relative;
   width: 100%;
-  padding: 0.9rem 1rem;
   margin-bottom: 1rem;
+}
+
+.input-wrapper input,
+.password-wrapper input {
+  width: 100%;
+  padding: 0.9rem 2.8rem 0.9rem 1rem; /* más espacio a la derecha para el ojo */
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 0.95rem;
@@ -44,65 +54,61 @@ input {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-input:focus {
+.input-wrapper input:focus,
+.password-wrapper input:focus {
   border-color: #00bfa6;
   outline: none;
   box-shadow: 0 0 4px rgba(0, 191, 166, 0.3);
 }
 
 /* ======== ICONO OJO ======== */
-.password-wrapper {
-  position: relative;
-}
-
 .password-wrapper button {
   position: absolute;
-  right: 12px;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
   color: #666;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
 }
 
 /* ======== LINKS ======== */
-.forgot a {
+.forgot-password {
   display: block;
   margin-bottom: 1.2rem;
   font-size: 0.85rem;
   color: #0077b6;
   text-decoration: none;
+  text-align: center; /* centrado */
 }
 
-.forgot a:hover {
+.forgot-password:hover {
   text-decoration: underline;
 }
 
-.register {
+.register-text {
   font-size: 0.85rem;
   margin-top: 1rem;
   color: #444;
 }
 
-.register a {
+.register-text a {
   color: #0077b6;
   font-weight: 500;
   text-decoration: none;
 }
 
-.register a:hover {
+.register-text a:hover {
   text-decoration: underline;
 }
 
 /* ======== BOTÓN PRINCIPAL ======== */
-button[type="submit"] {
+.btn-login {
   width: 100%;
   padding: 0.9rem;
-  background-color: #00bfa6; /* turquesa del logo */
+  background-color: #00bfa6;
   border: none;
   border-radius: 8px;
   color: white;
@@ -112,6 +118,6 @@ button[type="submit"] {
   transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
-  background-color: #009e88; /* turquesa más oscuro */
+.btn-login:hover {
+  background-color: #009e88;
 }
