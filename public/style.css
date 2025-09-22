@@ -10,7 +10,7 @@ body {
 }
 
 /* ======== CONTENEDOR LOGIN ======== */
-.login-container {
+.form-container {
   background: #ffffff;
   padding: 2rem;
   border-radius: 15px;
@@ -19,28 +19,21 @@ body {
   text-align: center;
 }
 
-.login-container img {
+.logo {
   width: 80px; /* más pequeño */
-  margin-bottom: 1rem; /* espacio con el título */
+  height: auto;
+  margin: 0 auto 1rem; /* centrado con espacio debajo */
+  display: block;
 }
 
-.login-container h2 {
+h2 {
   margin-bottom: 1.5rem;
   font-weight: 600;
   color: #333;
 }
 
 /* ======== INPUTS ======== */
-.input-wrapper,
-.password-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-.input-wrapper input,
-.password-wrapper input {
+input {
   width: 100%;
   padding: 0.9rem 1rem;
   margin-bottom: 1rem;
@@ -51,14 +44,17 @@ body {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.input-wrapper input:focus,
-.password-wrapper input:focus {
+input:focus {
   border-color: #00bfa6;
   outline: none;
   box-shadow: 0 0 4px rgba(0, 191, 166, 0.3);
 }
 
 /* ======== ICONO OJO ======== */
+.password-wrapper {
+  position: relative;
+}
+
 .password-wrapper button {
   position: absolute;
   right: 12px;
@@ -74,7 +70,7 @@ body {
 }
 
 /* ======== LINKS ======== */
-.forgot-password {
+.forgot a {
   display: block;
   margin-bottom: 1.2rem;
   font-size: 0.85rem;
@@ -82,28 +78,28 @@ body {
   text-decoration: none;
 }
 
-.forgot-password:hover {
+.forgot a:hover {
   text-decoration: underline;
 }
 
-.register-text {
+.register {
   font-size: 0.85rem;
   margin-top: 1rem;
   color: #444;
 }
 
-.register-text a {
+.register a {
   color: #0077b6;
   font-weight: 500;
   text-decoration: none;
 }
 
-.register-text a:hover {
+.register a:hover {
   text-decoration: underline;
 }
 
 /* ======== BOTÓN PRINCIPAL ======== */
-.btn-login {
+button[type="submit"] {
   width: 100%;
   padding: 0.9rem;
   background-color: #00bfa6; /* turquesa del logo */
@@ -116,6 +112,6 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.btn-login:hover {
+button[type="submit"]:hover {
   background-color: #009e88; /* turquesa más oscuro */
 }
