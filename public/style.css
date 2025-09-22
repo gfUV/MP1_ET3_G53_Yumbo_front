@@ -9,6 +9,7 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      padding: 2rem;  /* para que no quede tan apretado en móviles */
     }
 
     .form-container {
@@ -17,7 +18,7 @@
       border-radius: 16px;
       box-shadow: 0 6px 16px rgba(0,0,0,0.1);
       width: 100%;
-      max-width: 380px;
+      max-width: 460px;
       text-align: center;
     }
 
