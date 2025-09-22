@@ -68,7 +68,8 @@ label {
 /* ======== INPUTS ======== */
 input[type="email"],
 input[type="password"],
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
   width: 100%;
   padding: 0.92rem 1rem;
   margin-bottom: 0.9rem;
@@ -235,3 +236,14 @@ button[type="submit"]:hover {
     padding: 0.9rem;
   }
 }
+
+/* Solo afecta el contenido del formulario, no el logo ni el título */
+.form-container form {
+  text-align: left;
+}
+
+.form-container label {
+  text-align: left;
+  display: block;
+}
+
