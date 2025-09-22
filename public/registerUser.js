@@ -1,64 +1,105 @@
-/**
- * auth.js - Backend connection for user registration.
- * Runs when the DOM is fully loaded.
- * - Captures registration form data.
- * - Sends user data to the backend API.
- * - Handles success and error responses.
- */
-document.addEventListener('DOMContentLoaded', () => {
-  /** @type {HTMLFormElement} Registration form element */
-  const form = document.getElementById('registerForm');
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("registerForm");
+  const inputs = form.querySelectorAll("input[required]");
+  const passwordInputs = form.querySelectorAll("input[type='password']");
+  const toggleButtons = form.querySelectorAll(".togglePassword");
+  const submitButton = form.querySelector("button[type='submit']");
 
-  /**
-   * Handles registration form submission.
-   * - Prevents default submission.
-   * - Collects and formats form data.
-   * - Sends user data to the backend API.
-   * - On success: shows confirmation message and redirects to login page.
-   * - On error: shows error message to the user.
-   *
-   * @async
-   * @param {SubmitEvent} e - The form submit event.
-   * @returns {Promise<void>}
-   */
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  // 🔹 Función para validar campos
+  function validateField(field) {
+    const errorDiv = document.getElementById(`${field.id}-error`);
+    let valid = true;
+    let message = "";
 
-    /**
-     * User data captured from the registration form.
-     * @type {{ firstName: string, lastName: string, email: string, password: string, age: number }}
-     */
-    const userData = {
-      firstName: form.firstName.value.trim(),
-      lastName: form.lastName.value.trim(),
-      email: form.email.value.trim(),
-      password: form.password.value.trim(),
-      age: parseInt(form.age.value),
-    };
+    if (!field.value.trim()) {
+      valid = false;
+      message = "Este campo es obligatorio.";
+    } else {
+      switch (field.id) {
+        case "age":
+          if (isNaN(field.value) || field.value < 13) {
+            valid = false;
+            message = "Debes tener al menos 13 años.";
+          }
+          break;
 
-    try {
-      // Send data to the backend API
-      const response = await fetch("https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userData)
-      });
+        case "email":
+          const emailRegex = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
+          if (!emailRegex.test(field.value)) {
+            valid = false;
+            message = "Ingresa un correo electrónico válido.";
+          }
+          break;
 
-      /** @type {{ error?: string }} Backend response */
-      const data = await response.json();
+        case "password":
+          if (field.value.length < 8) {
+            valid = false;
+            message = "La contraseña debe tener mínimo 8 caracteres.";
+          }
+          break;
 
-      if (response.ok) {
-        // ✅ Successful registration
-        alert("✅ Registro exitoso. Ahora inicia sesión.");
-        window.location.href = "sign_in.html"; // Redirect to login
-      } else {
-        // ❌ Registration error
-        alert("❌ Error: " + (data.error || "No se pudo registrar"));
+        case "confirmPassword":
+          const password = document.getElementById("password").value;
+          if (field.value !== password) {
+            valid = false;
+            message = "Las contraseñas no coinciden.";
+          }
+          break;
       }
+    }
 
-    } catch (err) {
-      console.error(err);
-      alert("⚠️ Error de conexión con el servidor.");
+    errorDiv.textContent = message;
+    return valid;
+  }
+
+  // 🔹 Validar todos los campos
+  function validateForm() {
+    let allValid = true;
+    inputs.forEach((input) => {
+      if (!validateField(input)) {
+        allValid = false;
+      }
+    });
+    submitButton.disabled = !allValid;
+    return allValid;
+  }
+
+  // 🔹 Eventos para validar en tiempo real
+  inputs.forEach((input) => {
+    input.addEventListener("input", () => validateForm());
+    input.addEventListener("blur", () => validateField(input));
+  });
+
+  // 🔹 Toggle de mostrar/ocultar contraseña
+  toggleButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const input = button.previousElementSibling;
+      const eyeOpen = button.querySelector(".eyeOpen");
+      const eyeClosed = button.querySelector(".eyeClosed");
+
+      if (input.type === "password") {
+        input.type = "text";
+        eyeOpen.style.display = "none";
+        eyeClosed.style.display = "block";
+      } else {
+        input.type = "password";
+        eyeOpen.style.display = "block";
+        eyeClosed.style.display = "none";
+      }
+    });
+  });
+
+  // 🔹 Evento submit del formulario
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      alert("✅ Registro exitoso");
+      // Aquí puedes llamar a tu API para guardar el usuario
+      form.reset();
+      submitButton.disabled = true;
     }
   });
+
+  // Deshabilitar botón al inicio
+  submitButton.disabled = true;
 });
