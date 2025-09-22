@@ -17,7 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const emailFilled = emailInput.value.trim() !== "";
     const passwordFilled = passwordInput.value.trim() !== "";
     submitBtn.disabled = !(emailFilled && passwordFilled);
+
+    // Ocultar errores si el usuario ya escribe algo
+    if (emailFilled) emailError.textContent = "";
+    if (passwordFilled) passwordError.textContent = "";
   }
+
   emailInput.addEventListener("input", checkInputs);
   passwordInput.addEventListener("input", checkInputs);
 
@@ -25,26 +30,28 @@ document.addEventListener('DOMContentLoaded', () => {
   togglePassword.addEventListener('click', () => {
     const isPassword = passwordInput.type === "password";
     passwordInput.type = isPassword ? "text" : "password";
-
-    // alternar iconos
     eyeOpen.style.display = isPassword ? "none" : "block";
     eyeClosed.style.display = isPassword ? "block" : "none";
-  });
-
-  // 🧹 Limpiar mensajes en tiempo real al escribir
-  emailInput.addEventListener("input", () => {
-    if (emailError.textContent) emailError.textContent = "";
-  });
-  passwordInput.addEventListener("input", () => {
-    if (passwordError.textContent) passwordError.textContent = "";
   });
 
   // 🔑 Envío del formulario
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    let valid = true;
     emailError.textContent = "";
     passwordError.textContent = "";
+
+    if (emailInput.value.trim() === "") {
+      emailError.textContent = "⚠️ Por favor, ingresa tu correo electrónico.";
+      valid = false;
+    }
+    if (passwordInput.value.trim() === "") {
+      passwordError.textContent = "⚠️ Por favor, escribe tu contraseña.";
+      valid = false;
+    }
+
+    if (!valid) return; // detener si faltan campos
 
     const loginData = {
       email: emailInput.value.trim(),
@@ -67,25 +74,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
 
       if (response.ok) {
-        // 🌟 Mensaje de éxito
         passwordError.style.color = "green";
         passwordError.textContent = "✅ Bienvenido de nuevo, nos alegra verte otra vez.";
-        
         localStorage.setItem("userId", data.userId);
-
-        // Redirigir con un pequeño delay para que el usuario vea el mensaje
         setTimeout(() => {
           window.location.href = "/task.html";
         }, 1200);
       } else {
-        // 🌸 Mensajes de error más cálidos
         if (data.error?.toLowerCase().includes("usuario")) {
-          emailError.textContent = "⚠️ No encontramos una cuenta con ese correo. ¿Seguro lo escribiste bien?";
+          emailError.textContent = "⚠️ No encontramos una cuenta con ese correo. Revisa o regístrate.";
         } else if (data.error?.toLowerCase().includes("contraseña")) {
-          passwordError.textContent = "⚠️ La contraseña no coincide. Revisa y vuelve a intentarlo.";
+          passwordError.textContent = "⚠️ La contraseña no coincide. Intenta de nuevo o restablécela.";
         } else {
-          passwordError.textContent =
-            "⚠️ No pudimos iniciar sesión en este momento. Por favor, inténtalo más tarde.";
+          passwordError.textContent = "⚠️ No pudimos iniciar sesión en este momento. Inténtalo más tarde.";
         }
       }
     } catch (err) {
