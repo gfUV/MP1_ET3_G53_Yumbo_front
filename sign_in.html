@@ -6,50 +6,34 @@
   <title>Inicio de Sesión</title>
   <link rel="icon" type="image/jpg" href="/public/icon.jpg" />
   <link rel="stylesheet" href="/style.css" />
-  <style>
-    
-    .error-message {
-      color: #d93025; 
-      font-size: 14px;
-      margin-top: 5px;
-    }
-  </style>
 </head>
 <body>
-
   <main class="container">
     <section class="form-container">
-      <h2>Iniciar sesión</h2>
-      <figure>
-        <img src="/logo.jpg" alt="Logo Make It Simple" class="logo" />
-      </figure>
+      <!-- Logo -->
+      <img src="/logo.jpg" alt="Logo Make It Simple" class="logo"/>
 
+      <!-- Título -->
+      <h2>Iniciar sesión</h2>
+
+      <!-- Formulario -->
       <form id="loginForm" class="login">
-        <label>
-          Correo electrónico
-          <input type="email" name="email" required placeholder="Digita tu Correo electrónico" />
-        </label>
-        
+        <input type="email" name="email" id="email" placeholder="Correo electrónico" required />
         <div id="email-error" class="error-message"></div>
 
-        <label>
-          Contraseña
-          <input type="password" name="password" required placeholder="Digita tu contraseña"/>
-        </label>
-        
+        <input type="password" name="password" id="password" placeholder="Contraseña" required />
         <div id="password-error" class="error-message"></div>
 
-        <p class="forgot">
-          <a href="reset_password.html">¿Olvidaste tu contraseña?</a>
-        </p>
+        <p class="forgot"><a href="reset_password.html">¿Olvidaste tu contraseña?</a></p>
 
         <button type="submit">Ingresar</button>
       </form>
-      <footer>
-        <p>¿No tienes cuenta? <a href="sign_up.html">Regístrate</a></p>
-      </footer>
+
+      <!-- Footer -->
+      <p class="register">¿No tienes cuenta? <a href="sign_up.html">Regístrate</a></p>
     </section>
   </main>
+
   <script type="module" src="/login.js"></script>
 </body>
 </html>
