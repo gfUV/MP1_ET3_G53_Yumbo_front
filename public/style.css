@@ -1,117 +1,78 @@
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 
 /* Fondo */
-body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: #FFF8F0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
+ body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #FFF8F0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
 
-/* Caja principal */
-.form-container {
-  background-color: #fff;
-  padding: 2rem 1.5rem;
-  border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-  width: 100%;
-  max-width: 380px;
-  text-align: center;
-}
+    .form-container {
+      background-color: #fff;
+      padding: 2rem 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+    }
 
-/* Logo */
-.logo {
-  width: 120px;
-  margin-bottom: 0.5rem;
-}
+    .logo {
+      width: 180px; /* más grande */
+      margin-bottom: 0.5rem; /* menos espacio debajo */
+    }
 
-/* Título */
-h2 {
-  margin: 0 0 1.2rem 0;
-  color: #333;
-  font-size: 1.4rem;
-  font-weight: bold;
-}
+    h2 {
+      margin: 0 0 1rem 0; /* quitamos el exceso */
+      color: #333;
+      font-size: 1.4rem;
+    }
 
-/* Inputs */
-input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  margin-bottom: 0.8rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  background-color: #f7f7f7;
-}
+    form {
+      margin-top: 0.5rem;
+    }
 
-input:focus {
-  border-color: #FF914D;
-  outline: none;
-  background-color: #fff;
-}
+    input {
+      width: 92%;
+      padding: 0.7rem 1rem;
+      margin-bottom: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      background-color: #f7f7f7;
+    }
 
-/* Mensajes de error */
-.error-message {
-  color: #d93025;
-  font-size: 0.85rem;
-  margin: -0.4rem 0 0.6rem;
-  text-align: left;
-}
+    button {
+      width: 100%;
+      padding: 0.7rem;
+      background-color: #FF914D;
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 1rem;
+    }
 
-/* Enlace "olvidaste tu contraseña" */
-.forgot {
-  text-align: right;
-  margin-bottom: 1rem;
-}
+    button:hover {
+      background-color: #fc8840;
+    }
 
-.forgot a {
-  color: #4a6cf7;
-  font-size: 0.9rem;
-  text-decoration: none;
-}
+    p {
+      font-size: 0.9rem;
+      margin-top: 0.8rem;
+    }
 
-.forgot a:hover {
-  text-decoration: underline;
-}
+    a {
+      color: #4a6cf7;
+      text-decoration: none;
+    }
 
-/* Botón */
-button {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: #FF914D;
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: 1rem;
-}
-
-button:hover {
-  background-color: #fc8840;
-}
-
-/* Footer registro */
-.register {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: #444;
-}
-
-.register a {
-  color: #FF914D;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.register a:hover {
-  text-decoration: underline;
-}
+    a:hover {
+      text-decoration: underline;
+    }
