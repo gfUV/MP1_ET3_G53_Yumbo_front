@@ -1,41 +1,38 @@
 /**
  * Login script.
- * Runs when the DOM is fully loaded.
- * - Captures the login form.
- * - Handles validation and error messages.
- * - Sends credentials to the backend for authentication.
+ * Se ejecuta cuando el DOM está cargado.
+ * - Captura el formulario de login.
+ * - Valida campos y muestra errores.
+ * - Envía credenciales al backend para autenticación.
  */
 document.addEventListener('DOMContentLoaded', () => {
-  /** @type {HTMLFormElement} Login form element */
+  /** @type {HTMLFormElement} Formulario de login */
   const form = document.getElementById('loginForm');
 
-  /** @type {HTMLElement} Container to display email field errors */
+  /** @type {HTMLElement} Contenedor de errores del email */
   const emailError = document.getElementById('email-error');
 
-  /** @type {HTMLElement} Container to display password field errors */
+  /** @type {HTMLElement} Contenedor de errores de la contraseña */
   const passwordError = document.getElementById('password-error');
 
+  /** @type {HTMLButtonElement} Botón de enviar */
+  const submitBtn = form.querySelector('button[type="submit"]');
+
   /**
-   * Handles the login form submission.
-   * - Prevents default form submission.
-   * - Clears previous errors.
-   * - Sends credentials to the backend.
-   * - On success: saves user ID in localStorage and redirects to tasks page.
-   * - On failure: shows error messages under the correct field.
-   * 
+   * Maneja el envío del formulario de login.
    * @async
-   * @param {SubmitEvent} e - The form submit event.
+   * @param {SubmitEvent} e - Evento submit del formulario.
    * @returns {Promise<void>}
    */
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Clear previous errors
+    // Limpiar errores previos
     emailError.textContent = "";
     passwordError.textContent = "";
 
     /** 
-     * Login credentials taken from the form.
+     * Credenciales del login.
      * @type {{email: string, password: string}}
      */
     const loginData = {
@@ -44,34 +41,44 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     try {
-      const response = await fetch("https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/sessions/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(loginData)
-      });
+      // 🔒 Deshabilitar botón mientras se procesa
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Ingresando...";
 
-      /** @type {{ userId?: string, error?: string }} Backend response */
+      const response = await fetch(
+        "https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/sessions/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(loginData),
+        }
+      );
+
+      /** @type {{ userId?: string, error?: string }} Respuesta del backend */
       const data = await response.json();
 
       if (response.ok) {
-        // ✅ Successful login
+        // ✅ Login exitoso
         localStorage.setItem("userId", data.userId);
-
         window.location.href = "/task.html";
       } else {
-        // ❌ Handle backend errors (messages displayed to the user in Spanish)
-        if (data.error && data.error.toLowerCase().includes("usuario")) {
+        // ❌ Manejo de errores según campo
+        if (data.error?.toLowerCase().includes("usuario")) {
           emailError.textContent = "❌ " + data.error;
-        } else if (data.error && data.error.toLowerCase().includes("contraseña")) {
+        } else if (data.error?.toLowerCase().includes("contraseña")) {
           passwordError.textContent = "❌ " + data.error;
         } else {
-          passwordError.textContent = "❌ " + (data.error || "Error en el inicio de sesión.");
+          passwordError.textContent =
+            "❌ " + (data.error || "Error en el inicio de sesión.");
         }
       }
-
     } catch (err) {
-      console.error(err);
+      console.error("Error de conexión:", err);
       passwordError.textContent = "⚠️ Error de conexión con el servidor.";
+    } finally {
+      // 🔓 Rehabilitar botón
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Ingresar";
     }
   });
 });
