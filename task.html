@@ -2,9 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tareas</title>
-  <link rel="stylesheet" href="task.css" />
+  <link rel="stylesheet" href="task.css"/>
 </head>
 <body>
   <!-- Navbar -->
@@ -13,27 +13,37 @@
       <h1>Tareas</h1>
     </div>
     <div class="navbar-right" id="navbar-right">
-      <button id="add-task">➕ Agregar tarea</button>
       <button id="profile">👤 Mi perfil</button>
-      <button id="about-us"> ℹ️ Sobre nosotros</button>
+      <button id="about-us">ℹ️ Sobre nosotros</button>
       <button id="logout">📋 Cerrar sesión</button>
     </div>
     <button class="hamburger" id="hamburger">☰</button>
   </nav>
 
+  <!-- Botón central agregar tarea -->
+  <div class="add-task-container">
+    <button id="add-task" class="add-task-btn">➕ Agregar tarea</button>
+  </div>
+
   <!-- Contenedor de columnas -->
   <div class="task-columns">
     <div class="task-column" id="pending-tasks">
-      <h3>Pendientes</h3>
+      <h3>Pendientes (<span id="count-pending">0</span>)</h3>
+      <p class="empty-msg">No hay tareas pendientes</p>
     </div>
+
     <div class="task-column" id="inprogress-tasks">
-      <h3>En proceso</h3>
+      <h3>En proceso (<span id="count-progress">0</span>)</h3>
+      <p class="empty-msg">No hay tareas en proceso</p>
     </div>
+
     <div class="task-column" id="completed-tasks">
-      <h3>Completadas</h3>
+      <h3>Completadas (<span id="count-completed">0</span>)</h3>
+      <p class="empty-msg">No hay tareas completadas</p>
     </div>
   </div>
 
   <script src="/task.js"></script>
 </body>
 </html>
+
