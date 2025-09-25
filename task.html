@@ -20,25 +20,22 @@
     <button class="hamburger" id="hamburger">☰</button>
   </nav>
 
-  <!-- Botón central agregar tarea -->
-  <div class="add-task-container">
-    <button id="add-task" class="add-task-btn">➕ Agregar tarea</button>
-  </div>
-
   <!-- Contenedor de columnas -->
   <div class="task-columns">
     <div class="task-column" id="pending-tasks">
-      <h3>Pendientes (<span class="task-count">0</span>)</h3>
-      <p class="empty-msg">No tienes tareas pendientes.</p>
+      <h3>Pendientes (<span id="pending-count">0</span>)</h3>
     </div>
     <div class="task-column" id="inprogress-tasks">
-      <h3>En proceso (<span class="task-count">0</span>)</h3>
-      <p class="empty-msg">No hay tareas en proceso.</p>
+      <h3>En proceso (<span id="inprogress-count">0</span>)</h3>
     </div>
     <div class="task-column" id="completed-tasks">
-      <h3>Completadas (<span class="task-count">0</span>)</h3>
-      <p class="empty-msg">Aún no has completado ninguna tarea.</p>
+      <h3>Completadas (<span id="completed-count">0</span>)</h3>
     </div>
+  </div>
+
+  <!-- Botón agregar tarea al final -->
+  <div class="add-task-container">
+    <button id="add-task" class="add-task-btn">➕ Agregar tarea</button>
   </div>
 
   <script src="/task.js"></script>

@@ -1,173 +1,198 @@
-/* ====== RESET ====== */
+/* ======== RESET BOX SIZING ======== */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
+/* ======== GENERAL ======== */
 body {
+  margin: 0;
   font-family: 'Segoe UI', Arial, sans-serif;
-  background: #f4f6f8;
-  color: #333;
-  line-height: 1.5;
+  background: #F4F6F8;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-/* ====== NAVBAR ====== */
+/* ======== NAVBAR ======== */
 .navbar {
-  background: #006644;
-  color: #fff;
+  background: #ffffff;
+  padding: 0.8rem 1rem;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 12px 20px;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
 .navbar h1 {
-  font-size: 1.5rem;
+  margin: 0;
+  color: #222;
+  font-size: 1.3rem;
+  font-weight: 600;
 }
 
-.navbar-right button {
-  background: #fff;
-  color: #006644;
+.navbar-right {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.navbar-right button,
+.hamburger {
+  background: none;
   border: none;
-  padding: 6px 12px;
-  border-radius: 20px;
-  margin-left: 10px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.95rem;
   cursor: pointer;
-  transition: 0.2s ease;
+  color: #0077b6;
+  border-radius: 6px;
+  transition: background-color .2s;
 }
 
-.navbar-right button:hover {
-  background: #004d33;
-  color: #fff;
+.navbar-right button:hover,
+.hamburger:hover {
+  background: rgba(0,119,182,0.08);
 }
 
 .hamburger {
   display: none;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  color: #fff;
+  font-size: 1.2rem;
 }
 
-/* ====== BOTÓN CENTRAL ====== */
-.add-task-container {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-}
-
-.add-task-btn {
-  background: #006644;
-  color: #fff;
-  border: none;
-  padding: 12px 20px;
-  font-size: 1rem;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.add-task-btn:hover {
-  background: #004d33;
-}
-
-/* ====== COLUMNAS DE TAREAS ====== */
+/* ======== COLUMNS ======== */
 .task-columns {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
   flex: 1;
-  padding: 0 20px 20px;
 }
 
 .task-column {
-  flex: 1;
-  margin: 0 10px;
   background: #fff;
   border-radius: 12px;
-  padding: 15px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  min-height: 250px;
 }
 
 .task-column h3 {
-  margin-bottom: 10px;
-  color: #006644;
-}
-
-.task-column .empty-msg {
-  text-align: center;
-  color: #999;
-  font-style: italic;
-}
-
-/* ====== TAREAS ====== */
-.task {
-  background: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 8px;
-}
-
-.task strong {
+  margin-top: 0;
+  margin-bottom: 1rem;
   color: #333;
+  font-size: 1.1rem;
+}
+
+/* ======== TASK CARD ======== */
+.task-card {
+  background: #F9FAFB;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 0.9rem;
+  margin-bottom: 0.8rem;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.task-header {
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.5rem;
+}
+
+.task-detail {
+  font-size: 0.9rem;
+  color: #444;
+  margin-bottom: 0.5rem;
+}
+
+.task-date {
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 0.6rem;
 }
 
 .task-actions {
-  margin-top: 8px;
+  display: flex;
+  gap: 0.4rem;
 }
 
 .task-actions button {
   border: none;
-  padding: 5px 10px;
-  margin-right: 5px;
-  border-radius: 6px;
+  background: none;
   cursor: pointer;
-  font-size: 0.85rem;
-}
-
-.task-actions .move-btn {
-  background: #006644;
-  color: #fff;
-}
-
-.task-actions .delete-btn {
-  background: #d9534f;
-  color: #fff;
+  font-size: 1rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  transition: background-color .15s ease;
 }
 
 .task-actions button:hover {
-  opacity: 0.8;
+  background: rgba(0,0,0,0.05);
 }
 
-/* ====== RESPONSIVE ====== */
+/* ======== ESTADOS DE TAREAS ======== */
+.task-pending {
+  border-left: 6px solid #0077b6;   /* Azul */
+}
+
+.task-inprogress {
+  border-left: 6px solid #2ED6C4;   /* Turquesa */
+}
+
+.task-completed {
+  border-left: 6px solid #2e7d32;   /* Verde */
+  background: #f0fdf4;              /* Verde claro */
+}
+
+/* ======== ADD TASK BUTTON ======== */
+.add-task-container {
+  text-align: center;
+  padding: 1rem;
+}
+
+.add-task-btn {
+  background-color: #2ED6C4;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.9rem 1.6rem;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+
+.add-task-btn:hover {
+  background-color: #009e88;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,191,166,0.12);
+}
+
+/* ======== RESPONSIVE ======== */
 @media (max-width: 768px) {
-  .task-columns {
-    flex-direction: column;
-  }
-  .task-column {
-    margin-bottom: 20px;
-  }
-  .hamburger {
-    display: block;
-  }
   .navbar-right {
     display: none;
     flex-direction: column;
-    gap: 10px;
-    background: #004d33;
-    padding: 10px;
-    border-radius: 8px;
+    background: #fff;
     position: absolute;
+    top: 55px;
     right: 10px;
-    top: 60px;
+    padding: 0.8rem;
+    border-radius: 8px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
   }
+
   .navbar-right.show {
     display: flex;
+  }
+
+  .hamburger {
+    display: block;
   }
 }
