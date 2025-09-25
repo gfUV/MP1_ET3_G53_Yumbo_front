@@ -17,27 +17,31 @@
 
   <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
+    <button class="close-btn" id="close-sidebar">&times;</button>
     <button id="profile">👤 Mi perfil</button>
     <button id="about-us">ℹ️ Sobre nosotros</button>
     <button id="logout">📋 Cerrar sesión</button>
   </div>
 
+  <!-- Overlay -->
+  <div id="overlay" class="overlay"></div>
+
   <!-- Contenedor de columnas -->
   <div class="task-columns">
     <div class="task-column" id="pending-tasks">
-      <h3>Pendientes (<span id="pending-count">0</span>)</h3>
+      <h3><span class="status-dot pending"></span> Pendientes (<span id="pending-count">0</span>)</h3>
     </div>
     <div class="task-column" id="inprogress-tasks">
-      <h3>En proceso (<span id="inprogress-count">0</span>)</h3>
+      <h3><span class="status-dot inprogress"></span> En proceso (<span id="inprogress-count">0</span>)</h3>
     </div>
     <div class="task-column" id="completed-tasks">
-      <h3>Completadas (<span id="completed-count">0</span>)</h3>
+      <h3><span class="status-dot completed"></span> Completadas (<span id="completed-count">0</span>)</h3>
     </div>
   </div>
 
   <!-- Botón agregar tarea (FAB) -->
   <button id="add-task" class="add-task-btn">➕</button>
 
-  <script src="task.js"></script>
+  <script src="/task.js"></script>
 </body>
 </html>
