@@ -51,28 +51,28 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // ======== CREAR TARJETA ========
   function createTaskCard(t) {
-    let statusClass = "";
-    if (t.status === "pendiente") statusClass = "task-pending";
-    else if (t.status === "en-progreso") statusClass = "task-inprogress";
-    else if (t.status === "completada") statusClass = "task-completed";
+  let statusClass = "";
+  if (t.status === "pendiente") statusClass = "task-pending";
+  else if (t.status === "en-progreso") statusClass = "task-inprogress";
+  else if (t.status === "completada") statusClass = "task-completed";
 
-    return `
-      <div class="task-card ${statusClass}">
-        <div class="task-header">
-          <span>${t.title}</span>
-        </div>
-        <div class="task-detail">${t.detail || ""}</div>
-        <div class="task-date">
-          ${t.date ? new Date(t.date).toLocaleDateString("es-ES") : "Sin fecha"} 
-          ${t.time || ""}
-        </div>
-        <div class="task-actions">
-          <button class="edit-btn" data-id="${t._id}" title="Editar">✏️</button>
-          <button class="delete-btn" data-id="${t._id}" title="Eliminar">🗑️</button>
-        </div>
+  return `
+    <div class="task-card ${statusClass}">
+      <div class="task-header">
+        <h4>${t.title}</h4>
       </div>
-    `;
-  }
+      <p class="task-detail">${t.detail || "Sin descripción"}</p>
+      <div class="task-meta">
+        <span class="task-date">📅 ${t.date ? new Date(t.date).toLocaleDateString("es-ES") : "Sin fecha"} ${t.time || ""}</span>
+      </div>
+      <div class="task-actions">
+        <button class="edit-btn" data-id="${t._id}" title="Editar">✏️</button>
+        <button class="delete-btn" data-id="${t._id}" title="Eliminar">🗑️</button>
+      </div>
+    </div>
+  `;
+}
+
 
   // ======== RENDERIZAR TAREAS ========
   function renderTasks(tasks) {
