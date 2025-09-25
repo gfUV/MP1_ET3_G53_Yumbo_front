@@ -39,15 +39,16 @@ body {
 
 /* ======== BOTÓN VOLVER ARRIBA ======== */
 .back-top {
-  display: inline-block;
+  display: block;
   margin-bottom: 1.2rem;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: #0077b6;
   text-decoration: none;
   cursor: pointer;
   text-align: left;
 }
+
 .back-top:hover {
   text-decoration: underline;
 }
