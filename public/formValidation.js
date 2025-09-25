@@ -58,12 +58,17 @@ form.addEventListener("submit", e => {
 document.querySelectorAll(".togglePassword").forEach(button => {
   button.addEventListener("click", () => {
     const input = button.previousElementSibling;
+    const eyeOpen = button.querySelector(".eyeOpen");
+    const eyeClosed = button.querySelector(".eyeClosed");
+
     if (input.type === "password") {
       input.type = "text";
-      button.textContent = "🙈"; // ojo cerrado
+      eyeOpen.style.display = "none";
+      eyeClosed.style.display = "block";
     } else {
       input.type = "password";
-      button.textContent = "👁"; // ojo abierto
+      eyeOpen.style.display = "block";
+      eyeClosed.style.display = "none";
     }
   });
 });

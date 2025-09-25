@@ -21,79 +21,57 @@
         
         <!-- Nombres -->
         <label for="firstName">Nombres</label>
-        <input 
-          type="text" 
-          name="firstName" 
-          id="firstName" 
-          placeholder="Ingresa tus nombres" 
-          autocomplete="given-name" 
-          required 
-        />
+        <input type="text" name="firstName" id="firstName" placeholder="Ingresa tus nombres" autocomplete="given-name" required />
         <div class="error-message"></div>
 
         <!-- Apellidos -->
         <label for="lastName">Apellidos</label>
-        <input 
-          type="text" 
-          name="lastName" 
-          id="lastName" 
-          placeholder="Ingresa tus apellidos" 
-          autocomplete="family-name" 
-          required 
-        />
+        <input type="text" name="lastName" id="lastName" placeholder="Ingresa tus apellidos" autocomplete="family-name" required />
         <div class="error-message"></div>
 
         <!-- Edad -->
         <label for="age">Edad</label>
-        <input 
-          type="number" 
-          name="age" 
-          id="age" 
-          min="13" 
-          placeholder="Ingresa tu edad" 
-          required 
-        />
+        <input type="number" name="age" id="age" min="13" placeholder="Ingresa tu edad" required />
         <div class="error-message"></div>
 
         <!-- Correo -->
         <label for="email">Correo electrónico</label>
-        <input 
-          type="email" 
-          name="email" 
-          id="email" 
-          placeholder="ejemplo@gmail.com" 
-          autocomplete="email" 
-          required 
-        />
+        <input type="email" name="email" id="email" placeholder="ejemplo@gmail.com" autocomplete="email" required />
         <div class="error-message"></div>
 
         <!-- Contraseña -->
         <label for="password">Contraseña</label>
         <div class="password-wrapper">
-          <input 
-            type="password" 
-            name="password" 
-            id="password" 
-            placeholder="Mínimo 8 caracteres" 
-            autocomplete="new-password" 
-            required 
-          />
-          <button type="button" class="togglePassword" aria-label="Mostrar u ocultar contraseña">👁</button>
+          <input type="password" name="password" id="password" placeholder="Mínimo 8 caracteres" autocomplete="new-password" required />
+          <button type="button" class="togglePassword" aria-label="Mostrar u ocultar contraseña" tabindex="0">
+            <!-- Icono ojo abierto -->
+            <svg class="eyeOpen" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <!-- Icono ojo cerrado -->
+            <svg class="eyeClosed" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;">
+              <path d="M17.94 17.94A10.97 10.97 0 0112 20c-7 0-11-8-11-8a21.86 21.86 0 014.12-5.94M9.88 9.88A3 3 0 0114.12 14.12M1 1l22 22"/>
+            </svg>
+          </button>
         </div>
         <div class="error-message"></div>
 
         <!-- Confirmar Contraseña -->
         <label for="confirmPassword">Confirmar contraseña</label>
         <div class="password-wrapper">
-          <input 
-            type="password" 
-            name="confirmPassword" 
-            id="confirmPassword" 
-            placeholder="Repite tu contraseña" 
-            autocomplete="new-password" 
-            required 
-          />
-          <button type="button" class="togglePassword" aria-label="Mostrar u ocultar contraseña">👁</button>
+          <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Repite tu contraseña" autocomplete="new-password" required />
+          <button type="button" class="togglePassword" aria-label="Mostrar u ocultar contraseña" tabindex="0">
+            <!-- Icono ojo abierto -->
+            <svg class="eyeOpen" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <!-- Icono ojo cerrado -->
+            <svg class="eyeClosed" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;">
+              <path d="M17.94 17.94A10.97 10.97 0 0112 20c-7 0-11-8-11-8a21.86 21.86 0 014.12-5.94M9.88 9.88A3 3 0 0114.12 14.12M1 1l22 22"/>
+            </svg>
+          </button>
         </div>
         <div class="error-message"></div>
 
@@ -108,8 +86,8 @@
     </section>
   </main>
 
-  <!-- Scripts -->
-  <script type="module" src="/registerUser.js"></script>
-  <script type="module" src="/formValidation.js"></script>
+  <!-- Script único -->
+  <script src="/formValidation.js"></script>
+  <script src="/registerUser.js"></script>
 </body>
 </html>
