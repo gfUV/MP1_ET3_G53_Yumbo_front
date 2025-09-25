@@ -322,3 +322,18 @@ select:focus {
   outline: none;
   box-shadow: 0 0 6px rgba(0,191,166,0.18);
 }
+/* ======== ENLACE VOLVER ======== */
+#back {
+  display: inline-block;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0077b6;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#back:hover {
+  text-decoration: underline;
+  color: #005f8a;
+}
