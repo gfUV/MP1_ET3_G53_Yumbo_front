@@ -232,3 +232,12 @@ body {
 .add-task-btn:hover {
   background: #009e88;
 }
+
+.empty-msg {
+  font-size: 0.9rem;
+  color: #777;
+  text-align: center;
+  margin-top: 1rem;
+  font-style: italic;
+}
+

@@ -104,6 +104,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("inprogress-count").textContent = inprogressCounter;
     document.getElementById("completed-count").textContent = completedCounter;
 
+      // === Mensajes motivadores si están vacías ===
+    if (pendingCounter === 0) {
+      pendingTasks.innerHTML += `<p class="empty-msg">✨ No tienes pendientes. ¡Crea una tarea y organiza tu día!</p>`;
+    }
+    if (inprogressCounter === 0) {
+      inprogressTasks.innerHTML += `<p class="empty-msg">🚀 Nada en proceso aún. ¡Elige una tarea y empieza ya!</p>`;
+    }
+    if (completedCounter === 0) {
+      completedTasks.innerHTML += `<p class="empty-msg">✅ Aquí aparecerán tus logros cuando completes tareas.</p>`;
+    }
+
     // Botón editar
     document.querySelectorAll(".edit-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
