@@ -28,6 +28,7 @@ body {
   font-size: 1.5rem;
 }
 
+/* Menú oculto por defecto */
 .navbar-right {
   display: none;
   flex-direction: column;
@@ -71,28 +72,6 @@ body {
   margin-left: 10px;
 }
 
-/* Botón agregar tarea centrado */
-.add-task-container {
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-}
-
-.add-task-btn {
-  background: #0077cc;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.add-task-btn:hover {
-  background: #005fa3;
-}
-
 /* Columnas de tareas */
 .task-columns {
   display: flex;
@@ -115,14 +94,6 @@ body {
   text-align: center;
   margin-bottom: 10px;
   color: #0077cc;
-}
-
-/* Mensaje vacío */
-.empty-msg {
-  text-align: center;
-  color: #777;
-  font-style: italic;
-  margin-top: 10px;
 }
 
 /* Tarjetas */

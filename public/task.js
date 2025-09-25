@@ -18,36 +18,58 @@ document.addEventListener("DOMContentLoaded", async () => {
   const inprogressTasks = document.getElementById("inprogress-tasks");
   const completedTasks = document.getElementById("completed-tasks");
 
-  const countPending = document.getElementById("count-pending");
-  const countProgress = document.getElementById("count-progress");
-  const countCompleted = document.getElementById("count-completed");
-
   /**
-   * Toggle hamburger menu
+   * Toggles the hamburger menu visibility.
+   * @function
    */
   hamburger.addEventListener("click", () => {
     navbarRight.classList.toggle("show");
   });
 
+  /**
+   * Redirects the user to the profile page.
+   * @function
+   */
   profileBtn.addEventListener("click", () => {
     window.location.href = "profile.html";
   });
 
+  /**
+   * Redirects the user to the new task creation page.
+   * @function
+   */
   addTaskBtn.addEventListener("click", () => {
     window.location.href = "task_new.html";
   });
 
+  /**
+   * Redirects the user to the "About Us" page.
+   * @function
+   */
   aboutUsBtn.addEventListener("click", () => {
     window.location.href = "about_us.html";
   });
 
+  /**
+   * Logs out the user by clearing session data and redirecting to sign-in.
+   * @function
+   */
   logoutBtn.addEventListener("click", () => {
     localStorage.removeItem("userId");
     window.location.href = "sign_in.html";
   });
 
   /**
-   * Crear tarjeta de tarea
+   * Creates the HTML structure for a task card.
+   * @function
+   * @param {Object} t - Task object.
+   * @param {string} t._id - Unique task identifier.
+   * @param {string} t.title - Task title.
+   * @param {string} [t.detail] - Task description or detail.
+   * @param {string} [t.date] - Task date (ISO format).
+   * @param {string} [t.time] - Task time (HH:mm format).
+   * @param {string} t.status - Task status ("pendiente", "en-progreso", "completada").
+   * @returns {string} HTML string representing a task card.
    */
   function createTaskCard(t) {
     return `
@@ -69,30 +91,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   /**
-   * Actualizar contadores y mensajes vacíos
-   */
-  function updateColumns() {
-    const sets = [
-      { container: pendingTasks, count: countPending },
-      { container: inprogressTasks, count: countProgress },
-      { container: completedTasks, count: countCompleted }
-    ];
-
-    sets.forEach(({ container, count }) => {
-      const tasks = container.querySelectorAll(".task-card");
-      const emptyMsg = container.querySelector(".empty-msg");
-      count.textContent = tasks.length;
-      emptyMsg.style.display = tasks.length === 0 ? "block" : "none";
-    });
-  }
-
-  /**
-   * Renderizar tareas
+   * Renders tasks into their respective columns and attaches events.
+   * @function
+   * @param {Array<Object>} tasks - List of task objects.
    */
   function renderTasks(tasks) {
-    pendingTasks.innerHTML = `<h3>Pendientes (<span id="count-pending">0</span>)</h3><p class="empty-msg">No hay tareas pendientes</p>`;
-    inprogressTasks.innerHTML = `<h3>En proceso (<span id="count-progress">0</span>)</h3><p class="empty-msg">No hay tareas en proceso</p>`;
-    completedTasks.innerHTML = `<h3>Completadas (<span id="count-completed">0</span>)</h3><p class="empty-msg">No hay tareas completadas</p>`;
+    pendingTasks.innerHTML = "<h3>Pendientes</h3>";
+    inprogressTasks.innerHTML = "<h3>En proceso</h3>";
+    completedTasks.innerHTML = "<h3>Completadas</h3>";
 
     tasks.forEach((t) => {
       const taskHTML = createTaskCard(t);
@@ -105,7 +111,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 
-    // eventos editar
+    /** Attach edit events */
     document.querySelectorAll(".edit-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         const taskId = e.currentTarget.dataset.id;
@@ -114,7 +120,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     });
 
-    // eventos eliminar
+    /** Attach delete events */
     document.querySelectorAll(".delete-btn").forEach((btn) => {
       btn.addEventListener("click", async (e) => {
         const taskId = e.currentTarget.dataset.id;
@@ -126,7 +132,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             );
             if (response.ok) {
               e.target.closest(".task-card").remove();
-              updateColumns();
             } else {
               alert("❌ Error al eliminar la tarea");
             }
@@ -137,12 +142,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       });
     });
-
-    updateColumns();
   }
 
   /**
-   * Cargar tareas desde backend
+   * Loads tasks from the backend API and renders them.
+   * Displays error messages in case of failure.
+   * @async
+   * @function
    */
   try {
     const userId = localStorage.getItem("userId");
@@ -157,7 +163,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!response.ok) throw new Error("Error al cargar tareas");
 
     const tasks = await response.json();
-    renderTasks(tasks);
+    if (tasks.length === 0) {
+      pendingTasks.innerHTML += "<p>No hay tareas registradas.</p>";
+    } else {
+      renderTasks(tasks);
+    }
   } catch (error) {
     console.error(error);
     pendingTasks.innerHTML = `<p style="color:red;">❌ ${error.message}</p>`;
