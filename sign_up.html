@@ -6,58 +6,86 @@
   <title>Registro de Usuario</title>
   <link rel="icon" type="image/jpg" href="/public/icon.jpg" />
   <link rel="stylesheet" href="/style.css" />
-
 </head>
 <body>
-
   <main class="container">
     <section class="form-container">
+     
+      <!-- Título -->
       <h2>Registro de usuario</h2>
-      <form id="registerForm">
-        <label>
-          Nombres
-          <input type="text" name="firstName" required placeholder="Ingresa tus Nombres" />
-        </label>
 
-        <label>
-          Apellidos
-          <input type="text" name="lastName" required placeholder="Ingresa tus Apellidos" />
-        </label>
+      <!-- Formulario -->
+      <form id="registerForm" novalidate>
+        
+        <!-- Nombres -->
+        <label for="firstName">Nombres</label>
+        <input type="text" name="firstName" id="firstName" placeholder="Ingresa tus nombres" autocomplete="given-name" required />
+        <div class="error-message"></div>
 
-        <label>
-          Edad
-          <input type="number" name="age" min="13" placeholder="" required placeholder="Ingresa tu Edad" />
-        </label>
+        <!-- Apellidos -->
+        <label for="lastName">Apellidos</label>
+        <input type="text" name="lastName" id="lastName" placeholder="Ingresa tus apellidos" autocomplete="family-name" required />
+        <div class="error-message"></div>
 
-        <label>
-          Correo electrónico
-          <input type="email" name="email" required placeholder="Ingresa tu email" />
-        </label>
+        <!-- Edad -->
+        <label for="age">Edad</label>
+        <input type="number" name="age" id="age" min="13" placeholder="Ingresa tu edad" required />
+        <div class="error-message"></div>
 
-        <label>
-          Contraseña
-          <input
-            type="password"
-            name="password"
-            placeholder="Mínimo 8 caracteres"
-            required
-          />
-        </label>
+        <!-- Correo -->
+        <label for="email">Correo electrónico</label>
+        <input type="email" name="email" id="email" placeholder="ejemplo@gmail.com" autocomplete="email" required />
+        <div class="error-message"></div>
 
-        <label>
-          Confirmar Contraseña
-          <input type="password" name="confirmPassword" required />
-        </label>
+        <!-- Contraseña -->
+        <label for="password">Contraseña</label>
+        <div class="password-wrapper">
+          <input type="password" name="password" id="password" placeholder="Mínimo 8 caracteres" autocomplete="new-password" required />
+          <button type="button" class="togglePassword" aria-label="Mostrar u ocultar contraseña" tabindex="0">
+            <!-- Icono ojo abierto -->
+            <svg class="eyeOpen" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <!-- Icono ojo cerrado -->
+            <svg class="eyeClosed" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;">
+              <path d="M17.94 17.94A10.97 10.97 0 0112 20c-7 0-11-8-11-8a21.86 21.86 0 014.12-5.94M9.88 9.88A3 3 0 0114.12 14.12M1 1l22 22"/>
+            </svg>
+          </button>
+        </div>
+        <div class="error-message"></div>
 
+        <!-- Confirmar Contraseña -->
+        <label for="confirmPassword">Confirmar contraseña</label>
+        <div class="password-wrapper">
+          <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Repite tu contraseña" autocomplete="new-password" required />
+          <button type="button" class="togglePassword" aria-label="Mostrar u ocultar contraseña" tabindex="0">
+            <!-- Icono ojo abierto -->
+            <svg class="eyeOpen" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <!-- Icono ojo cerrado -->
+            <svg class="eyeClosed" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;">
+              <path d="M17.94 17.94A10.97 10.97 0 0112 20c-7 0-11-8-11-8a21.86 21.86 0 014.12-5.94M9.88 9.88A3 3 0 0114.12 14.12M1 1l22 22"/>
+            </svg>
+          </button>
+        </div>
+        <div class="error-message"></div>
+
+        <!-- Botón -->
         <button type="submit">Registrarse</button>
       </form>
-    
+
+      <!-- Footer -->
       <footer>
-        <p><a href="sign_in.html">Volver al inicio de sesión</a></p>
+        <p class="register">¿Ya tienes cuenta? <a href="sign_in.html">Inicia sesión</a></p>
       </footer>
     </section>
   </main>
-  <script type="module" src="/registerUser.js"></script>
-  <script type="module" src="/formValidation.js"></script>
+
+  <!-- Script único -->
+  <script src="/formValidation.js"></script>
+  <script src="/registerUser.js"></script>
 </body>
 </html>

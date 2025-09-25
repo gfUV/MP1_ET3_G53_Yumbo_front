@@ -1,9 +1,6 @@
 /**
  * task.js
- *
- * Handles task loading, navigation, and user actions.
- * Provides functionality to view, edit, and delete tasks,
- * as well as manage the hamburger menu across all screens.
+ * Maneja tareas: carga, render, navegación, edición y eliminación.
  */
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -12,75 +9,95 @@ document.addEventListener("DOMContentLoaded", async () => {
   const logoutBtn = document.getElementById("logout");
   const profileBtn = document.getElementById("profile");
   const hamburger = document.getElementById("hamburger");
-  const navbarRight = document.getElementById("navbar-right");
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("overlay");
+  const closeBtn = document.getElementById("close-sidebar");
 
   const pendingTasks = document.getElementById("pending-tasks");
   const inprogressTasks = document.getElementById("inprogress-tasks");
   const completedTasks = document.getElementById("completed-tasks");
 
-  /**
-   * Toggles the hamburger menu visibility.
-   * @function
-   */
-  hamburger.addEventListener("click", () => {
-    navbarRight.classList.toggle("show");
+  // === Modal de confirmación ===
+  const confirmModal = document.getElementById("confirm-modal");
+  const confirmYes = document.getElementById("confirm-yes");
+  const confirmNo = document.getElementById("confirm-no");
+  let taskToDelete = null;
+
+  function showConfirmModal(taskId) {
+    taskToDelete = taskId;
+    confirmModal.classList.add("show");
+  }
+
+  function hideConfirmModal() {
+    taskToDelete = null;
+    confirmModal.classList.remove("show");
+  }
+
+  confirmNo.addEventListener("click", hideConfirmModal);
+
+  confirmYes.addEventListener("click", async () => {
+    if (!taskToDelete) return;
+    try {
+      const response = await fetch(
+        `https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks/${taskToDelete}`,
+        { method: "DELETE" }
+      );
+      if (response.ok) {
+        loadTasks();
+      } else {
+        alert("❌ Error al eliminar la tarea");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("❌ No se pudo conectar al servidor");
+    } finally {
+      hideConfirmModal();
+    }
   });
 
-  /**
-   * Redirects the user to the profile page.
-   * @function
-   */
+  // ======== MENÚ LATERAL ========
+  function toggleMenu() {
+    sidebar.classList.toggle("show");
+    overlay.classList.toggle("show");
+  }
+
+  hamburger.addEventListener("click", toggleMenu);
+  closeBtn.addEventListener("click", toggleMenu);
+  overlay.addEventListener("click", toggleMenu);
+
+  // ======== NAVEGACIÓN ========
   profileBtn.addEventListener("click", () => {
     window.location.href = "profile.html";
   });
 
-  /**
-   * Redirects the user to the new task creation page.
-   * @function
-   */
   addTaskBtn.addEventListener("click", () => {
     window.location.href = "task_new.html";
   });
 
-  /**
-   * Redirects the user to the "About Us" page.
-   * @function
-   */
   aboutUsBtn.addEventListener("click", () => {
     window.location.href = "about_us.html";
   });
 
-  /**
-   * Logs out the user by clearing session data and redirecting to sign-in.
-   * @function
-   */
   logoutBtn.addEventListener("click", () => {
     localStorage.removeItem("userId");
     window.location.href = "sign_in.html";
   });
 
-  /**
-   * Creates the HTML structure for a task card.
-   * @function
-   * @param {Object} t - Task object.
-   * @param {string} t._id - Unique task identifier.
-   * @param {string} t.title - Task title.
-   * @param {string} [t.detail] - Task description or detail.
-   * @param {string} [t.date] - Task date (ISO format).
-   * @param {string} [t.time] - Task time (HH:mm format).
-   * @param {string} t.status - Task status ("pendiente", "en-progreso", "completada").
-   * @returns {string} HTML string representing a task card.
-   */
+  // ======== CREAR TARJETA ========
   function createTaskCard(t) {
+    let statusClass = "";
+    if (t.status === "pendiente") statusClass = "task-pending";
+    else if (t.status === "en-progreso") statusClass = "task-inprogress";
+    else if (t.status === "completada") statusClass = "task-completed";
+
     return `
-      <div class="task-card">
+      <div class="task-card ${statusClass}" draggable="true" data-id="${t._id}">
         <div class="task-header">
-          <span>${t.title}</span>
+          <h4>${t.title}</h4>
         </div>
-        <div class="task-detail">${t.detail || ""}</div>
-        <div class="task-date">
-          ${t.date ? new Date(t.date).toLocaleDateString("es-ES") : "Sin fecha"} 
-          ${t.time || ""}
+        <p class="task-detail">${t.detail || "Sin descripción"}</p>
+        <div class="task-meta">
+          <span class="task-date">📅 ${t.date ? new Date(t.date).toLocaleDateString("es-ES") : "Sin fecha"} ${t.time || ""}</span>
         </div>
         <div class="task-actions">
           <button class="edit-btn" data-id="${t._id}" title="Editar">✏️</button>
@@ -90,28 +107,45 @@ document.addEventListener("DOMContentLoaded", async () => {
     `;
   }
 
-  /**
-   * Renders tasks into their respective columns and attaches events.
-   * @function
-   * @param {Array<Object>} tasks - List of task objects.
-   */
+  // ======== RENDERIZAR TAREAS ========
   function renderTasks(tasks) {
-    pendingTasks.innerHTML = "<h3>Pendientes</h3>";
-    inprogressTasks.innerHTML = "<h3>En proceso</h3>";
-    completedTasks.innerHTML = "<h3>Completadas</h3>";
+    pendingTasks.innerHTML = `<h3><span class="status-dot pending"></span> Pendientes (<span id="pending-count">0</span>)</h3>`;
+    inprogressTasks.innerHTML = `<h3><span class="status-dot inprogress"></span> En proceso (<span id="inprogress-count">0</span>)</h3>`;
+    completedTasks.innerHTML = `<h3><span class="status-dot completed"></span> Completadas (<span id="completed-count">0</span>)</h3>`;
+
+    let pendingCounter = 0;
+    let inprogressCounter = 0;
+    let completedCounter = 0;
 
     tasks.forEach((t) => {
       const taskHTML = createTaskCard(t);
       if (t.status === "pendiente") {
         pendingTasks.innerHTML += taskHTML;
+        pendingCounter++;
       } else if (t.status === "en-progreso") {
         inprogressTasks.innerHTML += taskHTML;
+        inprogressCounter++;
       } else if (t.status === "completada") {
         completedTasks.innerHTML += taskHTML;
+        completedCounter++;
       }
     });
 
-    /** Attach edit events */
+    document.getElementById("pending-count").textContent = pendingCounter;
+    document.getElementById("inprogress-count").textContent = inprogressCounter;
+    document.getElementById("completed-count").textContent = completedCounter;
+
+    if (pendingCounter === 0) {
+      pendingTasks.innerHTML += `<p class="empty-msg">✨ No tienes pendientes. ¡Crea una tarea y organiza tu día!</p>`;
+    }
+    if (inprogressCounter === 0) {
+      inprogressTasks.innerHTML += `<p class="empty-msg">🚀 Nada en proceso aún. ¡Elige una tarea y empieza ya!</p>`;
+    }
+    if (completedCounter === 0) {
+      completedTasks.innerHTML += `<p class="empty-msg">✅ Aquí aparecerán tus logros cuando completes tareas.</p>`;
+    }
+
+    // Botón editar
     document.querySelectorAll(".edit-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         const taskId = e.currentTarget.dataset.id;
@@ -120,56 +154,102 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     });
 
-    /** Attach delete events */
+    // Botón eliminar
     document.querySelectorAll(".delete-btn").forEach((btn) => {
-      btn.addEventListener("click", async (e) => {
+      btn.addEventListener("click", (e) => {
         const taskId = e.currentTarget.dataset.id;
-        if (confirm("¿Seguro que deseas eliminar esta tarea?")) {
-          try {
-            const response = await fetch(
-              `https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks/${taskId}`,
-              { method: "DELETE" }
-            );
-            if (response.ok) {
-              e.target.closest(".task-card").remove();
-            } else {
-              alert("❌ Error al eliminar la tarea");
+        showConfirmModal(taskId);
+      });
+    });
+
+    // ======== DRAG & DROP ========
+    document.querySelectorAll(".task-card").forEach(card => {
+      card.addEventListener("dragstart", (e) => {
+        e.dataTransfer.setData("text/plain", card.dataset.id);
+        card.classList.add("dragging");
+
+        const crt = card.cloneNode(true);
+        crt.style.opacity = "1";
+        crt.style.transform = "scale(1)";
+        crt.style.background = window.getComputedStyle(card).background;
+        crt.style.boxShadow = "0 6px 16px rgba(0,0,0,0.25)";
+        crt.style.position = "absolute";
+        crt.style.top = "-9999px"; 
+        document.body.appendChild(crt);
+
+        e.dataTransfer.setDragImage(crt, crt.offsetWidth / 2, crt.offsetHeight / 2);
+
+        setTimeout(() => document.body.removeChild(crt), 0);
+      });
+
+      card.addEventListener("dragend", () => {
+        card.classList.remove("dragging");
+      });
+    });
+
+    [pendingTasks, inprogressTasks, completedTasks].forEach(column => {
+      column.addEventListener("dragover", (e) => {
+        e.preventDefault();
+      });
+
+      column.addEventListener("drop", async (e) => {
+        e.preventDefault();
+        const taskId = e.dataTransfer.getData("text/plain");
+
+        let newStatus = "";
+        if (column.id === "pending-tasks") newStatus = "pendiente";
+        else if (column.id === "inprogress-tasks") newStatus = "en-progreso";
+        else if (column.id === "completed-tasks") newStatus = "completada";
+
+        try {
+          const response = await fetch(
+            `https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks/${taskId}`,
+            {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ status: newStatus })
             }
-          } catch (error) {
-            console.error(error);
-            alert("❌ No se pudo conectar al servidor");
+          );
+
+          if (response.ok) {
+            loadTasks();
+          } else {
+            alert("❌ No se pudo actualizar la tarea");
           }
+        } catch (error) {
+          console.error(error);
+          alert("❌ Error al conectar con el servidor");
         }
       });
     });
   }
 
-  /**
-   * Loads tasks from the backend API and renders them.
-   * Displays error messages in case of failure.
-   * @async
-   * @function
-   */
-  try {
-    const userId = localStorage.getItem("userId");
-    if (!userId) {
-      pendingTasks.innerHTML = "<p style='color:red;'>⚠ No se encontró un usuario en sesión.</p>";
-      return;
-    }
+  // ======== CARGAR TAREAS DESDE API ========
+  async function loadTasks() {
+    try {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        pendingTasks.innerHTML = "<p style='color:red;'>⚠ No se encontró un usuario en sesión.</p>";
+        return;
+      }
 
-    const response = await fetch(
-      `https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks?userId=${userId}`
-    );
-    if (!response.ok) throw new Error("Error al cargar tareas");
+      const response = await fetch(
+        `https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks?userId=${userId}`
+      );
+      if (!response.ok) throw new Error("Error al cargar tareas");
 
-    const tasks = await response.json();
-    if (tasks.length === 0) {
-      pendingTasks.innerHTML += "<p>No hay tareas registradas.</p>";
-    } else {
-      renderTasks(tasks);
+      const tasks = await response.json();
+      if (tasks.length === 0) {
+        pendingTasks.innerHTML += "<p>No hay tareas registradas.</p>";
+      } else {
+        renderTasks(tasks);
+      }
+    } catch (error) {
+      console.error(error);
+      pendingTasks.innerHTML = `<p style="color:red;">❌ ${error.message}</p>`;
     }
-  } catch (error) {
-    console.error(error);
-    pendingTasks.innerHTML = `<p style="color:red;">❌ ${error.message}</p>`;
   }
+
+  // Cargar al inicio
+  loadTasks();
 });

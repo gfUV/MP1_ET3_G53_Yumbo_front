@@ -1,36 +1,55 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tareas</title>
-  <link rel="stylesheet" href="task.css" />
+  <link rel="stylesheet" href="task.css"/>
 </head>
 <body>
   <!-- Navbar -->
   <nav class="navbar">
     <div class="navbar-left">
+      <button class="hamburger" id="hamburger">☰</button>
       <h1>Tareas</h1>
     </div>
-    <div class="navbar-right" id="navbar-right">
-      <button id="add-task">➕ Agregar tarea</button>
-      <button id="profile">👤 Mi perfil</button>
-      <button id="about-us"> ℹ️ Sobre nosotros</button>
-      <button id="logout">📋 Cerrar sesión</button>
+    <div class="navbar-right">
+      <button id="add-task" class="add-task-btn">➕ Nueva tarea</button>
     </div>
-    <button class="hamburger" id="hamburger">☰</button>
   </nav>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <button class="close-btn" id="close-sidebar">&times;</button>
+    <button id="profile">👤 Mi perfil</button>
+    <button id="about-us">ℹ️ Sobre nosotros</button>
+    <button id="logout">📋 Cerrar sesión</button>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay"></div>
 
   <!-- Contenedor de columnas -->
   <div class="task-columns">
     <div class="task-column" id="pending-tasks">
-      <h3>Pendientes</h3>
+      <h3><span class="status-dot pending"></span> Pendientes (<span id="pending-count">0</span>)</h3>
     </div>
     <div class="task-column" id="inprogress-tasks">
-      <h3>En proceso</h3>
+      <h3><span class="status-dot inprogress"></span> En proceso (<span id="inprogress-count">0</span>)</h3>
     </div>
     <div class="task-column" id="completed-tasks">
-      <h3>Completadas</h3>
+      <h3><span class="status-dot completed"></span> Completadas (<span id="completed-count">0</span>)</h3>
+    </div>
+  </div>
+
+  <!-- 🔥 Modal de confirmación -->
+  <div id="confirm-modal" class="modal">
+    <div class="modal-content">
+      <p>¿Seguro que deseas eliminar esta tarea? 🗑️</p>
+      <div class="modal-actions">
+        <button id="confirm-yes" class="btn btn-danger">Sí, eliminar</button>
+        <button id="confirm-no" class="btn btn-cancel">Cancelar</button>
+      </div>
     </div>
   </div>
 

@@ -142,7 +142,7 @@ input:focus {
 button[type="submit"] {
   width: 100%;
   padding: 0.95rem;
-  background-color: #00bfa6;
+  background-color: #2ED6C4;
   border: none;
   border-radius: 8px;
   color: #fff;
@@ -247,3 +247,78 @@ button[type="submit"]:hover {
   display: block;
 }
 
+.error-message {
+  font-size: 0.85rem;
+  color: #d9534f;
+  min-height: 1rem; /* siempre deja espacio aunque no haya error */
+  margin-bottom: 0.6rem;
+}
+
+/* ======== BOTONES DE ACCIONES ======== */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.2rem;
+}
+
+#back {
+  background: #f0f0f0;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+#back:hover {
+  background: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+#save-task {
+  background-color: #2ED6C4;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color .2s, transform .15s;
+}
+#save-task:hover {
+  background-color: #00bfa6;
+  transform: translateY(-2px);
+}
+
+/* ======== CAMPOS EXTRAS PARA EDITAR TAREA ======== */
+textarea,
+input[type="date"],
+input[type="time"],
+select {
+  width: 100%;
+  padding: 0.92rem 1rem;
+  margin-bottom: 0.9rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #fff;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+textarea {
+  resize: none;
+  min-height: 70px;
+}
+
+textarea:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus {
+  border-color: #00bfa6;
+  outline: none;
+  box-shadow: 0 0 6px rgba(0,191,166,0.18);
+}

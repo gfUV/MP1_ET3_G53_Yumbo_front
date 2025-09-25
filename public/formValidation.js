@@ -1,86 +1,74 @@
-/**
- * formValidation.js - Client-side form validations for registration.
- * - Validates strong password rules in real time.
- * - Validates password confirmation in real time.
- * - Validates age in real time.
- * - Validates all required fields on form submission.
- */
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('registerForm');
-  const passwordInput = form.password;
-  const confirmPasswordInput = form.confirmPassword;
-  const ageInput = form.age;
+const form = document.getElementById("registerForm");
 
-  const createError = (input) => {
-    let small = input.parentElement.querySelector('small');
-    if (!small) {
-      small = document.createElement('small');
-      small.style.color = 'red';
-      small.style.fontSize = '0.8em';
-      input.parentElement.appendChild(small);
-    }
-    return small;
-  };
+// Reglas de validación
+const validators = {
+  firstName: value => value.trim() !== "" ? "" : "Ingresa tus nombres.",
+  lastName: value => value.trim() !== "" ? "" : "Ingresa tus apellidos.",
+  age: value => value >= 13 ? "" : "Debes tener al menos 13 años.",
+  email: value => /\S+@\S+\.\S+/.test(value) ? "" : "Ingresa un correo válido.",
+  password: value =>
+    /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/.test(value)
+      ? ""
+      : "Debe tener 8+ caracteres, 1 mayúscula, 1 número y 1 símbolo.",
+  confirmPassword: (value, formValues) =>
+    value === formValues.password ? "" : "Las contraseñas no coinciden."
+};
 
-  // Password strength validation
-  passwordInput.addEventListener('input', () => {
-    const value = passwordInput.value;
-    const small = createError(passwordInput);
-    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
-    small.textContent = !regex.test(value)
-      ? 'Contraseña débil. Necesita 8+ caracteres, 1 mayúscula, 1 número y 1 símbolo.'
-      : '';
+// Mostrar error debajo del input
+function showError(input, message) {
+  const wrapper = input.closest(".password-wrapper") || input;
+  const errorDiv = wrapper.nextElementSibling;
+  if (errorDiv && errorDiv.classList.contains("error-message")) {
+    errorDiv.textContent = message;
+  }
+}
+
+// Validar un campo
+function validateField(input) {
+  const { name, value } = input;
+  const formValues = Object.fromEntries(new FormData(form));
+  const error = validators[name] ? validators[name](value, formValues) : "";
+  showError(input, error);
+  return !error;
+}
+
+// Validación en tiempo real
+form.querySelectorAll("input").forEach(input => {
+  input.addEventListener("input", () => validateField(input));
+});
+
+// Validación al enviar
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  let isValid = true;
+
+  form.querySelectorAll("input").forEach(input => {
+    if (!validateField(input)) isValid = false;
   });
 
-  // Confirm password match
-  confirmPasswordInput.addEventListener('input', () => {
-    const small = createError(confirmPasswordInput);
-    small.textContent =
-      confirmPasswordInput.value !== passwordInput.value
-        ? 'Las contraseñas no coinciden.'
-        : '';
-  });
+  if (isValid) {
+    console.log("Formulario válido. Enviando datos...");
+    form.submit(); // o fetch() si lo conectas al backend
+  }
+});
 
-  // Age validation
-  ageInput.addEventListener('input', () => {
-    const small = createError(ageInput);
-    small.textContent =
-      parseInt(ageInput.value) < 13 ? 'Debes tener al menos 13 años.' : '';
-  });
+/* ==============================
+   TOGGLE PASSWORD 👁 / 👁️‍🗨️
+================================= */
+document.querySelectorAll(".togglePassword").forEach(button => {
+  button.addEventListener("click", () => {
+    const input = button.previousElementSibling;
+    const eyeOpen = button.querySelector(".eyeOpen");
+    const eyeClosed = button.querySelector(".eyeClosed");
 
-  // Submit validation
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    let valid = true;
-    const fields = ['firstName', 'lastName', 'email', 'password', 'confirmPassword'];
-
-    fields.forEach((fieldName) => {
-      const input = form[fieldName];
-      const value = input.value.trim();
-      const small = createError(input);
-
-      if (!value) {
-        small.textContent = 'Este campo es obligatorio.';
-        valid = false;
-      } else if (!small.textContent) {
-        // solo limpiamos si no hay otro error previo
-        small.textContent = '';
-      }
-    });
-
-    const age = parseInt(form.age.value);
-    const password = form.password.value;
-    const confirmPassword = form.confirmPassword.value;
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
-
-    if (age < 13) valid = false;
-    if (!passwordRegex.test(password)) valid = false;
-    if (password !== confirmPassword) valid = false;
-
-    // ✅ Si es válido, dejamos que el otro script (registerUser.js) haga el fetch
-    if (valid) {
-      form.submit(); // dispara el flujo normal, registerUser.js ya escucha el submit
+    if (input.type === "password") {
+      input.type = "text";
+      eyeOpen.style.display = "none";
+      eyeClosed.style.display = "block";
+    } else {
+      input.type = "password";
+      eyeOpen.style.display = "block";
+      eyeClosed.style.display = "none";
     }
   });
 });
