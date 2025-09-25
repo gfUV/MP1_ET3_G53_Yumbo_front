@@ -175,7 +175,7 @@ document.querySelectorAll(".task-card").forEach(card => {
       const response = await fetch(
         `https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks/${taskId}`,
         {
-          method: "PATCH",
+          method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ status: newStatus })
         }
