@@ -9,7 +9,6 @@
 <body>
   <main class="container">
     <section class="form-container">
-        <button id="back">⬅ Volver</button>
       <h2>Editar Tarea</h2>
 
       <!-- Formulario -->
@@ -48,13 +47,16 @@
           </select>
         </label>
 
-        <!-- Botón -->
-        <button type="submit">Guardar Cambios</button>
+        <!-- Botones -->
+        <div class="form-actions">
+          <button type="button" id="back">⬅ Volver</button>
+          <button type="submit" id="save-task">💾 Guardar Cambios</button>
+        </div>
       </form>
     </section>
   </main>
 
-  <!-- Script para manejar edición -->
+  <!-- Script -->
   <script type="module" src="/task_edit.js"></script>
 </body>
 </html>

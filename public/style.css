@@ -254,3 +254,42 @@ button[type="submit"]:hover {
   margin-bottom: 0.6rem;
 }
 
+/* ======== BOTONES DE ACCIONES ======== */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.2rem;
+}
+
+#back {
+  background: #f0f0f0;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+#back:hover {
+  background: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+#save-task {
+  background-color: #2ED6C4;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color .2s, transform .15s;
+}
+#save-task:hover {
+  background-color: #00bfa6;
+  transform: translateY(-2px);
+}
