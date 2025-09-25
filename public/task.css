@@ -277,3 +277,10 @@ body {
   background-color: #f0f8ff;
   border: 2px dashed #4a90e2;
 }
+
+.task-card.dragging {
+  opacity: 1 !important;          /* 👈 siempre sólido */
+  transform: scale(1.05);         /* un poquito más grande */
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  cursor: grabbing;
+}

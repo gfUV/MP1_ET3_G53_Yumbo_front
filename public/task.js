@@ -153,8 +153,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 document.querySelectorAll(".task-card").forEach(card => {
   card.addEventListener("dragstart", (e) => {
     e.dataTransfer.setData("text/plain", card.dataset.id);
+     card.classList.add("dragging");
+  });
+  card.addEventListener("dragend", () => {
+    card.classList.remove("dragging"); // 👈 se quita al soltar
   });
 });
+
 
 // Columnas que aceptan drops
 [pendingTasks, inprogressTasks, completedTasks].forEach(column => {
