@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   else if (t.status === "completada") statusClass = "task-completed";
 
   return `
-    <div class="task-card ${statusClass}">
+    <div class="task-card ${statusClass}" draggable="true" data-id="${t._id}">
       <div class="task-header">
         <h4>${t.title}</h4>
       </div>
@@ -148,6 +148,51 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       });
     });
+
+    // ======== DRAG & DROP ========
+document.querySelectorAll(".task-card").forEach(card => {
+  card.addEventListener("dragstart", (e) => {
+    e.dataTransfer.setData("text/plain", card.dataset.id);
+  });
+});
+
+// Columnas que aceptan drops
+[pendingTasks, inprogressTasks, completedTasks].forEach(column => {
+  column.addEventListener("dragover", (e) => {
+    e.preventDefault(); // necesario para permitir drop
+  });
+
+  column.addEventListener("drop", async (e) => {
+    e.preventDefault();
+    const taskId = e.dataTransfer.getData("text/plain");
+
+    let newStatus = "";
+    if (column.id === "pending-tasks") newStatus = "pendiente";
+    else if (column.id === "inprogress-tasks") newStatus = "en-progreso";
+    else if (column.id === "completed-tasks") newStatus = "completada";
+
+    try {
+      const response = await fetch(
+        `https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks/${taskId}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: newStatus })
+        }
+      );
+
+      if (response.ok) {
+        loadTasks(); // recargar para ver reflejado el cambio
+      } else {
+        alert("❌ No se pudo actualizar la tarea");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("❌ Error al conectar con el servidor");
+    }
+  });
+});
+
   }
 
   // ======== CARGAR TAREAS DESDE API ========
