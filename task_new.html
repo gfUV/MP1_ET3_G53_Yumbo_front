@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nueva Tarea</title>
   <link rel="stylesheet" href="/style.css" />
+  <style>
+    .hint {
+      font-size: 0.85rem;
+      color: #555;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+  </style>
 </head>
 <body>
   
@@ -19,6 +27,7 @@
         <!-- Título -->
         <label for="title">
           Título <span style="color: red">*</span>
+          <span class="hint">Obligatorio · Máx. 50 caracteres</span>
           <input 
             type="text" 
             id="title" 
@@ -27,54 +36,53 @@
             required 
             placeholder="Ej: Comprar regalo de cumpleaños" 
           />
-          <small>Obligatorio. Máx. 50 caracteres.</small>
         </label>
 
         <!-- Detalle -->
         <label for="detail">
           Detalle
+          <span class="hint">Opcional · Máx. 50 caracteres</span>
           <textarea 
             id="detail" 
             name="detail" 
             maxlength="50" 
             placeholder="Ej: Buscar en Amazon o en la tienda local"
           ></textarea>
-          <small>Opcional. Máx. 50 caracteres.</small>
         </label>
 
         <!-- Fecha -->
         <label for="date">
           Fecha
+          <span class="hint">Selecciona la fecha límite para la tarea</span>
           <input 
             type="date" 
             id="date" 
             name="date" 
             placeholder="dd/mm/aaaa" 
           />
-          <small>Selecciona la fecha límite para la tarea.</small>
         </label>
 
         <!-- Hora -->
         <label for="time">
           Hora
+          <span class="hint">Elige la hora en que deseas completar la tarea</span>
           <input 
             type="time" 
             id="time" 
             name="time" 
             placeholder="hh:mm" 
           />
-          <small>Elige la hora en que deseas completar la tarea.</small>
         </label>
 
         <!-- Estado -->
         <label for="status">
           Estado
+          <span class="hint">Indica el estado actual de la tarea</span>
           <select id="status" name="status">
             <option value="pendiente">Pendiente</option>
             <option value="en-progreso">En progreso</option>
             <option value="completada">Completada</option>
           </select>
-          <small>Indica el estado actual de la tarea.</small>
         </label>
 
         <!-- Botón -->
