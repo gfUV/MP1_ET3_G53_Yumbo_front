@@ -278,9 +278,10 @@ body {
   border: 2px dashed #4a90e2;
 }
 
+
+/* Cuando una tarjeta está siendo arrastrada */
 .task-card.dragging {
-  opacity: 1 !important;          /* 👈 siempre sólido */
-  transform: scale(1.05);         /* un poquito más grande */
-  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  opacity: 1 !important;   /* 👈 Evita que se vea transparente */
+  transform: none !important;
   cursor: grabbing;
 }
