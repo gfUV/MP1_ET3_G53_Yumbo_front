@@ -51,32 +51,31 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // ======== CREAR TARJETA ========
   function createTaskCard(t) {
-  let statusClass = "";
-  if (t.status === "pendiente") statusClass = "task-pending";
-  else if (t.status === "en-progreso") statusClass = "task-inprogress";
-  else if (t.status === "completada") statusClass = "task-completed";
+    let statusClass = "";
+    if (t.status === "pendiente") statusClass = "task-pending";
+    else if (t.status === "en-progreso") statusClass = "task-inprogress";
+    else if (t.status === "completada") statusClass = "task-completed";
 
-  return `
-    <div class="task-card ${statusClass}" draggable="true" data-id="${t._id}">
-      <div class="task-header">
-        <h4>${t.title}</h4>
+    return `
+      <div class="task-card ${statusClass}" draggable="true" data-id="${t._id}">
+        <div class="task-header">
+          <h4>${t.title}</h4>
+        </div>
+        <p class="task-detail">${t.detail || "Sin descripción"}</p>
+        <div class="task-meta">
+          <span class="task-date">📅 ${t.date ? new Date(t.date).toLocaleDateString("es-ES") : "Sin fecha"} ${t.time || ""}</span>
+        </div>
+        <div class="task-actions">
+          <button class="edit-btn" data-id="${t._id}" title="Editar">✏️</button>
+          <button class="delete-btn" data-id="${t._id}" title="Eliminar">🗑️</button>
+        </div>
       </div>
-      <p class="task-detail">${t.detail || "Sin descripción"}</p>
-      <div class="task-meta">
-        <span class="task-date">📅 ${t.date ? new Date(t.date).toLocaleDateString("es-ES") : "Sin fecha"} ${t.time || ""}</span>
-      </div>
-      <div class="task-actions">
-        <button class="edit-btn" data-id="${t._id}" title="Editar">✏️</button>
-        <button class="delete-btn" data-id="${t._id}" title="Eliminar">🗑️</button>
-      </div>
-    </div>
-  `;
-}
-
+    `;
+  }
 
   // ======== RENDERIZAR TAREAS ========
   function renderTasks(tasks) {
-    // Reiniciar columnas con los títulos y bolitas
+    // Reiniciar columnas
     pendingTasks.innerHTML = `<h3><span class="status-dot pending"></span> Pendientes (<span id="pending-count">0</span>)</h3>`;
     inprogressTasks.innerHTML = `<h3><span class="status-dot inprogress"></span> En proceso (<span id="inprogress-count">0</span>)</h3>`;
     completedTasks.innerHTML = `<h3><span class="status-dot completed"></span> Completadas (<span id="completed-count">0</span>)</h3>`;
@@ -104,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("inprogress-count").textContent = inprogressCounter;
     document.getElementById("completed-count").textContent = completedCounter;
 
-      // === Mensajes motivadores si están vacías ===
+    // Mensajes motivadores si están vacías
     if (pendingCounter === 0) {
       pendingTasks.innerHTML += `<p class="empty-msg">✨ No tienes pendientes. ¡Crea una tarea y organiza tu día!</p>`;
     }
@@ -136,7 +135,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             );
             if (response.ok) {
               e.target.closest(".task-card").remove();
-              // Recargar tareas para actualizar contadores
               loadTasks();
             } else {
               alert("❌ Error al eliminar la tarea");
@@ -150,69 +148,68 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     // ======== DRAG & DROP ========
-document.querySelectorAll(".task-card").forEach(card => {
-  card.addEventListener("dragstart", (e) => {
-    e.dataTransfer.setData("text/plain", card.dataset.id);
-    card.classList.add("dragging");
+    document.querySelectorAll(".task-card").forEach((card) => {
+      card.addEventListener("dragstart", (e) => {
+        e.dataTransfer.setData("text/plain", card.dataset.id);
+        card.classList.add("dragging");
 
-    // 👇 Crear clon sólido para evitar transparencia
-    const crt = card.cloneNode(true);
-    crt.style.opacity = "1";
-    crt.style.transform = "none";
-    crt.style.position = "absolute";
-    crt.style.top = "-9999px"; // ocultar fuera de la pantalla
-    document.body.appendChild(crt);
+        // 👇 Crear clon sólido y del mismo tamaño
+        const clone = card.cloneNode(true);
+        clone.style.width = `${card.offsetWidth}px`;
+        clone.style.height = `${card.offsetHeight}px`;
+        clone.style.opacity = "1";
+        clone.style.position = "absolute";
+        clone.style.top = "-9999px";
+        document.body.appendChild(clone);
 
-    // usar el clon como imagen de arrastre
-    e.dataTransfer.setDragImage(crt, 0, 0);
+        // 👇 Usamos el centro como punto de arrastre
+        e.dataTransfer.setDragImage(clone, card.offsetWidth / 2, card.offsetHeight / 2);
 
-    // eliminar el clon apenas inicia el drag
-    setTimeout(() => document.body.removeChild(crt), 0);
-  });
+        // 👇 Eliminar clon apenas inicia el drag
+        setTimeout(() => document.body.removeChild(clone), 0);
+      });
 
-  card.addEventListener("dragend", () => {
-    card.classList.remove("dragging"); // 👈 se quita al soltar
-  });
-});
+      card.addEventListener("dragend", () => {
+        card.classList.remove("dragging");
+      });
+    });
 
+    // Columnas que aceptan drops
+    [pendingTasks, inprogressTasks, completedTasks].forEach((column) => {
+      column.addEventListener("dragover", (e) => {
+        e.preventDefault();
+      });
 
-// Columnas que aceptan drops
-[pendingTasks, inprogressTasks, completedTasks].forEach(column => {
-  column.addEventListener("dragover", (e) => {
-    e.preventDefault(); // necesario para permitir drop
-  });
+      column.addEventListener("drop", async (e) => {
+        e.preventDefault();
+        const taskId = e.dataTransfer.getData("text/plain");
 
-  column.addEventListener("drop", async (e) => {
-    e.preventDefault();
-    const taskId = e.dataTransfer.getData("text/plain");
+        let newStatus = "";
+        if (column.id === "pending-tasks") newStatus = "pendiente";
+        else if (column.id === "inprogress-tasks") newStatus = "en-progreso";
+        else if (column.id === "completed-tasks") newStatus = "completada";
 
-    let newStatus = "";
-    if (column.id === "pending-tasks") newStatus = "pendiente";
-    else if (column.id === "inprogress-tasks") newStatus = "en-progreso";
-    else if (column.id === "completed-tasks") newStatus = "completada";
+        try {
+          const response = await fetch(
+            `https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks/${taskId}`,
+            {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ status: newStatus }),
+            }
+          );
 
-    try {
-      const response = await fetch(
-        `https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks/${taskId}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ status: newStatus })
+          if (response.ok) {
+            loadTasks();
+          } else {
+            alert("❌ No se pudo actualizar la tarea");
+          }
+        } catch (error) {
+          console.error(error);
+          alert("❌ Error al conectar con el servidor");
         }
-      );
-
-      if (response.ok) {
-        loadTasks(); // recargar para ver reflejado el cambio
-      } else {
-        alert("❌ No se pudo actualizar la tarea");
-      }
-    } catch (error) {
-      console.error(error);
-      alert("❌ Error al conectar con el servidor");
-    }
-  });
-});
-
+      });
+    });
   }
 
   // ======== CARGAR TAREAS DESDE API ========
