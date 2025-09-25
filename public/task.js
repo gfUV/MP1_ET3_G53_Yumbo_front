@@ -9,15 +9,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   const logoutBtn = document.getElementById("logout");
   const profileBtn = document.getElementById("profile");
   const hamburger = document.getElementById("hamburger");
-  const navbarRight = document.getElementById("navbar-right");
+  const sidebar = document.getElementById("sidebar");
 
   const pendingTasks = document.getElementById("pending-tasks");
   const inprogressTasks = document.getElementById("inprogress-tasks");
   const completedTasks = document.getElementById("completed-tasks");
 
-  // Toggle menú hamburguesa
+  // Toggle menú hamburguesa (sidebar)
   hamburger.addEventListener("click", () => {
-    navbarRight.classList.toggle("show");
+    sidebar.classList.toggle("show");
   });
 
   // Navegación

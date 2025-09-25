@@ -10,15 +10,17 @@
   <!-- Navbar -->
   <nav class="navbar">
     <div class="navbar-left">
+      <button class="hamburger" id="hamburger">☰</button>
       <h1>Tareas</h1>
     </div>
-    <div class="navbar-right" id="navbar-right">
-      <button id="profile">👤 Mi perfil</button>
-      <button id="about-us">ℹ️ Sobre nosotros</button>
-      <button id="logout">📋 Cerrar sesión</button>
-    </div>
-    <button class="hamburger" id="hamburger">☰</button>
   </nav>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <button id="profile">👤 Mi perfil</button>
+    <button id="about-us">ℹ️ Sobre nosotros</button>
+    <button id="logout">📋 Cerrar sesión</button>
+  </div>
 
   <!-- Contenedor de columnas -->
   <div class="task-columns">
@@ -33,11 +35,9 @@
     </div>
   </div>
 
-  <!-- Botón agregar tarea al final -->
-  <div class="add-task-container">
-    <button id="add-task" class="add-task-btn">➕ Agregar tarea</button>
-  </div>
+  <!-- Botón agregar tarea (FAB) -->
+  <button id="add-task" class="add-task-btn">➕</button>
 
-  <script src="/task.js"></script>
+  <script src="task.js"></script>
 </body>
 </html>
