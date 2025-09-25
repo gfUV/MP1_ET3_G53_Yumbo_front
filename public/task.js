@@ -17,10 +17,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const inprogressTasks = document.getElementById("inprogress-tasks");
   const completedTasks = document.getElementById("completed-tasks");
 
-  const pendingCount = document.getElementById("pending-count");
-  const inprogressCount = document.getElementById("inprogress-count");
-  const completedCount = document.getElementById("completed-count");
-
   // ======== MENÚ LATERAL ========
   function toggleMenu() {
     sidebar.classList.toggle("show");
@@ -75,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // ======== RENDERIZAR TAREAS ========
   function renderTasks(tasks) {
-    // Reiniciar columnas
+    // Reiniciar columnas con los títulos y bolitas
     pendingTasks.innerHTML = `<h3><span class="status-dot pending"></span> Pendientes (<span id="pending-count">0</span>)</h3>`;
     inprogressTasks.innerHTML = `<h3><span class="status-dot inprogress"></span> En proceso (<span id="inprogress-count">0</span>)</h3>`;
     completedTasks.innerHTML = `<h3><span class="status-dot completed"></span> Completadas (<span id="completed-count">0</span>)</h3>`;
@@ -103,7 +99,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("inprogress-count").textContent = inprogressCounter;
     document.getElementById("completed-count").textContent = completedCounter;
 
-    // Mensajes motivadores si están vacías
+    // === Mensajes motivadores si están vacías ===
     if (pendingCounter === 0) {
       pendingTasks.innerHTML += `<p class="empty-msg">✨ No tienes pendientes. ¡Crea una tarea y organiza tu día!</p>`;
     }
@@ -148,25 +144,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     // ======== DRAG & DROP ========
-    document.querySelectorAll(".task-card").forEach((card) => {
+    document.querySelectorAll(".task-card").forEach(card => {
       card.addEventListener("dragstart", (e) => {
         e.dataTransfer.setData("text/plain", card.dataset.id);
         card.classList.add("dragging");
 
-        // 👇 Crear clon sólido y del mismo tamaño
-        const clone = card.cloneNode(true);
-        clone.style.width = `${card.offsetWidth}px`;
-        clone.style.height = `${card.offsetHeight}px`;
-        clone.style.opacity = "1";
-        clone.style.position = "absolute";
-        clone.style.top = "-9999px";
-        document.body.appendChild(clone);
+        // 👇 Crear clon sólido
+        const crt = card.cloneNode(true);
+        crt.style.opacity = "1";
+        crt.style.transform = "scale(1)";
+        crt.style.background = window.getComputedStyle(card).background;
+        crt.style.boxShadow = "0 6px 16px rgba(0,0,0,0.25)";
+        crt.style.position = "absolute";
+        crt.style.top = "-9999px"; 
+        document.body.appendChild(crt);
 
-        // 👇 Usamos el centro como punto de arrastre
-        e.dataTransfer.setDragImage(clone, card.offsetWidth / 2, card.offsetHeight / 2);
+        // usar clon como imagen de arrastre
+        e.dataTransfer.setDragImage(crt, crt.offsetWidth / 2, crt.offsetHeight / 2);
 
-        // 👇 Eliminar clon apenas inicia el drag
-        setTimeout(() => document.body.removeChild(clone), 0);
+        // limpiar clon
+        setTimeout(() => document.body.removeChild(crt), 0);
       });
 
       card.addEventListener("dragend", () => {
@@ -175,7 +172,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     // Columnas que aceptan drops
-    [pendingTasks, inprogressTasks, completedTasks].forEach((column) => {
+    [pendingTasks, inprogressTasks, completedTasks].forEach(column => {
       column.addEventListener("dragover", (e) => {
         e.preventDefault();
       });
@@ -195,7 +192,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             {
               method: "PUT",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ status: newStatus }),
+              body: JSON.stringify({ status: newStatus })
             }
           );
 
