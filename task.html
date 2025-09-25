@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
@@ -39,6 +39,17 @@
     </div>
     <div class="task-column" id="completed-tasks">
       <h3><span class="status-dot completed"></span> Completadas (<span id="completed-count">0</span>)</h3>
+    </div>
+  </div>
+
+  <!-- 🔥 Modal de confirmación -->
+  <div id="confirm-modal" class="modal">
+    <div class="modal-content">
+      <p>¿Seguro que deseas eliminar esta tarea? 🗑️</p>
+      <div class="modal-actions">
+        <button id="confirm-yes" class="btn btn-danger">Sí, eliminar</button>
+        <button id="confirm-no" class="btn btn-cancel">Cancelar</button>
+      </div>
     </div>
   </div>
 

@@ -17,6 +17,44 @@ document.addEventListener("DOMContentLoaded", async () => {
   const inprogressTasks = document.getElementById("inprogress-tasks");
   const completedTasks = document.getElementById("completed-tasks");
 
+  // === Modal de confirmación ===
+  const confirmModal = document.getElementById("confirm-modal");
+  const confirmYes = document.getElementById("confirm-yes");
+  const confirmNo = document.getElementById("confirm-no");
+  let taskToDelete = null;
+
+  function showConfirmModal(taskId) {
+    taskToDelete = taskId;
+    confirmModal.classList.add("show");
+  }
+
+  function hideConfirmModal() {
+    taskToDelete = null;
+    confirmModal.classList.remove("show");
+  }
+
+  confirmNo.addEventListener("click", hideConfirmModal);
+
+  confirmYes.addEventListener("click", async () => {
+    if (!taskToDelete) return;
+    try {
+      const response = await fetch(
+        `https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks/${taskToDelete}`,
+        { method: "DELETE" }
+      );
+      if (response.ok) {
+        loadTasks();
+      } else {
+        alert("❌ Error al eliminar la tarea");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("❌ No se pudo conectar al servidor");
+    } finally {
+      hideConfirmModal();
+    }
+  });
+
   // ======== MENÚ LATERAL ========
   function toggleMenu() {
     sidebar.classList.toggle("show");
@@ -71,7 +109,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // ======== RENDERIZAR TAREAS ========
   function renderTasks(tasks) {
-    // Reiniciar columnas con los títulos y bolitas
     pendingTasks.innerHTML = `<h3><span class="status-dot pending"></span> Pendientes (<span id="pending-count">0</span>)</h3>`;
     inprogressTasks.innerHTML = `<h3><span class="status-dot inprogress"></span> En proceso (<span id="inprogress-count">0</span>)</h3>`;
     completedTasks.innerHTML = `<h3><span class="status-dot completed"></span> Completadas (<span id="completed-count">0</span>)</h3>`;
@@ -94,12 +131,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 
-    // Actualizar contadores
     document.getElementById("pending-count").textContent = pendingCounter;
     document.getElementById("inprogress-count").textContent = inprogressCounter;
     document.getElementById("completed-count").textContent = completedCounter;
 
-    // === Mensajes motivadores si están vacías ===
     if (pendingCounter === 0) {
       pendingTasks.innerHTML += `<p class="empty-msg">✨ No tienes pendientes. ¡Crea una tarea y organiza tu día!</p>`;
     }
@@ -121,25 +156,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Botón eliminar
     document.querySelectorAll(".delete-btn").forEach((btn) => {
-      btn.addEventListener("click", async (e) => {
+      btn.addEventListener("click", (e) => {
         const taskId = e.currentTarget.dataset.id;
-        if (confirm("¿Seguro que deseas eliminar esta tarea?")) {
-          try {
-            const response = await fetch(
-              `https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks/${taskId}`,
-              { method: "DELETE" }
-            );
-            if (response.ok) {
-              e.target.closest(".task-card").remove();
-              loadTasks();
-            } else {
-              alert("❌ Error al eliminar la tarea");
-            }
-          } catch (error) {
-            console.error(error);
-            alert("❌ No se pudo conectar al servidor");
-          }
-        }
+        showConfirmModal(taskId);
       });
     });
 
@@ -149,7 +168,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         e.dataTransfer.setData("text/plain", card.dataset.id);
         card.classList.add("dragging");
 
-        // 👇 Crear clon sólido
         const crt = card.cloneNode(true);
         crt.style.opacity = "1";
         crt.style.transform = "scale(1)";
@@ -159,10 +177,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         crt.style.top = "-9999px"; 
         document.body.appendChild(crt);
 
-        // usar clon como imagen de arrastre
         e.dataTransfer.setDragImage(crt, crt.offsetWidth / 2, crt.offsetHeight / 2);
 
-        // limpiar clon
         setTimeout(() => document.body.removeChild(crt), 0);
       });
 
@@ -171,7 +187,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     });
 
-    // Columnas que aceptan drops
     [pendingTasks, inprogressTasks, completedTasks].forEach(column => {
       column.addEventListener("dragover", (e) => {
         e.preventDefault();
