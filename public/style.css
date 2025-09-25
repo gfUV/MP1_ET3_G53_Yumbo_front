@@ -293,3 +293,32 @@ button[type="submit"]:hover {
   background-color: #00bfa6;
   transform: translateY(-2px);
 }
+
+/* ======== CAMPOS EXTRAS PARA EDITAR TAREA ======== */
+textarea,
+input[type="date"],
+input[type="time"],
+select {
+  width: 100%;
+  padding: 0.92rem 1rem;
+  margin-bottom: 0.9rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #fff;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+textarea {
+  resize: none;
+  min-height: 70px;
+}
+
+textarea:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus {
+  border-color: #00bfa6;
+  outline: none;
+  box-shadow: 0 0 6px rgba(0,191,166,0.18);
+}
