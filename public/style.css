@@ -247,3 +247,9 @@ button[type="submit"]:hover {
   display: block;
 }
 
+.error-message {
+  font-size: 0.85rem;
+  color: #d9534f;
+  min-height: 1rem; /* siempre deja espacio aunque no haya error */
+  margin-bottom: 0.6rem;
+}

@@ -1,9 +1,8 @@
 /**
- * formValidation.js - Client-side form validations for registration.
- * - Validates strong password rules in real time.
- * - Validates password confirmation in real time.
- * - Validates age in real time.
- * - Validates all required fields on form submission.
+ * formValidation.js - Validaciones del formulario de registro.
+ * - Muestra mensajes de error debajo de cada input.
+ * - Valida contraseña fuerte, confirmación y edad en tiempo real.
+ * - Verifica campos requeridos antes de enviar.
  */
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('registerForm');
@@ -11,61 +10,60 @@ document.addEventListener('DOMContentLoaded', () => {
   const confirmPasswordInput = form.confirmPassword;
   const ageInput = form.age;
 
-  const createError = (input) => {
-    let small = input.parentElement.querySelector('small');
-    if (!small) {
-      small = document.createElement('small');
-      small.style.color = 'red';
-      small.style.fontSize = '0.8em';
-      input.parentElement.appendChild(small);
+  // Crea o reutiliza un contenedor de error debajo del input
+  const getErrorElement = (input) => {
+    let errorEl = input.parentElement.querySelector(".error-message");
+    if (!errorEl) {
+      errorEl = document.createElement("div");
+      errorEl.className = "error-message";
+      input.insertAdjacentElement("afterend", errorEl);
     }
-    return small;
+    return errorEl;
   };
 
-  // Password strength validation
+  // Validación de fortaleza de contraseña
   passwordInput.addEventListener('input', () => {
     const value = passwordInput.value;
-    const small = createError(passwordInput);
+    const errorEl = getErrorElement(passwordInput);
     const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
-    small.textContent = !regex.test(value)
-      ? 'Contraseña débil. Necesita 8+ caracteres, 1 mayúscula, 1 número y 1 símbolo.'
-      : '';
+    errorEl.textContent = !regex.test(value)
+      ? "Debe tener 8+ caracteres, 1 mayúscula, 1 número y 1 símbolo."
+      : "";
   });
 
-  // Confirm password match
+  // Validación de confirmación de contraseña
   confirmPasswordInput.addEventListener('input', () => {
-    const small = createError(confirmPasswordInput);
-    small.textContent =
+    const errorEl = getErrorElement(confirmPasswordInput);
+    errorEl.textContent =
       confirmPasswordInput.value !== passwordInput.value
-        ? 'Las contraseñas no coinciden.'
-        : '';
+        ? "Las contraseñas no coinciden."
+        : "";
   });
 
-  // Age validation
+  // Validación de edad mínima
   ageInput.addEventListener('input', () => {
-    const small = createError(ageInput);
-    small.textContent =
-      parseInt(ageInput.value) < 13 ? 'Debes tener al menos 13 años.' : '';
+    const errorEl = getErrorElement(ageInput);
+    errorEl.textContent =
+      parseInt(ageInput.value) < 13 ? "Debes tener al menos 13 años." : "";
   });
 
-  // Submit validation
+  // Validación al enviar
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     let valid = true;
-    const fields = ['firstName', 'lastName', 'email', 'password', 'confirmPassword'];
+    const fields = ['firstName', 'lastName', 'email', 'password', 'confirmPassword', 'age'];
 
     fields.forEach((fieldName) => {
       const input = form[fieldName];
       const value = input.value.trim();
-      const small = createError(input);
+      const errorEl = getErrorElement(input);
 
       if (!value) {
-        small.textContent = 'Este campo es obligatorio.';
+        errorEl.textContent = "Este campo es obligatorio.";
         valid = false;
-      } else if (!small.textContent) {
-        // solo limpiamos si no hay otro error previo
-        small.textContent = '';
+      } else if (!errorEl.textContent) {
+        errorEl.textContent = "";
       }
     });
 
@@ -78,9 +76,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!passwordRegex.test(password)) valid = false;
     if (password !== confirmPassword) valid = false;
 
-    // ✅ Si es válido, dejamos que el otro script (registerUser.js) haga el fetch
+    // ✅ Si pasa todas las validaciones → dispara el flujo normal (registerUser.js)
     if (valid) {
-      form.submit(); // dispara el flujo normal, registerUser.js ya escucha el submit
+      form.submit();
     }
   });
 });

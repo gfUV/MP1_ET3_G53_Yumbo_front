@@ -1,33 +1,25 @@
 /**
- * auth.js - Backend connection for user registration.
- * Runs when the DOM is fully loaded.
+ * registerUser.js - Backend connection for user registration.
  * - Captures registration form data.
  * - Sends user data to the backend API.
- * - Handles success and error responses.
+ * - Shows inline success/error messages instead of alerts.
  */
 document.addEventListener('DOMContentLoaded', () => {
-  /** @type {HTMLFormElement} Registration form element */
   const form = document.getElementById('registerForm');
 
-  /**
-   * Handles registration form submission.
-   * - Prevents default submission.
-   * - Collects and formats form data.
-   * - Sends user data to the backend API.
-   * - On success: shows confirmation message and redirects to login page.
-   * - On error: shows error message to the user.
-   *
-   * @async
-   * @param {SubmitEvent} e - The form submit event.
-   * @returns {Promise<void>}
-   */
+  // Contenedor para mensajes globales
+  let globalMessage = document.createElement('div');
+  globalMessage.id = "formMessage";
+  form.appendChild(globalMessage);
+
+  const showMessage = (message, type = "error") => {
+    globalMessage.textContent = message;
+    globalMessage.className = type === "success" ? "success-message" : "error-message";
+  };
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    /**
-     * User data captured from the registration form.
-     * @type {{ firstName: string, lastName: string, email: string, password: string, age: number }}
-     */
     const userData = {
       firstName: form.firstName.value.trim(),
       lastName: form.lastName.value.trim(),
@@ -37,28 +29,28 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     try {
-      // Send data to the backend API
       const response = await fetch("https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData)
       });
 
-      /** @type {{ error?: string }} Backend response */
       const data = await response.json();
 
       if (response.ok) {
-        // ✅ Successful registration
-        alert("✅ Registro exitoso. Ahora inicia sesión.");
-        window.location.href = "sign_in.html"; // Redirect to login
+        // ✅ Registro exitoso
+        showMessage("✅ Registro exitoso. Ahora puedes iniciar sesión.", "success");
+        setTimeout(() => {
+          window.location.href = "sign_in.html"; 
+        }, 1500);
       } else {
-        // ❌ Registration error
-        alert("❌ Error: " + (data.error || "No se pudo registrar"));
+        // ❌ Error del backend
+        showMessage(data.error || "No se pudo completar el registro.");
       }
 
     } catch (err) {
       console.error(err);
-      alert("⚠️ Error de conexión con el servidor.");
+      showMessage("⚠️ Error de conexión con el servidor.");
     }
   });
 });
