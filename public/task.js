@@ -153,8 +153,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 document.querySelectorAll(".task-card").forEach(card => {
   card.addEventListener("dragstart", (e) => {
     e.dataTransfer.setData("text/plain", card.dataset.id);
-     card.classList.add("dragging");
+    card.classList.add("dragging");
+
+    // 👇 Crear clon sólido para evitar transparencia
+    const crt = card.cloneNode(true);
+    crt.style.opacity = "1";
+    crt.style.transform = "none";
+    crt.style.position = "absolute";
+    crt.style.top = "-9999px"; // ocultar fuera de la pantalla
+    document.body.appendChild(crt);
+
+    // usar el clon como imagen de arrastre
+    e.dataTransfer.setDragImage(crt, 0, 0);
+
+    // eliminar el clon apenas inicia el drag
+    setTimeout(() => document.body.removeChild(crt), 0);
   });
+
   card.addEventListener("dragend", () => {
     card.classList.remove("dragging"); // 👈 se quita al soltar
   });
