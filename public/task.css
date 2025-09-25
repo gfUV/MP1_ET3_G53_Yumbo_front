@@ -265,3 +265,15 @@ body {
   font-style: italic;
 }
 
+.task-card {
+  cursor: grab;
+}
+
+.task-card:active {
+  cursor: grabbing;
+}
+
+.column.drag-over {
+  background-color: #f0f8ff;
+  border: 2px dashed #4a90e2;
+}
