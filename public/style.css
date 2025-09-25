@@ -326,10 +326,3 @@ select:focus {
   box-shadow: 0 0 6px rgba(0,191,166,0.18);
 }
 
-.hint {
-  font-size: 0.85rem;      /* más pequeño que el label */
-  color: #6c757d;          /* gris claro, accesible */
-  font-family: inherit;    /* misma tipografía que el resto */
-  margin-bottom: 0.3rem;
-  display: block;
-}
