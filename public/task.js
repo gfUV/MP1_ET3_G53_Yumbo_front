@@ -148,3 +148,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     const userId = localStorage.getItem("userId");
     if (!userId) {
       pendingTasks.innerHTML = "<p style='color:red;'>⚠ No se encontró un usuario en sesión.</p>";
+      return;
+    }
+
+    const response = await fetch(
+      `https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/tasks?userId=${userId}`
+    );
+    if (!response.ok) throw new Error("Error al cargar tareas");
+
+    const tasks = await response.json();
+    renderTasks(tasks);
+  } catch (error) {
+    console.error(error);
+    pendingTasks.innerHTML = `<p style="color:red;">❌ ${error.message}</p>`;
+  }
+});
