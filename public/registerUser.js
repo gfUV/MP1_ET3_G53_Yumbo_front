@@ -43,10 +43,16 @@ document.addEventListener('DOMContentLoaded', () => {
         showMessage("✅ Registro exitoso. Redirigiendo...", "success");
         setTimeout(() => {
           window.location.href = "sign_in.html";
-        }, 1500);
+        }, 2500);
       } else {
-        // ❌ Error desde backend
-        showMessage(data.error || data.message || "❌ No se pudo completar el registro.");
+        let errorMsg = data.error || data.message || "❌ No se pudo completar el registro.";
+
+        // Normalizamos errores conocidos
+        if (errorMsg.toLowerCase().includes("email") && errorMsg.toLowerCase().includes("exists")) {
+          errorMsg = "⚠️ Este correo ya está registrado. Intenta iniciar sesión o usa otro correo.";
+        }
+
+      showMessage(errorMsg);
       }
 
     } catch (err) {
