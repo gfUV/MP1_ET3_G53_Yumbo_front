@@ -52,14 +52,17 @@
         </label>
 
         <!-- Fecha -->
+        <!-- Fecha -->
         <label for="date">
           Fecha
           <span class="hint">Selecciona la fecha límite para la tarea</span>
           <input 
-            type="date" 
+            type="text"
             id="date" 
             name="date" 
-            placeholder="dd/mm/aaaa" 
+            placeholder="Ej: 24/09/2025"
+            onfocus="(this.type='date')" 
+            onblur="if(!this.value) this.type='text';"
           />
         </label>
 
@@ -68,12 +71,15 @@
           Hora
           <span class="hint">Elige la hora en que deseas completar la tarea</span>
           <input 
-            type="time" 
+            type="text"
             id="time" 
             name="time" 
-            placeholder="hh:mm" 
+            placeholder="Ej: 14:30"
+            onfocus="(this.type='time')" 
+            onblur="if(!this.value) this.type='text';"
           />
         </label>
+
 
         <!-- Estado -->
         <label for="status">
