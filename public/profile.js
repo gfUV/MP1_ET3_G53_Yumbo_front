@@ -19,6 +19,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   const backBtn = document.getElementById("back");
   const statusMessage = document.getElementById("status-message");
 
+  // Modal
+  const deleteModal = document.getElementById("delete-modal");
+  const cancelDeleteBtn = document.getElementById("cancel-delete");
+  const confirmDeleteBtn = document.getElementById("confirm-delete");
+
   /**
    * Mostrar mensajes en la interfaz
    * @param {string} msg - Texto del mensaje
@@ -34,13 +39,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.location.href = "profile_edit.html";
   });
 
-  // Botón Eliminar cuenta
-  deleteBtn.addEventListener("click", async () => {
-    const confirmar = confirm(
-      "¿Seguro que quieres eliminar tu cuenta? Esta acción no se puede deshacer."
-    );
-    if (!confirmar) return;
+  // Botón Eliminar cuenta → abrir modal
+  deleteBtn.addEventListener("click", () => {
+    deleteModal.classList.remove("hidden");
+  });
 
+  // Cancelar eliminación
+  cancelDeleteBtn.addEventListener("click", () => {
+    deleteModal.classList.add("hidden");
+  });
+
+  // Confirmar eliminación
+  confirmDeleteBtn.addEventListener("click", async () => {
     try {
       const userId = localStorage.getItem("userId");
       if (!userId) {
@@ -60,11 +70,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       showMessage("Tu cuenta se eliminó con éxito.", "success");
 
       setTimeout(() => {
-        window.location.href = "sign_up.html";
+        window.location.href = "sign_in.html";
       }, 2000);
     } catch (error) {
       console.error("Error eliminando la cuenta:", error);
       showMessage("No se pudo eliminar la cuenta. Intenta de nuevo.", "error");
+    } finally {
+      deleteModal.classList.add("hidden");
     }
   });
 

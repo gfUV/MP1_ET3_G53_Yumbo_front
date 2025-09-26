@@ -21,26 +21,25 @@
         ✅ Tu perfil se cargó con éxito.
       </div>
 
-      <!-- Información del usuario -->
+      <!-- Datos principales -->
+      <div class="profile-main">
+        <div class="profile-avatar">👤</div>
+        <div>
+          <div id="user-name" class="user-name">Cargando...</div>
+          <div id="user-email" class="user-email">Cargando...</div>
+          <div id="user-age" class="user-age">Cargando...</div>
+        </div>
+      </div>
+
+      <!-- Información secundaria -->
       <div class="profile-info">
+        <h3>Información de la cuenta</h3>
         <div class="profile-field">
-          <span class="label">Nombre</span>
-          <div class="value" id="user-name">Cargando...</div>
-        </div>
-        <div class="profile-field">
-          <span class="label">Edad</span>
-          <div class="value" id="user-age">Cargando...</div>
-        </div>
-        <div class="profile-field">
-          <span class="label">Correo</span>
-          <div class="value" id="user-email">Cargando...</div>
-        </div>
-        <div class="profile-field">
-          <span class="label">Cuenta creada el</span>
+          <span class="label">📅 Fecha de creación</span>
           <div class="value" id="user-created">Cargando...</div>
         </div>
         <div class="profile-field">
-          <span class="label">Última vez editado</span>
+          <span class="label">🔄 Última actualización</span>
           <div class="value" id="user-updated">Cargando...</div>
         </div>
       </div>
@@ -48,7 +47,19 @@
       <!-- Acciones -->
       <div class="profile-actions">
         <button id="edit" class="btn-primary">Editar perfil</button>
-        <button id="delete" class="btn-danger">Eliminar mi cuenta</button>
+        <button id="delete" class="btn-danger-outline">Eliminar cuenta</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de confirmación -->
+  <div id="delete-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>¿Eliminar cuenta?</h3>
+      <p>Esta acción es permanente y no se puede deshacer.</p>
+      <div class="modal-actions">
+        <button id="cancel-delete" class="btn-secondary">Cancelar</button>
+        <button id="confirm-delete" class="btn-danger">Eliminar</button>
       </div>
     </div>
   </div>
