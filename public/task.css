@@ -107,6 +107,10 @@ body {
   color: #d32f2f;
 }
 
+/* Espacio extra entre la X y los botones */
+.sidebar button:not(.close-btn) {
+  margin-top: 40px; /* 👈 baja todos los botones */
+}
 /* Overlay detrás del menú */
 .overlay {
   position: fixed;
