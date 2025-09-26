@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       ? new Date(user.updatedAt).toLocaleDateString("es-ES")
       : "No disponible";
 
-    showMessage("Perfil cargado correctamente.", "success");
+    
   } catch (error) {
     console.error("Error cargando perfil:", error);
     showMessage("No se pudo cargar tu perfil.", "error");
