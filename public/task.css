@@ -107,9 +107,6 @@ body {
   color: #d32f2f;
 }
 
-.sidebar button:first-of-type {
-  margin-top: 50px; /* Ajusta este valor a tu gusto */
-}
 /* Overlay detrás del menú */
 .overlay {
   position: fixed;
