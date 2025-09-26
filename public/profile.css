@@ -1,123 +1,113 @@
-/* profile.css */
-
-/* ===== Layout general ===== */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f7fa;
-  margin: 0;
-  padding: 0;
+/* Contenedor general */
+.container {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   min-height: 100vh;
+  background-color: #f8fafc;
+  padding: 1rem;
 }
 
-/* ===== Contenedor principal ===== */
-.profile-container {
+/* Caja central */
+.form-container {
   background: #fff;
   padding: 2rem;
-  margin-top: 3rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 500px;
-  box-sizing: border-box;
+  text-align: center;
 }
 
-/* ===== Link volver ===== */
-.back-link {
-  display: inline-block;
+/* Botón volver */
+.btn-link {
+  background: none;
+  border: none;
+  color: #0d6efd;
+  font-size: 0.9rem;
+  cursor: pointer;
   margin-bottom: 1rem;
-  color: #0077cc;
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 500;
+  display: inline-block;
+  text-align: left;
+  width: 100%;
 }
-
-.back-link:hover {
+.btn-link:hover {
   text-decoration: underline;
 }
 
-/* ===== Títulos ===== */
-.profile-container h2 {
-  text-align: center;
-  margin-bottom: 1rem;
-  color: #222;
-  font-size: 1.6rem;
+/* Título */
+.form-container h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
+/* Mensaje de estado */
 .status-message {
-  text-align: center;
   margin-bottom: 1.5rem;
+  padding: 0.75rem;
+  border-radius: 8px;
   font-size: 0.95rem;
-  font-weight: 500;
+}
+.success {
+  background-color: #e6f4ea;
+  color: #137333;
+}
+.error {
+  background-color: #fbeaea;
+  color: #b3261e;
 }
 
-.success-message {
-  color: #28a745;
-}
-
-.error-message {
-  color: #d9534f;
-}
-
-/* ===== Información del perfil ===== */
+/* Información del perfil */
 .profile-info {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
-
-.profile-info p {
+.profile-field {
   display: flex;
   justify-content: space-between;
-  margin: 10px 0;
-  font-size: 0.95rem;
+  margin-bottom: 0.75rem;
+}
+.label {
+  font-weight: 600;
   color: #333;
 }
-
-.profile-info strong {
-  font-weight: 600;
-  color: #444;
-}
-
-.profile-info span {
-  text-align: right;
+.value {
   color: #555;
+  text-align: right;
+  flex: 1;
+  margin-left: 1rem;
+  word-break: break-word;
 }
 
-/* ===== Botones ===== */
+/* Botones */
 .profile-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1rem;
 }
 
-.profile-actions button {
-  flex: 1;
-  padding: 0.75rem;
+.btn-primary,
+.btn-danger {
+  padding: 0.6rem 1.2rem;
   border: none;
   border-radius: 8px;
+  cursor: pointer;
   font-size: 0.95rem;
   font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
-/* Botón editar */
-#edit {
-  background-color: #20c997;
+.btn-primary {
+  background-color: #10b981;
   color: #fff;
 }
-
-#edit:hover {
-  background-color: #17a589;
+.btn-primary:hover {
+  background-color: #0a946b;
 }
 
-/* Botón eliminar */
-#delete {
+.btn-danger {
   background-color: #dc3545;
   color: #fff;
 }
-
-#delete:hover {
-  background-color: #c82333;
+.btn-danger:hover {
+  background-color: #a71d2a;
 }
