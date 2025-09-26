@@ -1,188 +1,123 @@
-/* ======== RESET ======== */
-*,
-*::before,
-*::after {
+/* profile.css */
+
+/* ===== Layout general ===== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+/* ===== Contenedor principal ===== */
+.profile-container {
+  background: #fff;
+  padding: 2rem;
+  margin-top: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 500px;
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: #F4F6F8;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* ======== CONTENEDOR ======== */
-.container {
-  width: 100%;
-  padding: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.form-container {
-  background-color: #ffffff;
-  padding: 2.5rem;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  width: 100%;
-  max-width: 480px;
-  text-align: center;
-  position: relative;
-}
-
-/* ======== BOTÓN VOLVER ======== */
-.btn-link {
-  display: inline-flex;
-  align-items: center;
-  margin-bottom: 1.2rem;
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: #0077b6;
-  background: none;
-  border: none;
-  cursor: pointer;
+/* ===== Link volver ===== */
+.back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #0077cc;
   text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
 }
 
-.btn-link:hover {
+.back-link:hover {
   text-decoration: underline;
 }
 
-/* ======== TÍTULO ======== */
-h2 {
-  margin: 0 0 1.5rem 0;
-  color: #222;
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-/* ======== MENSAJES DE ESTADO ======== */
-.status-message {
-  font-size: 0.9rem;
-  padding: 0.8rem 1rem;
-  border-radius: 8px;
-  margin-bottom: 1.2rem;
+/* ===== Títulos ===== */
+.profile-container h2 {
   text-align: center;
-  font-weight: 500;
-  animation: fadeIn 0.3s ease;
+  margin-bottom: 1rem;
+  color: #222;
+  font-size: 1.6rem;
 }
 
-.status-message.success {
-  background-color: #e6f4ea;
-  color: #2e7d32;
-  border: 1px solid #c8e6c9;
-}
-
-.status-message.error {
-  background-color: #fdecea;
-  color: #d32f2f;
-  border: 1px solid #f5c6cb;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-3px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ======== INFO DE PERFIL ======== */
-.profile-info {
-  margin: 1.2rem 0;
-  text-align: left;
-}
-
-.profile-field {
-  margin-bottom: 0.8rem;
+.status-message {
+  text-align: center;
+  margin-bottom: 1.5rem;
   font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.success-message {
+  color: #28a745;
+}
+
+.error-message {
+  color: #d9534f;
+}
+
+/* ===== Información del perfil ===== */
+.profile-info {
+  margin-bottom: 1.5rem;
+}
+
+.profile-info p {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-}
-
-.profile-field .label {
-  font-weight: 600;
+  margin: 10px 0;
+  font-size: 0.95rem;
   color: #333;
-  margin-right: 0.5rem;
 }
 
-.profile-field .value {
+.profile-info strong {
+  font-weight: 600;
   color: #444;
 }
 
-/* ======== BOTONES ======== */
+.profile-info span {
+  text-align: right;
+  color: #555;
+}
+
+/* ===== Botones ===== */
 .profile-actions {
   display: flex;
   justify-content: space-between;
-  gap: 0.8rem;
-  margin-top: 1.5rem;
+  gap: 1rem;
 }
 
-button {
-  font-family: inherit;
+.profile-actions button {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 8px;
   font-size: 0.95rem;
   font-weight: 600;
-  border-radius: 8px;
-  padding: 0.85rem 1.4rem;
   cursor: pointer;
-  border: none;
-  transition: background-color .2s, transform .15s, box-shadow .15s;
+  transition: background-color 0.2s ease;
 }
 
-/* Botón primario (editar) */
-.btn-primary {
-  background-color: #2ED6C4;
+/* Botón editar */
+#edit {
+  background-color: #20c997;
   color: #fff;
 }
 
-.btn-primary:hover {
-  background-color: #00bfa6;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(0,191,166,0.12);
+#edit:hover {
+  background-color: #17a589;
 }
 
-/* Botón peligroso (eliminar) */
-.btn-danger {
-  background-color: #d9534f;
+/* Botón eliminar */
+#delete {
+  background-color: #dc3545;
   color: #fff;
 }
 
-.btn-danger:hover {
-  background-color: #c9302c;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(217,83,79,0.15);
-}
-
-/* ======== RESPONSIVE ======== */
-@media (max-width: 480px) {
-  .form-container {
-    padding: 1.6rem;
-    max-width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  h2 {
-    font-size: 1.3rem;
-  }
-
-  .profile-field {
-    font-size: 0.9rem;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .profile-actions {
-    flex-direction: column;
-  }
-
-  .btn-primary,
-  .btn-danger {
-    width: 100%;
-  }
+#delete:hover {
+  background-color: #c82333;
 }
