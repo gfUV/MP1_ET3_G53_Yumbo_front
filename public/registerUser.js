@@ -36,12 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       const data = await response.json();
+      console.log(response);
 
       if (response.ok) {
         // ✅ Registro exitoso
         showMessage("✅ Registro exitoso. Ahora puedes iniciar sesión.", "success");
         setTimeout(() => {
-          window.location.href = "/sign_in.html"; 
+          window.location.href = "sign_in.html"; 
         }, 1500);
       } else {
         // ❌ Error del backend
