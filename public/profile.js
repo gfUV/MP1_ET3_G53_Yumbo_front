@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
    * @param {"success"|"error"} type - Tipo de mensaje
    */
   function showMessage(msg, type = "success") {
+    if (!statusMessage) return;
     statusMessage.textContent = msg;
     statusMessage.className = `status-message ${type}-message`;
   }
@@ -71,7 +72,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       setTimeout(() => {
         window.location.href = "sign_in.html";
-      }, 2000);
+      }, 3000); // más tiempo para leer el mensaje
     } catch (error) {
       console.error("Error eliminando la cuenta:", error);
       showMessage("No se pudo eliminar la cuenta. Intenta de nuevo.", "error");
@@ -119,5 +120,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Error cargando perfil:", error);
     showMessage("No se pudo cargar tu perfil.", "error");
   }
-
 });
