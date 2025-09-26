@@ -339,3 +339,14 @@ body {
 .modal.show {
   display: flex; /* lo hace visible y centrado */
 }
+
+/* ======== UNIFICAR TIPOGRAFÍA DE CAMPOS ======== */
+input,
+textarea,
+select,
+button {
+  font-family: inherit;   /* hereda la del body ('Segoe UI', Arial, sans-serif) */
+  font-size: inherit;     /* mantiene consistencia de tamaño */
+  line-height: 1.4;
+  color: #333;
+}
