@@ -138,7 +138,7 @@ h3 {
 }
 
 .btn-danger:hover {
-  background-color: #ffebee;
+  background-color: #e74c3c;;
   transform: translateY(-2px);
 }
 
@@ -244,4 +244,10 @@ h3 {
   display: flex;
   align-items: center;
   gap: 0.4rem;                /* Espacio entre 🎂 y número */
+}
+
+.profile-actions .btn-primary,
+.profile-actions .btn-danger {
+  flex: unset;         /* desactiva el ajuste automático */
+  width: 48%;          /* cada uno ocupa la mitad del espacio */
 }
