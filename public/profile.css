@@ -127,12 +127,12 @@ h3 {
 .btn-danger {
   flex: 1;
   background-color: #e74c3c;
- border: none;
+  border: 2px solid #d32f2f;
   border-radius: 8px;
   padding: 0.9rem 1rem;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #ca1e1e;
+  color: #ffffff;
   cursor: pointer;
   transition: background-color .2s, transform .15s;
 }
@@ -180,9 +180,9 @@ h3 {
 
 /* Botón secundario (gris) */
 .btn-secondary {
-  background-color: #bbbaba;
+  background-color: #bdc3c7;;
   border: 2px solid #d32f2f;
-  color: #7c7a7a;
+  color: #000000;
   border: none;
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
