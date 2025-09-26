@@ -1,16 +1,10 @@
-/**
- * registerUser.js - Backend connection for user registration.
- * - Captures registration form data.
- * - Sends user data to the backend API.
- * - Shows inline success/error messages instead of alerts.
- */
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('registerForm');
 
-  // Contenedor para mensajes globales
+  // Contenedor para mensajes globales (arriba del formulario)
   let globalMessage = document.createElement('div');
   globalMessage.id = "formMessage";
-  form.appendChild(globalMessage);
+  form.insertBefore(globalMessage, form.firstChild);
 
   const showMessage = (message, type = "error") => {
     globalMessage.textContent = message;
@@ -19,6 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // Validar confirmación de contraseña
+    if (form.password.value.trim() !== form.confirmPassword.value.trim()) {
+      showMessage("⚠️ Las contraseñas no coinciden.");
+      return;
+    }
 
     const userData = {
       firstName: form.firstName.value.trim(),
@@ -36,17 +36,15 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       const data = await response.json();
-      console.log(response);
+      console.log("Respuesta backend:", data);
 
       if (response.ok) {
-        // ✅ Registro exitoso
-        showMessage("✅ Registro exitoso. Ahora puedes iniciar sesión.", "success");
+        showMessage("✅ Registro exitoso. Redirigiendo...", "success");
         setTimeout(() => {
-          window.location.href = "sign_in.html"; 
+          window.location.href = "sign_in.html";
         }, 1500);
       } else {
-        // ❌ Error del backend
-        showMessage(data.error || "No se pudo completar el registro.");
+        showMessage(data.error || data.message || "❌ No se pudo completar el registro.");
       }
 
     } catch (err) {
