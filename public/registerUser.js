@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
       console.log(response);
 
-      if (response.ok) {
+      if (data.ok) {
         // ✅ Registro exitoso
         showMessage("✅ Registro exitoso. Ahora puedes iniciar sesión.", "success");
         setTimeout(() => {
