@@ -212,7 +212,9 @@ document.addEventListener("DOMContentLoaded", async () => {
           );
 
           if (response.ok) {
-            loadTasks();
+              const card = document.querySelector(`.task-card[data-id="${taskToDelete}"]`);
+              if (card) card.remove()
+            
           } else {
             alert("❌ No se pudo actualizar la tarea");
           }
