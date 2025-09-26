@@ -1,3 +1,9 @@
+/**
+ * registerUser.js - Conexión al backend de registro.
+ * - Captura datos del formulario.
+ * - Envía al backend con fetch.
+ * - Muestra mensajes de éxito/error.
+ */
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('registerForm');
 
@@ -13,12 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    // Validar confirmación de contraseña
-    if (form.password.value.trim() !== form.confirmPassword.value.trim()) {
-      showMessage("⚠️ Las contraseñas no coinciden.");
-      return;
-    }
 
     const userData = {
       firstName: form.firstName.value.trim(),
@@ -39,11 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log("Respuesta backend:", data);
 
       if (response.ok) {
+        // ✅ Registro exitoso
         showMessage("✅ Registro exitoso. Redirigiendo...", "success");
         setTimeout(() => {
           window.location.href = "sign_in.html";
         }, 1500);
       } else {
+        // ❌ Error desde backend
         showMessage(data.error || data.message || "❌ No se pudo completar el registro.");
       }
 
