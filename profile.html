@@ -11,47 +11,49 @@
     <div class="form-container">
 
       <!-- Botón volver -->
-      <a id="back" class="back-top">⬅ Volver</a>
+      <button id="back" class="btn-link">← Volver a mis tareas</button>
 
       <!-- Título -->
-      <h2>Mi Perfil</h2>
+      <h2>Mi perfil</h2>
 
       <!-- Mensajes de estado -->
-      <div id="status-message" class="status-message"></div>
+      <div id="status-message" class="status-message success">
+        ✅ Tu perfil se cargó con éxito.
+      </div>
 
       <!-- Información del usuario -->
       <div class="profile-info">
         <div class="profile-field">
-          <span class="label">Nombre:</span>
-          <span id="user-name">Cargando...</span>
+          <span class="label">Nombre</span>
+          <div class="value" id="user-name">Cargando...</div>
         </div>
         <div class="profile-field">
-          <span class="label">Edad:</span>
-          <span id="user-age">Cargando...</span>
+          <span class="label">Edad</span>
+          <div class="value" id="user-age">Cargando...</div>
         </div>
         <div class="profile-field">
-          <span class="label">Correo:</span>
-          <span id="user-email">Cargando...</span>
+          <span class="label">Correo</span>
+          <div class="value" id="user-email">Cargando...</div>
         </div>
         <div class="profile-field">
-          <span class="label">Creada desde:</span>
-          <span id="user-created">Cargando...</span>
+          <span class="label">Cuenta creada el</span>
+          <div class="value" id="user-created">Cargando...</div>
         </div>
         <div class="profile-field">
-          <span class="label">Última actualización:</span>
-          <span id="user-updated">Cargando...</span>
+          <span class="label">Última vez editado</span>
+          <div class="value" id="user-updated">Cargando...</div>
         </div>
       </div>
 
       <!-- Acciones -->
-      <div class="form-actions">
-        <button id="edit" id="edit" type="button">Editar perfil</button>
-        <button id="delete" type="button" class="danger">Eliminar cuenta</button>
+      <div class="profile-actions">
+        <button id="edit" class="btn-primary">Editar perfil</button>
+        <button id="delete" class="btn-danger">Eliminar mi cuenta</button>
       </div>
     </div>
   </div>
 
-  <!-- Script de perfil -->
+  <!-- Script -->
   <script src="/profile.js"></script>
 </body>
 </html>
