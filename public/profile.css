@@ -108,7 +108,7 @@ h3 {
 
 .btn-primary {
   flex: 1;
-  background-color: #2e7d32;
+  background-color: #2ED6C4;
   border: none;
   border-radius: 8px;
   padding: 0.9rem 1rem;
@@ -120,7 +120,7 @@ h3 {
 }
 
 .btn-primary:hover {
-  background-color: #1b5e20;
+  background-color: #009e88;
   transform: translateY(-2px);
 }
 
@@ -180,8 +180,9 @@ h3 {
 
 /* Botón secundario (gris) */
 .btn-secondary {
-  background-color: #f1f1f1;
-  color: #333;
+  background-color: #fff;
+  border: 2px solid #d32f2f;
+  color: #e6e3e3;
   border: none;
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
@@ -211,4 +212,36 @@ h3 {
   background-color: #ffebee;
   color: #c62828;
   border: 1px solid #ef9a9a;
+}
+
+/* ======== BLOQUE PRINCIPAL (avatar + datos) ======== */
+.profile-main {
+  display: flex;              /* Pone avatar + datos en línea */
+  align-items: center;        /* Centra verticalmente */
+  gap: 1rem;                  /* Espacio entre avatar y texto */
+  margin-bottom: 1.5rem;
+}
+
+.profile-avatar {
+  font-size: 55px;            /* Tamaño del ícono 👤 */
+  line-height: 1;
+}
+
+.user-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #111;
+}
+
+.user-email {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.user-age {
+  font-size: 0.9rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;                /* Espacio entre 🎂 y número */
 }
