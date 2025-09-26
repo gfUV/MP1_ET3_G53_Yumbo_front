@@ -120,8 +120,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     showMessage("No se pudo cargar tu perfil.", "error");
   }
 
-  // Botón Volver → tareas
-  backBtn.addEventListener("click", () => {
-    window.location.href = "/task.html";
-  });
 });
