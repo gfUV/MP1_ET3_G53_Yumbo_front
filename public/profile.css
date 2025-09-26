@@ -143,45 +143,55 @@ h3 {
 }
 
 /* === Modal === */
-/* === Modal === */
+.modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal.hidden {
+  display: none;
+}
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+.modal-content h3 {
+  margin-bottom: 1rem;
+}
+.modal-content p {
+  margin-bottom: 1.5rem;
+  color: #555;
+  font-size: 0.95rem;
+}
 .modal-actions {
   display: flex;
-  justify-content: flex-end;   /* Alinea a la derecha */
-  flex-direction: row-reverse; /* Eliminar a la izquierda */
-  gap: 0.6rem;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-/* Botón eliminar */
-.btn-danger {
-  background-color: #e74c3c;
-  border: none;
-  padding: 0.5rem 1rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color .2s;
-}
-.btn-danger:hover {
-  background-color: #c0392b;
-}
-
-/* Botón cancelar (gris neutro) */
+/* Botón secundario (gris) */
 .btn-secondary {
-  background-color: #bdc3c7;
+  background-color: #bdc3c7;;
+  border: 2px solid #d32f2f;
+  color: #000000;
   border: none;
-  padding: 0.5rem 1rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #333;
-  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
 }
 .btn-secondary:hover {
-  background-color: #aeb6bf;
+  background-color: #ddd;
 }
-
 
 /* ======== MENSAJES DE ESTADO ======== */
 .status-message {
