@@ -103,6 +103,18 @@ input:focus {
   box-shadow: 0 0 6px rgba(0,191,166,0.18);
 }
 
+/* ======== UNIFICAR TIPOGRAFÍA DE CAMPOS ======== */
+input,
+textarea,
+select,
+button {
+  font-family: inherit;   /* hereda la del body ('Segoe UI', Arial, sans-serif) */
+  font-size: inherit;     /* mantiene consistencia de tamaño */
+  line-height: 1.4;
+  color: #333;
+}
+
+
 /* ======== WRAPPER CONTRASEÑA (ojo dentro) ======== */
 .password-wrapper {
   position: relative;
@@ -325,4 +337,5 @@ select:focus {
   outline: none;
   box-shadow: 0 0 6px rgba(0,191,166,0.18);
 }
+
 
