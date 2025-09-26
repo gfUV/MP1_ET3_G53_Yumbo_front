@@ -55,7 +55,7 @@ body {
 
 /* ======== LOGO & TITULO ======== */
 .logo {
-  width: 80px;
+  width: 90px;
   height: auto;
   display: block;
   margin: 0 auto 1rem;
@@ -233,7 +233,7 @@ button[type="submit"]:hover {
   }
 
   .logo {
-    width: 64px;
+    width: 70px;
     margin-bottom: 0.8rem;
   }
 
