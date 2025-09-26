@@ -107,9 +107,8 @@ body {
   color: #d32f2f;
 }
 
-/* Espacio extra entre la X y los botones */
-.sidebar button:not(.close-btn) {
-  margin-top: 40px; /* 👈 baja todos los botones */
+.sidebar button:first-of-type {
+  margin-top: 50px; /* Ajusta este valor a tu gusto */
 }
 /* Overlay detrás del menú */
 .overlay {
