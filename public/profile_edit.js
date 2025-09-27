@@ -18,11 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * @event click
    */
   
-  cancelBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.location.href = "profile.html";
-  });
-
+  
     /**
    * Save button listener
    * Validates input, builds an updated user object,
