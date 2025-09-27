@@ -10,7 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Contenedor para mensajes globales (arriba del formulario)
   let globalMessage = document.createElement('div');
   globalMessage.id = "formMessage";
-  form.insertBefore(globalMessage, form.firstChild);
+  const submitBtn = form.querySelector('button[type="submit"]');
+  form.insertBefore(globalMessage, submitBtn);
+
 
   const showMessage = (message, type = "error") => {
     globalMessage.textContent = message;
