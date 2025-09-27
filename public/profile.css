@@ -251,3 +251,23 @@ h3 {
   flex: unset;         /* desactiva el ajuste automático */
   width: 48%;          /* cada uno ocupa la mitad del espacio */
 }
+
+/* ======== Botones del modal (tamaño personalizado) ======== */
+.modal-actions .btn-danger,
+.modal-actions .btn-secondary {
+  flex: 1;                /* Que ambos ocupen el mismo espacio */
+  padding: 1rem 1.5rem;   /* Aumenta el alto y ancho del botón */
+  font-size: 1rem;        /* Texto más grande */
+  border-radius: 10px;    /* Bordes más redondeados */
+}
+
+/* En móvil se apilan para no quedar apretados */
+@media (max-width: 480px) {
+  .modal-actions {
+    flex-direction: column;
+  }
+  .modal-actions .btn-danger,
+  .modal-actions .btn-secondary {
+    width: 100%;
+  }
+}
