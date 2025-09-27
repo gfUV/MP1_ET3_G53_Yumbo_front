@@ -26,43 +26,57 @@ document.addEventListener("DOMContentLoaded", () => {
    * @event click
    */
   saveBtn.addEventListener("click", async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    
-    if (!nameInput.value.trim() || !lastNameInput.value.trim()) {
-      alert("Por favor completa nombre y apellido.");
-      return;
-    }
-    /** @type {{ firstName: string, lastName: string, email: string|null, age: number|null }} */
-    const updatedUser = {
-      firstName: nameInput.value.trim(),
-      lastName: lastNameInput.value.trim(),
-      email: emailInput.value.trim() || null,
-      age: ageInput.value ? parseInt(ageInput.value, 10) : null,
-    };
+  if (!nameInput.value.trim() || !lastNameInput.value.trim()) {
+    alert("Por favor completa nombre y apellido.");
+    return;
+  }
 
-    try {
-      const userId = localStorage.getItem("userId");
-      if (!userId) throw new Error("Usuario no encontrado en sesión");
+  const updatedUser = {
+    firstName: nameInput.value.trim(),
+    lastName: lastNameInput.value.trim(),
+    email: emailInput.value.trim() || null,
+    age: ageInput.value ? parseInt(ageInput.value, 10) : null,
+  };
 
-      const putResponse = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/users/${userId}`, {
+  try {
+    const userId = localStorage.getItem("userId");
+    if (!userId) throw new Error("Usuario no encontrado en sesión");
+
+  
+    saveBtn.disabled = true;
+    saveBtn.textContent = "⏳ Actualizando...";
+
+    const putResponse = await fetch(
+      `https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/users/${userId}`,
+      {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedUser),
-      });
-
-      if (!putResponse.ok) {
-        const text = await putResponse.text().catch(()=>null);
-        throw new Error(`Error al actualizar usuario: ${putResponse.status} ${text || ""}`);
       }
+    );
 
-      alert("Perfil actualizado con éxito ✅");
-      window.location.href = "profile.html";
-    } catch (err) {
-      console.error("Error guardando cambios:", err);
-      alert("Hubo un problema al actualizar el perfil. Revisa la consola.");
+    if (!putResponse.ok) {
+      const text = await putResponse.text().catch(() => null);
+      throw new Error(`Error al actualizar usuario: ${putResponse.status} ${text || ""}`);
     }
-  });
+
+  
+    saveBtn.textContent = "✅ Perfil actualizado";
+    setTimeout(() => {
+      window.location.href = "profile.html";
+    }, 1200);
+  } catch (err) {
+    console.error("Error guardando cambios:", err);
+    saveBtn.disabled = false;
+    saveBtn.textContent = "❌ Error, intenta de nuevo";
+    setTimeout(() => {
+      saveBtn.textContent = "💾 Guardar cambios";
+    }, 2000);
+  }
+});
+
 
   /**
    * Immediately Invoked Async Function
