@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!feedbackDiv) {
     feedbackDiv = document.createElement("div");
     feedbackDiv.className = "feedback-message";
-    form.appendChild(feedbackDiv);
+    form.insertBefore(feedbackDiv, submitBtn);
   }
 
   // Botón volver
