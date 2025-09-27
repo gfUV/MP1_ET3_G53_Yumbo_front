@@ -1,31 +1,63 @@
+/**
+ * registerUser.js - Conexión al backend de registro.
+ * - Captura datos del formulario.
+ * - Envía al backend con fetch.
+ * - Muestra mensajes de éxito/error.
+ */
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('registerForm');
-  const emailInput = form.email;
 
-  // Mensaje debajo del campo de email
-  let emailMessage = document.createElement("small");
-  emailMessage.id = "emailMessage";
-  emailInput.parentNode.appendChild(emailMessage);
+  // Contenedor para mensajes globales (arriba del formulario)
+  let globalMessage = document.createElement('div');
+  globalMessage.id = "formMessage";
+  form.insertBefore(globalMessage, form.firstChild);
 
-  emailInput.addEventListener("blur", async () => {
-    const email = emailInput.value.trim();
-    if (!email) return;
+  const showMessage = (message, type = "error") => {
+    globalMessage.textContent = message;
+    globalMessage.className = type === "success" ? "success-message" : "error-message";
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const userData = {
+      firstName: form.firstName.value.trim(),
+      lastName: form.lastName.value.trim(),
+      email: form.email.value.trim(),
+      password: form.password.value.trim(),
+      age: parseInt(form.age.value),
+    };
 
     try {
-      const response = await fetch(`https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/users/check-email?email=${encodeURIComponent(email)}`);
-      const data = await response.json();
+      const response = await fetch("https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData)
+      });
 
-      if (response.ok && data.exists) {
-        emailMessage.textContent = "⚠️ Este correo ya está registrado.";
-        emailMessage.style.color = "red";
+      const data = await response.json();
+      console.log("Respuesta backend:", data);
+
+      if (response.ok) {
+        // ✅ Registro exitoso
+        showMessage("✅ Registro exitoso. Redirigiendo...", "success");
+        setTimeout(() => {
+          window.location.href = "sign_in.html";
+        }, 2500);
       } else {
-        emailMessage.textContent = "✔️ Correo disponible.";
-        emailMessage.style.color = "green";
+        let errorMsg = data.error || data.message || "❌ No se pudo completar el registro.";
+
+        // Normalizamos errores conocidos
+        if (errorMsg.toLowerCase().includes("email") && errorMsg.toLowerCase().includes("exists")) {
+          errorMsg = "⚠️ Este correo ya está registrado. Intenta iniciar sesión o usa otro correo.";
+        }
+
+      showMessage(errorMsg);
       }
+
     } catch (err) {
-      console.error("Error verificando correo:", err);
-      emailMessage.textContent = "⚠️ No se pudo verificar el correo.";
-      emailMessage.style.color = "orange";
+      console.error(err);
+      showMessage("⚠️ Error de conexión con el servidor.");
     }
   });
 });
