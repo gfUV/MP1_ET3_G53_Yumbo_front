@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           }
         }
         showMessage("✅ Tarea eliminada correctamente", "success");
+        loadTasks();
       } else {
         showMessage("❌ Error al eliminar la tarea", "error");
       }
