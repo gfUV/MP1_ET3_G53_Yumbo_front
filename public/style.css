@@ -291,7 +291,7 @@ button[type="submit"]:hover {
   margin-top: 1.2rem;
 }
 
-button[type="button"] {
+button[id="save"] {
   width: 100%;
   padding: 0.95rem;
   background-color: #2ED6C4;
@@ -304,7 +304,7 @@ button[type="button"] {
   transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
 }
 
-button[type="button"]:hover {
+button[id="save"]:hover {
   background-color: #009e88;
   transform: translateY(-2px);
   box-shadow: 0 8px 18px rgba(0,191,166,0.12);
