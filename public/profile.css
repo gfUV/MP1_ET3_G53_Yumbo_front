@@ -256,7 +256,7 @@ h3 {
 .modal-actions .btn-danger,
 .modal-actions .btn-secondary {
   flex: 1;                /* Que ambos ocupen el mismo espacio */
-  padding: 1rem 1.5rem;   /* Aumenta el alto y ancho del botón */
+  padding: 8px 16px;   /* Aumenta el alto y ancho del botón */
   font-size: 1rem;        /* Texto más grande */
   border-radius: 10px;    /* Bordes más redondeados */
 }
