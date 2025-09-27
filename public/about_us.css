@@ -60,9 +60,8 @@ body {
 }
 
 .back-top:hover {
-  background-color: #357ae8;
+  text-decoration: underline;
 }
-
 /* ===== Responsive ===== */
 @media (max-width: 768px) {
   .container {
