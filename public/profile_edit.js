@@ -93,9 +93,10 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("Usuario recibido en edit:", user);
 
       if (nameInput) nameInput.value = user.firstName || "";
-      if (lastNameInput) nameInput.value = user.lastName || "";
+      if (lastNameInput) lastNameInput.value = user.lastName || ""; 
       if (ageInput) ageInput.value = user.age || "";
       if (emailInput) emailInput.value = user.email || "";
+
     } catch (error) {
       console.error("Error cargando edición de perfil:", error);
     }
