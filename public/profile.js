@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const updatedSpan = document.getElementById("user-updated");
   const editBtn = document.getElementById("edit");
   const deleteBtn = document.getElementById("delete");
-  const backBtn = document.getElementById("back");
   const statusMessage = document.getElementById("status-message");
 
   // Modal

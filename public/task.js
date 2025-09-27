@@ -212,6 +212,9 @@ document.addEventListener("DOMContentLoaded", async () => {
           );
 
           if (response.ok) {
+            pendingTasks.innerHTML = "";
+            inprogressTasks.innerHTML = "";
+            completedTasks.innerHTML = "";
             loadTasks();
           } else {
             alert("❌ No se pudo actualizar la tarea");
