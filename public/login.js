@@ -1,3 +1,10 @@
+/**
+ * This script manages the login functionality.
+ * It validates form fields in real-time, enables/disables the submit button,
+ * toggles password visibility, and sends login requests to the API.
+ * 
+ * Visible messages for the user remain in Spanish.
+ */
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('loginForm');
   const emailInput = document.getElementById('email');
@@ -9,17 +16,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const eyeOpen = document.getElementById('eyeOpen');
   const eyeClosed = document.getElementById('eyeClosed');
 
-  // 🚫 Botón deshabilitado al inicio
+  /**
+   * Initial state
+   * The login button is disabled until both fields have content.
+   */
   submitBtn.disabled = true;
 
-  // 🔑 Verifica si ambos campos tienen contenido
+  /**
+   * Checks whether both email and password fields are filled.
+   * Enables or disables the submit button accordingly.
+   */
   function checkInputs() {
     const emailFilled = emailInput.value.trim() !== "";
     const passwordFilled = passwordInput.value.trim() !== "";
     submitBtn.disabled = !(emailFilled && passwordFilled);
   }
 
-  // 🔹 Validación en tiempo real
+  /**
+   * Validates a given field and updates its error message.
+   * @param {HTMLInputElement} field - The input field to validate.
+   * @param {HTMLElement} errorElem - The error element where messages will be shown.
+   * @param {string} message - The message to display if validation fails.
+   */
   function validateField(field, errorElem, message) {
     if (field.value.trim() === "") {
       errorElem.textContent = message;
@@ -28,7 +46,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 📥 Input y blur
+  /**
+   * Input listeners for real-time validation of email and password fields.
+   * @event input
+   */
   emailInput.addEventListener("input", () => {
     validateField(emailInput, emailError, "⚠️ Por favor, ingresa tu correo electrónico.");
     checkInputs();
@@ -38,6 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
     checkInputs();
   });
 
+  /**
+   * Blur listeners to validate when leaving the input fields.
+   * @event blur
+   */
   emailInput.addEventListener("blur", () => {
     validateField(emailInput, emailError, "⚠️ Por favor, ingresa tu correo electrónico.");
   });
@@ -45,7 +70,11 @@ document.addEventListener('DOMContentLoaded', () => {
     validateField(passwordInput, passwordError, "⚠️ Por favor, escribe tu contraseña.");
   });
 
-  // 👁 Mostrar/ocultar contraseña
+  /**
+   * Toggle password visibility
+   * Switches between password and text input type, and updates eye icons.
+   * @event click
+   */
   togglePassword.addEventListener('click', () => {
     const isPassword = passwordInput.type === "password";
     passwordInput.type = isPassword ? "text" : "password";
@@ -53,11 +82,15 @@ document.addEventListener('DOMContentLoaded', () => {
     eyeClosed.style.display = isPassword ? "block" : "none";
   });
 
-  // 🔑 Envío del formulario
+  /**
+   * Form submission handler
+   * Validates inputs, builds the login request,
+   * sends it to the API, and handles responses or errors.
+   * @event submit
+   */
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Validación final antes de enviar
     let valid = true;
     validateField(emailInput, emailError, "⚠️ Por favor, ingresa tu correo electrónico.");
     validateField(passwordInput, passwordError, "⚠️ Por favor, escribe tu contraseña.");

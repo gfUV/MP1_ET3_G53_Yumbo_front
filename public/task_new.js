@@ -1,9 +1,23 @@
+/**
+ * task_new.js
+ *
+ * Handles task creation functionality:
+ * - Captures form data for a new task
+ * - Sends the data to the backend API
+ * - Provides feedback messages on success or error
+ *
+ * Visible messages for the user remain in Spanish.
+ */
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
   const backBtn = document.getElementById("back");
   const submitBtn = form.querySelector('button[type="submit"]');
 
-  // Contenedor de mensajes (error y éxito)
+  /**
+   * Feedback container for displaying messages.
+   * If it does not exist in the DOM, it will be created dynamically.
+   * @type {HTMLDivElement}
+   */
   let feedbackDiv = document.querySelector(".feedback-message");
   if (!feedbackDiv) {
     feedbackDiv = document.createElement("div");
@@ -11,18 +25,29 @@ document.addEventListener("DOMContentLoaded", () => {
     form.insertBefore(feedbackDiv, submitBtn);
   }
 
-  // Botón volver
+  /**
+   * Back button handler
+   * Redirects the user to the main tasks page.
+   * @event click
+   */
   backBtn.addEventListener("click", () => {
     window.location.href = "task.html";
   });
 
+  /**
+   * Form submission handler
+   * Collects new task data and sends it to the backend.
+   *
+   * @event submit
+   * @param {SubmitEvent} e - The form submit event
+   */
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Limpiar mensajes anteriores
     feedbackDiv.textContent = "";
     feedbackDiv.className = "feedback-message";
 
+    /** @type {string|null} */
     const userId = localStorage.getItem("userId");
 
     const data = {
@@ -49,7 +74,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!res.ok) throw new Error("Error al crear tarea");
 
-      // Éxito
       feedbackDiv.textContent = "✅ Tarea creada con éxito";
       feedbackDiv.classList.add("success-message");
       submitBtn.textContent = "✅ Creada";
@@ -58,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "task.html";
       }, 1200);
     } catch (error) {
-      // Error
       feedbackDiv.textContent = "❌ " + error.message;
       feedbackDiv.classList.add("error-message");
       submitBtn.disabled = false;

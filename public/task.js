@@ -1,8 +1,15 @@
 /**
  * task.js
- * Maneja tareas: carga, render, navegación, edición y eliminación.
+ *
+ * Handles task management:
+ * - Loads tasks from backend
+ * - Renders tasks into columns by status
+ * - Allows navigation between pages
+ * - Supports editing and deletion
+ * - Implements drag & drop to update task status
+ *
+ * Visible messages for the user remain in Spanish.
  */
-
 document.addEventListener("DOMContentLoaded", async () => {
   const addTaskBtn = document.getElementById("add-task");
   const aboutUsBtn = document.getElementById("about-us");
@@ -17,17 +24,23 @@ document.addEventListener("DOMContentLoaded", async () => {
   const inprogressTasks = document.getElementById("inprogress-tasks");
   const completedTasks = document.getElementById("completed-tasks");
 
-  // === Caja de mensajes amigables ===
+  /**
+   * Displays a temporary message to the user.
+   * @param {string} msg - The message text.
+   * @param {"info"|"success"|"error"} [type="info"] - Message type.
+   */
   const messageBox = document.getElementById("message-box");
   function showMessage(msg, type = "info") {
     if (!messageBox) return;
     messageBox.textContent = msg;
-    messageBox.className = `message ${type}`; // .message.success / .message.error
+    messageBox.className = `message ${type}`;
     messageBox.style.display = "block";
     setTimeout(() => (messageBox.style.display = "none"), 3000);
   }
 
-  // === Modal de confirmación ===
+  /**
+   * Confirmation modal for deleting tasks
+   */
   const confirmModal = document.getElementById("confirm-modal");
   const confirmYes = document.getElementById("confirm-yes");
   const confirmNo = document.getElementById("confirm-no");
@@ -45,6 +58,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   confirmNo.addEventListener("click", hideConfirmModal);
 
+  /**
+   * Handles confirmation of task deletion.
+   * Deletes from backend and updates DOM and counters.
+   */
   confirmYes.addEventListener("click", async () => {
     if (!taskToDelete) return;
     try {
@@ -53,10 +70,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         { method: "DELETE" }
       );
       if (response.ok) {
-        // 🔥 Eliminar del DOM directamente
         const taskCard = document.querySelector(`.task-card[data-id="${taskToDelete}"]`);
         if (taskCard) {
-          // actualizar contador
           let counterId = "";
           if (taskCard.classList.contains("task-pending")) counterId = "pending-count";
           if (taskCard.classList.contains("task-inprogress")) counterId = "inprogress-count";
@@ -85,7 +100,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 
-  // ======== MENÚ LATERAL ========
+  /**
+   * Toggles sidebar menu and overlay.
+   */
   function toggleMenu() {
     sidebar.classList.toggle("show");
     overlay.classList.toggle("show");
@@ -95,7 +112,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   closeBtn.addEventListener("click", toggleMenu);
   overlay.addEventListener("click", toggleMenu);
 
-  // ======== NAVEGACIÓN ========
+  /**
+   * Navigation buttons
+   */
   profileBtn.addEventListener("click", () => {
     window.location.href = "profile.html";
   });
@@ -113,7 +132,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.location.href = "sign_in.html";
   });
 
-  // ======== CREAR TARJETA ========
+  /**
+   * Builds an HTML string representing a task card.
+   * @param {{ _id: string, title: string, detail: string, date?: string, time?: string, status: string }} t
+   * @returns {string} Task card HTML.
+   */
   function createTaskCard(t) {
     let statusClass = "";
     if (t.status === "pendiente") statusClass = "task-pending";
@@ -137,7 +160,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     `;
   }
 
-  // ======== RENDERIZAR TAREAS ========
+  /**
+   * Renders all tasks into their respective columns.
+   * Updates counters and sets up event listeners for edit, delete, and drag & drop.
+   * @param {Array} tasks - List of tasks.
+   */
   function renderTasks(tasks) {
     pendingTasks.innerHTML = `<h3><span class="status-dot pending"></span> Pendientes (<span id="pending-count">0</span>)</h3>`;
     inprogressTasks.innerHTML = `<h3><span class="status-dot inprogress"></span> En proceso (<span id="inprogress-count">0</span>)</h3>`;
@@ -175,7 +202,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       completedTasks.innerHTML += `<p class="empty-msg">✅ Aquí aparecerán tus logros cuando completes tareas.</p>`;
     }
 
-    // Botón editar
     document.querySelectorAll(".edit-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         const taskId = e.currentTarget.dataset.id;
@@ -184,7 +210,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     });
 
-    // Botón eliminar
     document.querySelectorAll(".delete-btn").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         const taskId = e.currentTarget.dataset.id;
@@ -192,7 +217,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     });
 
-    // ======== DRAG & DROP ========
+    /**
+     * Drag & drop setup
+     */
     document.querySelectorAll(".task-card").forEach(card => {
       card.addEventListener("dragstart", (e) => {
         e.dataTransfer.setData("text/plain", card.dataset.id);
@@ -254,7 +281,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  // ======== CARGAR TAREAS DESDE API ========
+  /**
+   * Loads tasks from backend and renders them.
+   * Filters by userId stored in localStorage.
+   */
   async function loadTasks() {
     try {
       const userId = localStorage.getItem("userId");
@@ -269,9 +299,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (!response.ok) throw new Error("Error al cargar tareas");
 
       const tasks = await response.json();
-      if (tasks.length === 0) {
-        //pendingTasks.innerHTML += "<p>✨ No tienes pendientes. ¡Crea una tarea y organiza tu día!</p>";
-      } else {
+      if (tasks.length > 0) {
         renderTasks(tasks);
       }
     } catch (error) {
@@ -280,6 +308,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Cargar al inicio
+  // Initial load
   loadTasks();
 });
