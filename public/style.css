@@ -276,12 +276,12 @@ button[type="submit"]:hover {
   display: block;
 }
 
-/* .error-message {
+.error-message {
   font-size: 0.85rem;
   color: #d9534f;
   min-height: 1rem;
   margin-bottom: 0.6rem;
-} */
+}
 
 /* ======== BOTONES DE ACCIONES ======== */
 .form-actions {
