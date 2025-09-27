@@ -9,41 +9,61 @@
 <body>
   <div class="container">
     <div class="form-container">
-      
-      <!-- Header con botones -->
-      <div class="header">
-        <h2>Mi Perfil</h2>
-        <div class="header-buttons">
-          <button id="back">⬅ Volver</button>
+
+      <!-- Botón volver -->
+      <a href="/task.html" id="back" class="back-link">← Volver</a>
+
+      <!-- Título -->
+      <h2>Mi perfil</h2>
+
+      <!-- Datos principales -->
+      <div class="profile-main">
+        <div class="profile-avatar">👤</div>
+        <div>
+          <div id="user-name" class="user-name">Cargando...</div>
+          <div id="user-email" class="user-email">Cargando...</div>
+          <!-- Edad con ícono -->
+          <div id="user-age" class="user-age">Cargando...</div>
         </div>
       </div>
 
-      <!-- Información del usuario -->
+      <!-- Información secundaria -->
       <div class="profile-info">
+        <h3>Información de la cuenta</h3>
         <div class="profile-field">
-          <span class="label">Nombre:</span>
-          <span id="user-name">Cargando...</span>
-        </div>
-          <div class="profile-field">
-          <span class="label">Edad:</span>
-          <span id="user-age">Cargando...</span>
+          <span class="label">📅 Fecha de creación</span>
+          <div class="value" id="user-created">Cargando...</div>
         </div>
         <div class="profile-field">
-          <span class="label">Correo:</span>
-          <span id="user-email">Cargando...</span>
-        </div>      
-        <div class="profile-field">
-          <span class="label">Creada desde:</span>
-          <span id="user-created">Cargando...</span>
-        </div>
-        <div class="profile-field">
-          <span class="label">Última actualización:</span>
-          <span id="user-updated">Cargando...</span>
+          <span class="label">⏳ Última actualización</span>
+          <div class="value" id="user-updated">Cargando...</div>
         </div>
       </div>
-      <button id="edit" class="editBtn">Editar informacion de usuario</button>
+
+      <!-- Acciones -->
+      <div class="profile-actions">
+        <button id="edit" class="btn-primary">Editar perfil</button>
+        <button id="delete" class="btn-danger">Eliminar cuenta</button>
+      </div>
+
+      <!-- Mensaje de estado -->
+      <div id="status-message" class="status-message"></div>
     </div>
   </div>
+
+  <!-- Modal de confirmación -->
+  <div id="delete-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>¿Eliminar cuenta?</h3>
+      <p>¿Seguro que deseas eliminar tu cuenta?</p>
+      <div class="modal-actions">
+        <button id="confirm-delete" class="btn-danger">Sí, eliminar</button>
+        <button id="cancel-delete" class="btn-secondary">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script -->
   <script src="/profile.js"></script>
 </body>
 </html>

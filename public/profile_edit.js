@@ -11,18 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const ageInput = document.getElementById("age");
   const emailInput = document.getElementById("email");
   const saveBtn = document.getElementById("save");
-  const cancelBtn = document.getElementById("cancel");
+  //const cancelBtn = document.getElementById("cancel");
    /**
    * Cancel button listener
    * Redirects the user to the profile page when clicked.
    * @event click
    */
   
-  cancelBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.location.href = "profile.html";
-  });
-
+  
     /**
    * Save button listener
    * Validates input, builds an updated user object,

@@ -95,8 +95,8 @@ body {
 /* Botón de cerrar (X) en sidebar */
 .close-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 12px;
+  right: 12px;
   font-size: 1.5rem;
   border: none;
   background: none;
@@ -338,4 +338,15 @@ body {
 /* Mostrar modal cuando tenga la clase .show */
 .modal.show {
   display: flex; /* lo hace visible y centrado */
+}
+
+/* ======== UNIFICAR TIPOGRAFÍA DE CAMPOS ======== */
+input,
+textarea,
+select,
+button {
+  font-family: inherit;   /* hereda la del body ('Segoe UI', Arial, sans-serif) */
+  font-size: inherit;     /* mantiene consistencia de tamaño */
+  line-height: 1.4;
+  color: #333;
 }

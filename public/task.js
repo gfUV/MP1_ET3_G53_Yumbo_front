@@ -17,6 +17,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   const inprogressTasks = document.getElementById("inprogress-tasks");
   const completedTasks = document.getElementById("completed-tasks");
 
+  // === Caja de mensajes amigables ===
+  const messageBox = document.getElementById("message-box");
+  function showMessage(msg, type = "info") {
+    if (!messageBox) return;
+    messageBox.textContent = msg;
+    messageBox.className = `message ${type}`; // .message.success / .message.error
+    messageBox.style.display = "block";
+    setTimeout(() => (messageBox.style.display = "none"), 3000);
+  }
+
   // === Modal de confirmación ===
   const confirmModal = document.getElementById("confirm-modal");
   const confirmYes = document.getElementById("confirm-yes");
@@ -43,13 +53,33 @@ document.addEventListener("DOMContentLoaded", async () => {
         { method: "DELETE" }
       );
       if (response.ok) {
+        // 🔥 Eliminar del DOM directamente
+        const taskCard = document.querySelector(`.task-card[data-id="${taskToDelete}"]`);
+        if (taskCard) {
+          // actualizar contador
+          let counterId = "";
+          if (taskCard.classList.contains("task-pending")) counterId = "pending-count";
+          if (taskCard.classList.contains("task-inprogress")) counterId = "inprogress-count";
+          if (taskCard.classList.contains("task-completed")) counterId = "completed-count";
+
+          taskCard.remove();
+
+          if (counterId) {
+            const counterEl = document.getElementById(counterId);
+            if (counterEl) {
+              let count = parseInt(counterEl.textContent, 10);
+              counterEl.textContent = Math.max(count - 1, 0);
+            }
+          }
+        }
+        showMessage("✅ Tarea eliminada correctamente", "success");
         loadTasks();
       } else {
-        alert("❌ Error al eliminar la tarea");
+        showMessage("❌ Error al eliminar la tarea", "error");
       }
     } catch (error) {
       console.error(error);
-      alert("❌ No se pudo conectar al servidor");
+      showMessage("❌ No se pudo conectar al servidor", "error");
     } finally {
       hideConfirmModal();
     }
@@ -214,11 +244,11 @@ document.addEventListener("DOMContentLoaded", async () => {
           if (response.ok) {
             loadTasks();
           } else {
-            alert("❌ No se pudo actualizar la tarea");
+            showMessage("❌ No se pudo actualizar la tarea", "error");
           }
         } catch (error) {
           console.error(error);
-          alert("❌ Error al conectar con el servidor");
+          showMessage("❌ Error al conectar con el servidor", "error");
         }
       });
     });
@@ -240,7 +270,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const tasks = await response.json();
       if (tasks.length === 0) {
-        pendingTasks.innerHTML += "<p>No hay tareas registradas.</p>";
+        //pendingTasks.innerHTML += "<p>✨ No tienes pendientes. ¡Crea una tarea y organiza tu día!</p>";
       } else {
         renderTasks(tasks);
       }

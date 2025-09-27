@@ -42,7 +42,8 @@ export default defineConfig({
         profileedit: 'profile_edit.html',
 
          /** User profile edit page  */
-        aboutus: 'about_us.html'
+        aboutus: 'about_us.html',
+
       }
     }
   },

@@ -5,45 +5,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nueva Tarea</title>
   <link rel="stylesheet" href="/style.css" />
+  <style>
+    .hint {
+      font-size: 0.85rem;
+      color: #b6b5b5;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+  </style>
 </head>
 <body>
   
   <main class="container">
     <section class="form-container">
       <div class="top-bar">
-        <button id="back">⬅ Volver</button>
+        <a href="/task.html" id="back" class="back-top">← Volver</a>
       </div>
       <h2>Crear Tarea</h2>
 
-      <!-- Formulario sin action/method porque lo controlamos con JS -->
       <form id="task-form">
         <!-- Título -->
         <label for="title">
-          Título (Obligatorio, máx. 50 car.)
-          <input type="text" id="title" name="title" maxlength="50" required />
+          Título <span style="color: red">*</span>
+          <span class="hint">Obligatorio · Máx. 50 caracteres</span>
+          <input 
+            type="text" 
+            id="title" 
+            name="title" 
+            maxlength="50" 
+            required 
+            placeholder="Ej: Comprar regalo de cumpleaños" 
+          />
         </label>
 
         <!-- Detalle -->
         <label for="detail">
-          Detalle (Opcional, máx. 50 car.)
-          <textarea id="detail" name="detail" maxlength="50"></textarea>
+          Detalle
+          <span class="hint">Opcional · Máx. 50 caracteres</span>
+          <input
+            type="text"
+            id="detail" 
+            name="detail" 
+            maxlength="50" 
+            placeholder="Ej: Buscar en Amazon o en la tienda local"
+          />
         </label>
 
         <!-- Fecha -->
+        <!-- Fecha -->
         <label for="date">
           Fecha
-          <input type="date" id="date" name="date" />
+          <span class="hint">Selecciona la fecha límite para la tarea</span>
+          <input 
+            type="text"
+            id="date" 
+            name="date" 
+            placeholder="Ej: 24/09/2025"
+            onfocus="(this.type='date')" 
+            onblur="if(!this.value) this.type='text';"
+          />
         </label>
 
         <!-- Hora -->
         <label for="time">
           Hora
-          <input type="time" id="time" name="time" />
+          <span class="hint">Elige la hora en que deseas completar la tarea</span>
+          <input 
+            type="text"
+            id="time" 
+            name="time" 
+            placeholder="Ej: 14:30"
+            onfocus="(this.type='time')" 
+            onblur="if(!this.value) this.type='text';"
+          />
         </label>
+
 
         <!-- Estado -->
         <label for="status">
           Estado
+          <span class="hint">Indica el estado actual de la tarea</span>
           <select id="status" name="status">
             <option value="pendiente">Pendiente</option>
             <option value="en-progreso">En progreso</option>
@@ -52,16 +93,12 @@
         </label>
 
         <!-- Botón -->
-        <button type="submit">Crear Tarea</button>
+        <button type="submit">✅ Crear Tarea</button>
       </form>
     </section>
   </main>
-
-  <!-- Script para manejar el guardado -->
 
   <script type="module" src="/task_new.js"></script>
 
 </body>
 </html>
-
-

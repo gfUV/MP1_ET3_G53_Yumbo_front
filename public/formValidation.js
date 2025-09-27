@@ -48,7 +48,8 @@ form.addEventListener("submit", e => {
 
   if (isValid) {
     console.log("Formulario válido. Enviando datos...");
-    form.submit(); // o fetch() si lo conectas al backend
+    // ✅ Esto sí dispara el submit y llega a registerUser.js
+    form.requestSubmit();
   }
 });
 

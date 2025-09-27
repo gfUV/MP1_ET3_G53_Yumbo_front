@@ -34,11 +34,28 @@ body {
   width: 100%;
   max-width: 420px;
   text-align: center;
+  position: relative;
+}
+
+/* ======== BOTÓN VOLVER ARRIBA ======== */
+.back-top {
+  display: block;
+  margin-bottom: 1.2rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #0077b6;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.back-top:hover {
+  text-decoration: underline;
 }
 
 /* ======== LOGO & TITULO ======== */
 .logo {
-  width: 80px;
+  width: 90px;
   height: auto;
   display: block;
   margin: 0 auto 1rem;
@@ -85,6 +102,18 @@ input:focus {
   outline: none;
   box-shadow: 0 0 6px rgba(0,191,166,0.18);
 }
+
+/* ======== UNIFICAR TIPOGRAFÍA DE CAMPOS ======== */
+input,
+textarea,
+select,
+button {
+  font-family: inherit;   /* hereda la del body ('Segoe UI', Arial, sans-serif) */
+  font-size: inherit;     /* mantiene consistencia de tamaño */
+  line-height: 1.4;
+  color: #333;
+}
+
 
 /* ======== WRAPPER CONTRASEÑA (ojo dentro) ======== */
 .password-wrapper {
@@ -216,7 +245,7 @@ button[type="submit"]:hover {
   }
 
   .logo {
-    width: 64px;
+    width: 70px;
     margin-bottom: 0.8rem;
   }
 
@@ -250,7 +279,7 @@ button[type="submit"]:hover {
 .error-message {
   font-size: 0.85rem;
   color: #d9534f;
-  min-height: 1rem; /* siempre deja espacio aunque no haya error */
+  min-height: 1rem;
   margin-bottom: 0.6rem;
 }
 
@@ -262,20 +291,23 @@ button[type="submit"]:hover {
   margin-top: 1.2rem;
 }
 
-#back {
-  background: #f0f0f0;
+button[id="save"] {
+  width: 100%;
+  padding: 0.95rem;
+  background-color: #2ED6C4;
   border: none;
   border-radius: 8px;
-  padding: 0.8rem 1.2rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #333;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
 }
-#back:hover {
-  background: #e0e0e0;
+
+button[id="save"]:hover {
+  background-color: #009e88;
   transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,191,166,0.12);
 }
 
 #save-task {
@@ -322,3 +354,5 @@ select:focus {
   outline: none;
   box-shadow: 0 0 6px rgba(0,191,166,0.18);
 }
+
+
