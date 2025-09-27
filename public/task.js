@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const tasks = await response.json();
       if (tasks.length === 0) {
-        pendingTasks.innerHTML += "<p>✨ No tienes pendientes. ¡Crea una tarea y organiza tu día!</p>";
+        //pendingTasks.innerHTML += "<p>✨ No tienes pendientes. ¡Crea una tarea y organiza tu día!</p>";
       } else {
         renderTasks(tasks);
       }
