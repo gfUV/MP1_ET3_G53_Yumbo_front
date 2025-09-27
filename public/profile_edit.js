@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const emailInput = document.getElementById("email");
   const saveBtn = document.getElementById("save");
 
-  /**
    * Save button listener
    * Validates input, builds an updated user object,
    * sends it to the API via PUT request, and handles success/error responses.
