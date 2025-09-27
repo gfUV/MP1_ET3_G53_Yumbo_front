@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const tasks = await response.json();
       if (tasks.length === 0) {
-        pendingTasks.innerHTML += "<p>No hay tareas registradas.</p>";
+       // pendingTasks.innerHTML += "<p>No hay tareas registradas.</p>";
       } else {
         renderTasks(tasks);
       }
