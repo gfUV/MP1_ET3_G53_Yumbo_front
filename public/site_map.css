@@ -36,9 +36,8 @@
   color: #00bfa6;
 }
 
-.site-footer nav ul > li{
+.site-footer nav ul > li > span{
   display: block;
-  font-weight: bold;
   margin-bottom: 0.5rem;
   color: #444;
 }
