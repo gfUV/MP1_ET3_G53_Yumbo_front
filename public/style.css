@@ -291,6 +291,22 @@ button[type="submit"]:hover {
   margin-top: 1.2rem;
 }
 
+#save {
+  background-color: #2ED6C4;
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color .2s, transform .15s;
+}
+#save:hover {
+  background-color: #00bfa6;
+  transform: translateY(-2px);
+}
+
 
 
 #save-task {
