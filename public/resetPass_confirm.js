@@ -4,17 +4,14 @@
  * Handles the confirmation step of password reset.
  * Retrieves the reset token from the URL and allows the user
  * to set a new password by sending it to the backend.
- * 
+ *
  * Visible messages for the user remain in Spanish.
- * 
- * @author
  */
-
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("confirmResetForm");
 
   /**
-   * Extract reset token from URL query string
+   * Extracts the reset token from the URL query string.
    * @type {string|null}
    */
   const params = new URLSearchParams(window.location.search);
@@ -28,12 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Form submission handler
+   * Form submission handler.
    * Sends the token and new password to the backend API
    * to confirm password reset.
-   * 
+   *
    * @event submit
-   * @param {SubmitEvent} e - The form submit event
+   * @param {SubmitEvent} e - The form submit event.
    */
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -43,14 +40,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       /**
-       * Sends the token and new password to the API
+       * Sends the token and new password to the API.
        * @type {Response}
        */
-      const res = await fetch("https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/auth/reset-password/confirm", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token, newPassword }),
-      });
+      const res = await fetch(
+        "https://mp1-et3-g53-yumbo-back.onrender.com/api/v1/auth/reset-password/confirm",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token, newPassword }),
+        }
+      );
 
       /** @type {{ message?: string }} */
       const data = await res.json();
