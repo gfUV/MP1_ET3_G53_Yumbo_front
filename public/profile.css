@@ -256,9 +256,11 @@ h3 {
 .modal-actions .btn-danger,
 .modal-actions .btn-secondary {
   flex: 1;                /* Que ambos ocupen el mismo espacio */
-  padding: 8px 16px;   /* Aumenta el alto y ancho del botón */
-  font-size: 1rem;        /* Texto más grande */
-  border-radius: 10px;    /* Bordes más redondeados */
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;    /* Bordes más redondeados */
 }
 
 /* En móvil se apilan para no quedar apretados */
@@ -268,6 +270,6 @@ h3 {
   }
   .modal-actions .btn-danger,
   .modal-actions .btn-secondary {
-    width: 100%;
+    width: 80%;
   }
 }
