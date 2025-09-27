@@ -206,12 +206,12 @@ button[type="submit"]:hover {
 }
 
 /* ======== ERRORES ======== */
-/* .error-message {
+.error-message {
   font-size: 0.85rem;
   color: #d9534f;
   margin-top: -0.4rem;
   margin-bottom: 0.6rem;
-} */
+}
 
 /* ======== MENSAJES DE ESTADO ======== */
 .success-message {
@@ -276,12 +276,12 @@ button[type="submit"]:hover {
   display: block;
 }
 
-.error-message {
+/* .error-message {
   font-size: 0.85rem;
   color: #d9534f;
-  min-height: 1rem; /* siempre deja espacio aunque no haya error */
+  min-height: 1rem;
   margin-bottom: 0.6rem;
-}
+} */
 
 /* ======== BOTONES DE ACCIONES ======== */
 .form-actions {
