@@ -48,7 +48,7 @@ body {
 }
 
 /* ===== Botón volver ===== */
-.back-button {
+.back-top {
   display: block;
   margin-bottom: 1.2rem;
   font-size: 0.92rem;
@@ -59,7 +59,7 @@ body {
   text-align: left;
 }
 
-.back-button:hover {
+.back-top:hover {
   background-color: #357ae8;
 }
 
