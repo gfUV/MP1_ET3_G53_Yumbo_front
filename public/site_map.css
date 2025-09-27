@@ -1,28 +1,45 @@
 .site-footer {
-  background: #f1f0f0;
-  color: #fff;
+  background: #fafafa; /* Fondo suave */
+  border-top: 2px solid #e0e0e0; /* Línea sutil separadora */
+  color: #333;
   padding: 2rem;
+  text-align: center;
+  font-size: 0.95rem;
 }
 
 .site-footer h3 {
   margin-bottom: 1rem;
-  color: #00d4a6;
+  color: #00c4a7; /* Tu color de acento */
+  font-weight: 600;
+  font-size: 1.2rem;
 }
 
 .site-footer ul {
   list-style: none;
-  padding-left: 1rem;
+  padding: 0;
+  margin: 0 auto;
+  display: inline-block; /* Centra el bloque de enlaces */
+  text-align: left;
 }
 
 .site-footer ul li {
-  margin: 0.3rem 0;
+  margin: 0.4rem 0;
 }
 
 .site-footer a {
-  color: #161515;
+  color: #333;
   text-decoration: none;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .site-footer a:hover {
-  color: #00d4a6;
+  color: #00c4a7;
+  transform: translateX(4px); /* Pequeño efecto al pasar el mouse */
+}
+
+.site-footer small {
+  display: block;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: #666;
 }
