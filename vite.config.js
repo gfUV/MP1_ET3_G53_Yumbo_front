@@ -44,8 +44,6 @@ export default defineConfig({
          /** User profile edit page  */
         aboutus: 'about_us.html',
 
-        /** Site map page  */
-        sitemap: 'site_map.html'
       }
     }
   },
