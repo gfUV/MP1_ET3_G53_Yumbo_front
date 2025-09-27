@@ -291,23 +291,24 @@ button[type="submit"]:hover {
   margin-top: 1.2rem;
 }
 
-#save {
+button[type="button"] {
+  width: 100%;
+  padding: 0.95rem;
   background-color: #2ED6C4;
   border: none;
   border-radius: 8px;
-  padding: 0.8rem 1.4rem;
-  font-size: 0.95rem;
-  font-weight: 600;
   color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color .2s, transform .15s;
+  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
 }
-#save:hover {
-  background-color: #00bfa6;
+
+button[type="button"]:hover {
+  background-color: #009e88;
   transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,191,166,0.12);
 }
-
-
 
 #save-task {
   background-color: #2ED6C4;
