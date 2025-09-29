@@ -41,8 +41,12 @@ export default defineConfig({
         /** User profile edit page  */
         profileedit: 'profile_edit.html',
 
-         /** User profile edit page  */
-        aboutus: 'about_us.html'
+         /** About us page  */
+        aboutus: 'about_us.html',
+
+        /** Site map  */
+        sitemap: 'site_map.html'
+
       }
     }
   },

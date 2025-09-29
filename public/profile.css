@@ -11,13 +11,14 @@ body {
   font-family: 'Segoe UI', Arial, sans-serif;
   background: #F4F6F8;
   min-height: 100vh;
+
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;   /* Organiza en columna */
 }
 
 /* ======== CONTENEDOR ======== */
 .container {
+  flex: 1;                  /* Empuja el footer hacia abajo */
   width: 100%;
   padding: 1rem;
   display: flex;
@@ -216,14 +217,14 @@ h3 {
 
 /* ======== BLOQUE PRINCIPAL (avatar + datos) ======== */
 .profile-main {
-  display: flex;              /* Pone avatar + datos en línea */
-  align-items: center;        /* Centra verticalmente */
-  gap: 1rem;                  /* Espacio entre avatar y texto */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
 .profile-avatar {
-  font-size: 55px;            /* Tamaño del ícono 👤 */
+  font-size: 55px;
   line-height: 1;
 }
 
@@ -243,27 +244,27 @@ h3 {
   color: #333;
   display: flex;
   align-items: center;
-  gap: 0.4rem;                /* Espacio entre 🎂 y número */
+  gap: 0.4rem;
 }
 
 .profile-actions .btn-primary,
 .profile-actions .btn-danger {
-  flex: unset;         /* desactiva el ajuste automático */
-  width: 48%;          /* cada uno ocupa la mitad del espacio */
+  flex: unset;
+  width: 48%;
 }
 
-/* ======== Botones del modal (tamaño personalizado) ======== */
+/* ======== Botones del modal ======== */
 .modal-actions .btn-danger,
 .modal-actions .btn-secondary {
-  flex: 1;                /* Que ambos ocupen el mismo espacio */
+  flex: 1;
   padding: 8px 16px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;    /* Bordes más redondeados */
+  font-weight: bold;
 }
 
-/* En móvil se apilan para no quedar apretados */
+/* En móvil se apilan */
 @media (max-width: 480px) {
   .modal-actions {
     flex-direction: column;
@@ -272,4 +273,71 @@ h3 {
   .modal-actions .btn-secondary {
     width: 80%;
   }
+}
+
+/* ======== FOOTER ======== */
+.site-footer {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f8f8f8;
+  color: #333;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 3rem;
+  border-top: 2px solid #e0e0e0;
+}
+
+.site-footer a {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #00bfa6;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.site-footer a:hover {
+  color: #009e88;
+}
+
+.site-footer p {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* ======== SITEMAP PAGE ======== */
+.sitemap-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  max-width: 800px;
+}
+
+.sitemap-nav ul > li {
+  text-align: left;
+}
+
+.sitemap-nav span {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #00bfa6;
+}
+
+.sitemap-nav ul ul {
+  padding-left: 1rem;
+}
+
+.sitemap-nav a {
+  color: #333;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
+.sitemap-nav a:hover {
+  color: #00bfa6;
 }

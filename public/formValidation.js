@@ -1,6 +1,16 @@
+/**
+ * This script manages the registration form validation.
+ * It validates input fields in real-time, displays error messages,
+ * ensures password confirmation matches, and toggles password visibility.
+ * 
+ * Visible messages for the user remain in Spanish.
+ */
 const form = document.getElementById("registerForm");
 
-// Reglas de validación
+/**
+ * Validation rules for each input field.
+ * Each rule returns an empty string if valid, or an error message if invalid.
+ */
 const validators = {
   firstName: value => value.trim() !== "" ? "" : "Ingresa tus nombres.",
   lastName: value => value.trim() !== "" ? "" : "Ingresa tus apellidos.",
@@ -14,7 +24,11 @@ const validators = {
     value === formValues.password ? "" : "Las contraseñas no coinciden."
 };
 
-// Mostrar error debajo del input
+/**
+ * Displays an error message below the input field.
+ * @param {HTMLInputElement} input - The input element.
+ * @param {string} message - The error message to display.
+ */
 function showError(input, message) {
   const wrapper = input.closest(".password-wrapper") || input;
   const errorDiv = wrapper.nextElementSibling;
@@ -23,7 +37,11 @@ function showError(input, message) {
   }
 }
 
-// Validar un campo
+/**
+ * Validates a single field based on its name and rules.
+ * @param {HTMLInputElement} input - The input element to validate.
+ * @returns {boolean} - True if valid, false otherwise.
+ */
 function validateField(input) {
   const { name, value } = input;
   const formValues = Object.fromEntries(new FormData(form));
@@ -32,12 +50,20 @@ function validateField(input) {
   return !error;
 }
 
-// Validación en tiempo real
+/**
+ * Real-time validation for each input field.
+ * @event input
+ */
 form.querySelectorAll("input").forEach(input => {
   input.addEventListener("input", () => validateField(input));
 });
 
-// Validación al enviar
+/**
+ * Form submission handler
+ * Validates all fields before allowing submission.
+ * If valid, triggers form submission to registerUser.js.
+ * @event submit
+ */
 form.addEventListener("submit", e => {
   e.preventDefault();
   let isValid = true;
@@ -48,14 +74,16 @@ form.addEventListener("submit", e => {
 
   if (isValid) {
     console.log("Formulario válido. Enviando datos...");
-    // ✅ Esto sí dispara el submit y llega a registerUser.js
     form.requestSubmit();
   }
 });
 
-/* ==============================
-   TOGGLE PASSWORD 👁 / 👁️‍🗨️
-================================= */
+/**
+ * Password toggle handler
+ * Switches input type between password and text,
+ * and updates eye icons accordingly.
+ * @event click
+ */
 document.querySelectorAll(".togglePassword").forEach(button => {
   button.addEventListener("click", () => {
     const input = button.previousElementSibling;

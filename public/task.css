@@ -1,4 +1,3 @@
-/* ======== RESET ======== */
 *,
 *::before,
 *::after {
@@ -14,7 +13,6 @@ body {
   flex-direction: column;
 }
 
-/* ======== NAVBAR ======== */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -58,7 +56,6 @@ body {
   background: rgba(0,0,0,0.05);
 }
 
-/* ======== SIDEBAR ======== */
 .sidebar {
   position: fixed;
   top: 0;
@@ -92,7 +89,6 @@ body {
   background: rgba(0,119,182,0.08);
 }
 
-/* Botón de cerrar (X) en sidebar */
 .close-btn {
   position: absolute;
   top: 12px;
@@ -107,7 +103,6 @@ body {
   color: #d32f2f;
 }
 
-/* Overlay detrás del menú */
 .overlay {
   position: fixed;
   top: 0;
@@ -125,7 +120,6 @@ body {
   visibility: visible;
 }
 
-/* ======== COLUMNS ======== */
 .task-columns {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -152,7 +146,6 @@ body {
   gap: 0.4rem;
 }
 
-/* Bolitas de estado */
 .status-dot {
   display: inline-block;
   width: 12px;
@@ -160,18 +153,15 @@ body {
   border-radius: 50%;
 }
 .status-dot.pending {
-  background: #fbc02d; /* Amarillo */
+  background: #fbc02d;
 }
 .status-dot.inprogress {
-  background: #1976d2; /* Azul */
+  background: #1976d2;
 }
 .status-dot.completed {
-  background: #2e7d32; /* Verde */
+  background: #2e7d32;
 }
 
-/* ======== TASK CARD ======== */
-
-/* ======== TASK CARD REDISEÑO ======== */
 .task-card {
   background: #ffffff;
   border: 1px solid #e0e0e0;
@@ -229,7 +219,6 @@ body {
   background: rgba(0,0,0,0.05);
 }
 
-/* Diferenciar tareas por estado */
 .task-pending {
   border-left: 4px solid #fbc02d;
 }
@@ -240,8 +229,6 @@ body {
   border-left: 4px solid #2e7d32;
 }
 
-
-/* ======== ADD TASK BUTTON ======== */
 .add-task-btn {
   background: #2ED6C4;
   color: white;
@@ -278,10 +265,8 @@ body {
   border: 2px dashed #4a90e2;
 }
 
-
-/* Cuando una tarjeta está siendo arrastrada */
 .task-card.dragging {
-  opacity: 1 !important;   /* 👈 Evita que se vea transparente */
+  opacity: 1 !important;
   transform: none !important;
   cursor: grabbing;
 }
@@ -335,18 +320,45 @@ body {
   to { opacity: 1; transform: scale(1); }
 }
 
-/* Mostrar modal cuando tenga la clase .show */
 .modal.show {
-  display: flex; /* lo hace visible y centrado */
+  display: flex;
 }
 
-/* ======== UNIFICAR TIPOGRAFÍA DE CAMPOS ======== */
 input,
 textarea,
 select,
 button {
-  font-family: inherit;   /* hereda la del body ('Segoe UI', Arial, sans-serif) */
-  font-size: inherit;     /* mantiene consistencia de tamaño */
+  font-family: inherit;
+  font-size: inherit;
   line-height: 1.4;
   color: #333;
+}
+
+.site-footer {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f8f8f8;
+  color: #333;
+  padding: 2rem;
+  text-align: center;
+  margin-top: 3rem;
+  border-top: 2px solid #e0e0e0;
+}
+
+.site-footer a {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #00bfa6;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.site-footer a:hover {
+  color: #009e88;
+}
+
+.site-footer p {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #666;
 }
